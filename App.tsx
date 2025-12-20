@@ -150,11 +150,11 @@ const AppContent: React.FC = () => {
            </div>
         </div>
 
-        {/* Marquee Ticker - Light Section */}
-        <section className="py-24 border-y border-black/5 overflow-hidden bg-white text-black relative z-10">
+        {/* Marquee Ticker - Dark Section */}
+        <section className="py-12 md:py-24 border-y border-white/5 overflow-hidden bg-black text-white relative z-10">
           <div className="marquee-content animate-marquee">
-             <span className="text-8xl md:text-[10vw] font-black uppercase tracking-tighter opacity-10 px-8">DESIGN & PHOTOGRAPHY</span>
-             <span className="text-8xl md:text-[10vw] font-black uppercase tracking-tighter opacity-10 px-8">DESIGN & PHOTOGRAPHY</span>
+             <span className="text-4xl sm:text-6xl md:text-[10vw] font-black uppercase tracking-tighter opacity-20 px-4 md:px-8">DESIGN & PHOTOGRAPHY</span>
+             <span className="text-4xl sm:text-6xl md:text-[10vw] font-black uppercase tracking-tighter opacity-20 px-4 md:px-8">DESIGN & PHOTOGRAPHY</span>
           </div>
         </section>
 
