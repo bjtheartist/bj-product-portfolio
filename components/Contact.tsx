@@ -40,10 +40,9 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-40 px-6 md:px-12 bg-black border-t border-white/10 relative overflow-hidden">
-      {/* Background glow effects - subtle white */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <section id="contact" className="py-40 px-6 md:px-12 bg-black border-t border-white/10 relative overflow-hidden text-white">
+      {/* Roadmap Parallax Line */}
+      <div className="absolute top-0 right-[15%] w-px h-[130%] bg-gradient-to-b from-white/10 via-white/5 to-transparent z-0 roadmap-line" data-speed="0.6"></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20">

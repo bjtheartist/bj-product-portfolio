@@ -5,6 +5,7 @@ const Hero: React.FC = () => {
   const textRef = useRef<HTMLHeadingElement>(null);
   const bgImageRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement>(null);
+  const shapesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // @ts-ignore
@@ -38,6 +39,48 @@ const Hero: React.FC = () => {
         });
       }
     }
+    
+    // Create floating geometric shapes
+    const shapesContainer = shapesRef.current;
+    if (shapesContainer) {
+      const shapeTypes = ['circle', 'square', 'triangle', 'plus'];
+      for (let i = 0; i < 12; i++) {
+        const shapeType = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+        const shape = document.createElement('div');
+        shape.className = `absolute opacity-30 pointer-events-none`;
+        
+        const size = Math.random() * 80 + 40;
+        shape.style.width = `${size}px`;
+        shape.style.height = `${size}px`;
+        shape.style.left = `${Math.random() * 100}%`;
+        shape.style.top = `${Math.random() * 100}%`;
+        
+        let svg = '';
+        if (shapeType === 'circle') {
+          svg = `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="none" stroke="white" stroke-width="1" stroke-dasharray="4 4"/></svg>`;
+        } else if (shapeType === 'square') {
+          svg = `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><rect x="2" y="2" width="96" height="96" fill="none" stroke="white" stroke-width="1"/></svg>`;
+        } else if (shapeType === 'triangle') {
+          svg = `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><path d="M50 5 L95 95 L5 95 Z" fill="none" stroke="white" stroke-width="1" stroke-dasharray="2 2"/></svg>`;
+        } else if (shapeType === 'plus') {
+          svg = `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><line x1="50" y1="0" x2="50" y2="100" stroke="white" stroke-width="1"/><line x1="0" y1="50" x2="100" y2="50" stroke="white" stroke-width="1"/></svg>`;
+        }
+        
+        shape.innerHTML = svg;
+        shapesContainer.appendChild(shape);
+
+        // Animate shapes
+        gsap.to(shape, {
+          x: `random(-300, 300)`,
+          y: `random(-300, 300)`,
+          rotation: `random(-360, 360)`,
+          duration: `random(20, 40)`,
+          repeat: -1,
+          yoyo: true,
+          ease: "power1.inOut",
+        });
+      }
+    }
 
     // Entrance Animation
     gsap.fromTo(textRef.current,
@@ -51,19 +94,22 @@ const Hero: React.FC = () => {
       { opacity: 1, y: 0, duration: 1.5, ease: 'expo.out', delay: 0.5 }
     );
 
-    // Scroll-triggered Scrub Animation
-    gsap.to(textRef.current, {
-      scrollTrigger: {
-        trigger: heroRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: 1,
-      },
-      y: -80,
-      scale: 0.95,
-      opacity: 0.4,
-      filter: 'blur(4px)',
-    });
+    // Scroll-triggered Scrub Animation - starts from current state, returns to it when scrolling back
+    gsap.fromTo(textRef.current,
+      { y: 0, scale: 1, opacity: 1, filter: 'blur(0px)' },
+      {
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+        y: -80,
+        scale: 0.95,
+        opacity: 0.4,
+        filter: 'blur(4px)',
+      }
+    );
 
     // Parallax background
     gsap.to(bgImageRef.current, {
@@ -111,6 +157,9 @@ const Hero: React.FC = () => {
         if (particlesContainer) {
           particlesContainer.innerHTML = '';
         }
+        if (shapesContainer) {
+          shapesContainer.innerHTML = '';
+        }
       };
     }
   }, []);
@@ -119,15 +168,18 @@ const Hero: React.FC = () => {
     <section ref={heroRef} className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-black">
       {/* Floating Particles */}
       <div ref={particlesRef} className="absolute inset-0 z-[5] pointer-events-none overflow-hidden" />
+      
+      {/* Animated Background Shapes */}
+      <div ref={shapesRef} className="absolute inset-0 z-[2] pointer-events-none overflow-hidden" />
 
       {/* Background Image Container */}
       <div ref={bgImageRef} className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&q=80&w=2000"
+          src="https://picsum.photos/seed/hero/1920/1080"
           alt="Urban Background"
-          className="w-full h-full object-cover grayscale brightness-[0.4] contrast-[1.2]"
+          className="w-full h-full object-cover brightness-[0.45] contrast-[1.05] transition-all duration-1000"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80"></div>
       </div>
 
       <div className="relative z-10 text-center px-6 pointer-events-none">
@@ -139,10 +191,14 @@ const Hero: React.FC = () => {
 
         <h1
           ref={textRef}
-          className="text-[15vw] md:text-[14vw] font-black leading-[0.65] tracking-tighter uppercase select-none flex flex-col cursor-pointer pointer-events-auto transition-colors duration-500"
+          className="text-[13vw] md:text-[12vw] font-black leading-[0.75] tracking-tighter uppercase select-none flex flex-col cursor-pointer pointer-events-auto transition-colors duration-500 stylistic-headline"
+          style={{ 
+            fontFamily: "'Syne', sans-serif",
+            textShadow: '0 0 80px rgba(255,255,255,0.3), 0 0 40px rgba(255,255,255,0.2)' 
+          }}
         >
-          <span className="text-white">BJTHE</span>
-          <span className="outline-text">ARTIST</span>
+          <span className="text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]">BJTHE</span>
+          <span className="outline-text font-black -mt-2">ARTIST</span>
         </h1>
       </div>
 
@@ -155,8 +211,8 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Ambient glow orbs - subtle white */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-[100px] pointer-events-none" />
 
       <style>{`
         @keyframes scroll-line {
@@ -165,6 +221,24 @@ const Hero: React.FC = () => {
         }
         .animate-scroll-line {
           animation: scroll-line 3s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+        }
+        .stylistic-headline span:nth-child(2) {
+          position: relative;
+        }
+        .stylistic-headline span:nth-child(2)::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 20%;
+          width: 100%;
+          height: 2px;
+          background: rgba(255,255,255,0.2);
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .stylistic-headline:hover span:nth-child(2)::after {
+          transform: scaleX(1);
         }
       `}</style>
     </section>

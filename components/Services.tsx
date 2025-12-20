@@ -8,23 +8,25 @@ const Services: React.FC = () => {
 
   return (
     <section id="services" className="py-32 px-6 md:px-12 bg-black border-b border-white/5">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-20">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
 
-        {/* Left Side: Dynamic Preview Image */}
-        <div className="md:w-1/3 flex flex-col gap-6">
-          <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-4">Our<br/>Services</h2>
-          <div className="relative aspect-[3/4] rounded-sm overflow-hidden bg-zinc-900 border border-white/5">
+        {/* Left Side: Title + Dynamic Preview Image */}
+        <div className="md:col-span-5 flex flex-col gap-8">
+          <h2 className="text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.9]">
+            Our<br/>Services
+          </h2>
+          <div className="relative aspect-[3/4] rounded-sm overflow-hidden bg-zinc-900 border border-white/5 shadow-2xl">
             <img
               src={activeService.imageUrl}
               alt={activeService.name}
-              className="w-full h-full object-cover transition-all duration-700 ease-out grayscale"
+              className="w-full h-full object-cover transition-all duration-700 ease-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
           </div>
         </div>
 
         {/* Right Side: Accordion */}
-        <div className="md:w-2/3 flex flex-col">
+        <div className="md:col-span-7 flex flex-col gap-8 md:pt-4">
           {SERVICES.map((service) => {
             const isActive = activeId === service.id;
             return (
