@@ -4,47 +4,47 @@ import { Project, Service } from './types';
 export const PROJECTS: Project[] = [
   {
     id: '1',
-    title: 'Morning Stillness',
-    category: 'ATMOSPHERIC',
-    imageUrl: 'https://images.unsplash.com/photo-1493934558415-9d19f0b2b4d2?auto=format&fit=crop&q=80&w=1000',
-    description: 'A study in light and shadow over a morning espresso in the Mediterranean.'
+    title: 'Brand Identity System',
+    category: 'UX/UI DESIGN',
+    imageUrl: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1000',
+    description: 'Complete visual identity and design system for a modern fintech startup.'
   },
   {
     id: '2',
-    title: 'The Orchard',
-    category: 'EDITORIAL',
+    title: 'Editorial Collection',
+    category: 'PHOTOGRAPHY',
     imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=1000',
-    description: 'Vibrant colors and natural textures for a high-end lifestyle campaign.'
+    description: 'High-fashion editorial series exploring light, texture, and human emotion.'
   },
   {
     id: '3',
-    title: 'Steel & Mist',
-    category: 'ARCHITECTURAL',
-    imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1000',
-    description: 'Capturing the industrial soul of the urban landscape under a blue hour haze.'
+    title: 'Mobile App Redesign',
+    category: 'PRODUCT DESIGN',
+    imageUrl: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1000',
+    description: 'End-to-end redesign improving user engagement by 40% through intuitive UX.'
   }
 ];
 
 export const SERVICES: Service[] = [
   {
-    id: 'editorial',
-    name: 'Editorial Photography',
-    description: 'High-end storytelling for magazines and digital publications.',
-    imageUrl: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=1000',
-    price: '$1200'
-  },
-  {
-    id: 'commercial',
-    name: 'Commercial Shoots',
-    description: 'Brand-focused imagery that converts viewers into customers.',
-    imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1000',
+    id: 'product-design',
+    name: 'Product Design',
+    description: 'End-to-end UX/UI design for web and mobile applications. From research to polished interfaces.',
+    imageUrl: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1000',
     price: '$2500'
   },
   {
-    id: 'portrait',
-    name: 'Portrait Mastery',
-    description: 'Capturing the essence of character through intimate lenses.',
-    imageUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=1000',
-    price: '$800'
+    id: 'brand-identity',
+    name: 'Brand Identity',
+    description: 'Complete visual identity systems including logos, typography, and design guidelines.',
+    imageUrl: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&q=80&w=1000',
+    price: '$1800'
+  },
+  {
+    id: 'photography',
+    name: 'Creative Photography',
+    description: 'Editorial, portrait, and commercial photography that tells your story visually.',
+    imageUrl: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=1000',
+    price: '$1200'
   }
 ];

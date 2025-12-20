@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
               <span className="text-orange-600">TOGETHER</span>
             </h2>
             <p className="text-xl text-zinc-400 max-w-md font-medium">
-              Based in Los Angeles, available worldwide. Let's discuss your next visual masterpiece.
+              Based in Chicago, IL. Available worldwide for design and photography projects.
             </p>
           </div>
           <div className="flex flex-col gap-4">
@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-12 border-t border-white/10 text-[10px] font-black tracking-[0.3em] text-zinc-500 uppercase">
-          <p>© 2024 BJTHEARTIST STUDIO. ALL RIGHTS RESERVED.</p>
+          <p>© 2025 BJTHEARTIST STUDIO. ALL RIGHTS RESERVED.</p>
           <div className="flex gap-8">
             <a href="#" className="hover:text-white">PRIVACY POLICY</a>
             <a href="#" className="hover:text-white">TERMS & CONDITIONS</a>
