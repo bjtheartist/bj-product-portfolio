@@ -177,6 +177,7 @@ const Hero: React.FC = () => {
         <img
           src="https://picsum.photos/seed/hero/1920/1080"
           alt="Urban Background"
+          loading="eager"
           className="w-full h-full object-cover brightness-[0.45] contrast-[1.05] transition-all duration-1000"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80"></div>

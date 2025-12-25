@@ -40,23 +40,23 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-40 px-6 md:px-12 bg-black border-t border-white/10 relative overflow-hidden text-white">
+    <section id="contact" className="py-32 md:py-48 px-6 md:px-12 bg-black border-t border-white/10 relative overflow-hidden text-white">
       {/* Roadmap Parallax Line */}
       <div className="absolute top-0 right-[15%] w-px h-[130%] bg-gradient-to-b from-white/10 via-white/5 to-transparent z-0 roadmap-line" data-speed="0.6"></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20">
 
           {/* Left Side - Heading */}
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             <div className="flex items-center gap-4 text-white">
               <span className="w-12 h-px bg-white"></span>
               <span className="text-[10px] font-black tracking-[0.4em] uppercase">Get In Touch</span>
             </div>
-            <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85]">
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.85]">
               LET'S<br />WORK<br /><span className="outline-text">TOGETHER</span>
             </h2>
-            <p className="text-zinc-400 text-xl max-w-md font-medium leading-relaxed">
+            <p className="text-zinc-400 text-lg md:text-xl max-w-md font-medium leading-relaxed">
               Have a project in mind? I'd love to hear about it. Send me a message and let's create something amazing.
             </p>
           </div>
