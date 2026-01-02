@@ -13,7 +13,7 @@ const SERVICES_DATA: Service[] = [
     id: 'product',
     number: '01',
     title: 'Product Design',
-    description: 'End-to-end UX/UI design for web and mobile applications. From research and strategy to polished, production-ready interfaces.',
+    description: 'End-to-end UX/UI design for web applications. From research and strategy to polished, production-ready interfaces.',
   },
   {
     id: 'web',
@@ -28,10 +28,10 @@ const SERVICES_DATA: Service[] = [
     description: 'Comprehensive visual identity systems including logo design, typography, color palette, and brand guidelines.',
   },
   {
-    id: 'mobile',
+    id: 'data',
     number: '04',
-    title: 'Mobile Apps',
-    description: 'Native and cross-platform mobile app design with focus on usability, performance, and delightful interactions.',
+    title: 'Data & Analytics',
+    description: 'Turn complex data into clear insights. Interactive dashboards, visualizations, and analytics that help you make better decisions.',
   },
 ];
 

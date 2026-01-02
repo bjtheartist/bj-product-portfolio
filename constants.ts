@@ -127,13 +127,17 @@ export const SKILLS = [
   'Next.js',
   'TypeScript',
   'Tailwind CSS',
-  'Web Design',
-  'Product Design',
-  'No-Code Tools',
+  'Postgres',
+  'Supabase',
+  'Cloudflare',
+  'Google Analytics',
+  'Claude Code',
+  'Codex',
+  'Antigravity',
   'Lovable',
   'Bolt',
-  'Data Analysis',
   'Figma',
+  'Data Analysis',
   'Photography'
 ];
 
