@@ -59,6 +59,10 @@ const AppContent: React.FC = () => {
         normalizeWheel: true,
       });
 
+      // Expose lenis globally so modals can stop/start it
+      // @ts-ignore
+      window.lenis = lenis;
+
       function raf(time: number) {
         lenis.raf(time);
         requestAnimationFrame(raf);

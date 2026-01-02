@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { PROJECTS } from '../constants';
 import { useTheme } from '../context/ThemeContext';
 import { Project } from '../types';
@@ -9,6 +9,7 @@ const Portfolio: React.FC = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [clickedCardRect, setClickedCardRect] = useState<DOMRect | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
 
   const categories = ['all', 'product design', 'web design'];
@@ -72,17 +73,68 @@ const Portfolio: React.FC = () => {
     return () => window.removeEventListener('keydown', handleEscape);
   }, []);
 
-  // Prevent body scroll when modal is open
+  // Handle wheel events for modal scrolling
+  const handleWheel = useCallback((e: WheelEvent) => {
+    if (!scrollContainerRef.current) return;
+    
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const container = scrollContainerRef.current;
+    container.scrollTop += e.deltaY;
+  }, []);
+
+  // Prevent body scroll and handle Lenis when modal is open
   useEffect(() => {
     if (selectedProject) {
+      // Disable body scroll
       document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+      
+      // Stop Lenis smooth scroll
+      // @ts-ignore
+      if (window.lenis) {
+        // @ts-ignore
+        window.lenis.stop();
+      }
+      
+      // Add wheel event listener to modal
+      const container = scrollContainerRef.current;
+      if (container) {
+        container.addEventListener('wheel', handleWheel, { passive: false });
+      }
+      
+      // Also add to document to capture all wheel events when modal is open
+      const preventScroll = (e: WheelEvent) => {
+        if (scrollContainerRef.current && scrollContainerRef.current.contains(e.target as Node)) {
+          return; // Let the modal handle it
+        }
+        e.preventDefault();
+      };
+      document.addEventListener('wheel', preventScroll, { passive: false });
+      
+      return () => {
+        if (container) {
+          container.removeEventListener('wheel', handleWheel);
+        }
+        document.removeEventListener('wheel', preventScroll);
+      };
     } else {
       document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+      
+      // Resume Lenis smooth scroll
+      // @ts-ignore
+      if (window.lenis) {
+        // @ts-ignore
+        window.lenis.start();
+      }
     }
     return () => {
       document.body.style.overflow = '';
+      document.body.style.touchAction = '';
     };
-  }, [selectedProject]);
+  }, [selectedProject, handleWheel]);
 
   // FLIP animation for opening modal
   const openModal = (project: Project, e: React.MouseEvent<HTMLElement>) => {
@@ -303,7 +355,7 @@ const Portfolio: React.FC = () => {
                         {project.tools.slice(0, 4).map((tool) => (
                           <span 
                             key={tool}
-                            className="px-2 py-1 text-[10px] font-medium tracking-wide bg-white/20 text-white rounded"
+                            className="px-2 py-1 text-[10px] font-medium bg-white/10 backdrop-blur-sm rounded text-white/90"
                           >
                             {tool}
                           </span>
@@ -340,8 +392,18 @@ const Portfolio: React.FC = () => {
           >
             {/* Scrollable inner container */}
             <div 
-              className="modal-content overflow-y-auto max-h-[90vh] overscroll-contain"
-              style={{ WebkitOverflowScrolling: 'touch' }}
+              ref={scrollContainerRef}
+              className="modal-content overflow-y-auto max-h-[90vh]"
+              style={{ 
+                WebkitOverflowScrolling: 'touch',
+                overscrollBehavior: 'contain',
+                scrollBehavior: 'auto'
+              }}
+              onWheel={(e) => {
+                e.stopPropagation();
+                const container = e.currentTarget;
+                container.scrollTop += e.deltaY;
+              }}
             >
               {/* Close button */}
               <button
