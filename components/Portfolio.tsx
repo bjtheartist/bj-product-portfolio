@@ -87,23 +87,22 @@ const Portfolio: React.FC = () => {
   // Prevent body scroll and handle Lenis when modal is open
   useEffect(() => {
     if (selectedProject) {
-      // Disable body scroll
+      // Disable body scroll but allow touch in modal
       document.body.style.overflow = 'hidden';
-      document.body.style.touchAction = 'none';
-      
+
       // Stop Lenis smooth scroll
       // @ts-ignore
       if (window.lenis) {
         // @ts-ignore
         window.lenis.stop();
       }
-      
+
       // Add wheel event listener to modal
       const container = scrollContainerRef.current;
       if (container) {
         container.addEventListener('wheel', handleWheel, { passive: false });
       }
-      
+
       // Also add to document to capture all wheel events when modal is open
       const preventScroll = (e: WheelEvent) => {
         if (scrollContainerRef.current && scrollContainerRef.current.contains(e.target as Node)) {
@@ -112,7 +111,7 @@ const Portfolio: React.FC = () => {
         e.preventDefault();
       };
       document.addEventListener('wheel', preventScroll, { passive: false });
-      
+
       return () => {
         if (container) {
           container.removeEventListener('wheel', handleWheel);
@@ -121,8 +120,7 @@ const Portfolio: React.FC = () => {
       };
     } else {
       document.body.style.overflow = '';
-      document.body.style.touchAction = '';
-      
+
       // Resume Lenis smooth scroll
       // @ts-ignore
       if (window.lenis) {
@@ -132,7 +130,6 @@ const Portfolio: React.FC = () => {
     }
     return () => {
       document.body.style.overflow = '';
-      document.body.style.touchAction = '';
     };
   }, [selectedProject, handleWheel]);
 
@@ -391,13 +388,14 @@ const Portfolio: React.FC = () => {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Scrollable inner container */}
-            <div 
+            <div
               ref={scrollContainerRef}
               className="modal-content overflow-y-auto max-h-[90vh]"
-              style={{ 
+              style={{
                 WebkitOverflowScrolling: 'touch',
                 overscrollBehavior: 'contain',
-                scrollBehavior: 'auto'
+                scrollBehavior: 'auto',
+                touchAction: 'pan-y',
               }}
               onWheel={(e) => {
                 e.stopPropagation();

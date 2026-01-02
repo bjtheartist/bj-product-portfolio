@@ -8,7 +8,8 @@ const Contact: React.FC = () => {
     email: '',
     message: ''
   });
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success'>('idle');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     // @ts-ignore
@@ -33,13 +34,32 @@ const Contact: React.FC = () => {
     }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
-    setTimeout(() => {
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
-    }, 1500);
+    } catch (err) {
+      setStatus('error');
+      setErrorMessage(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -121,6 +141,23 @@ const Contact: React.FC = () => {
                   }`}
                 >
                   Send another message
+                </button>
+              </div>
+            ) : status === 'error' ? (
+              <div className={`py-16 text-center ${
+                theme === 'dark' ? 'text-white' : 'text-black'
+              }`}>
+                <p className="text-2xl font-medium mb-4 text-red-500">Oops, something went wrong.</p>
+                <p className={`text-base ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                  {errorMessage}
+                </p>
+                <button
+                  onClick={() => setStatus('idle')}
+                  className={`mt-8 text-sm font-medium hover:opacity-70 transition-opacity ${
+                    theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'
+                  }`}
+                >
+                  Try again
                 </button>
               </div>
             ) : (

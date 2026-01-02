@@ -45,42 +45,60 @@ const AppContent: React.FC = () => {
     // @ts-ignore
     const Lenis = window.Lenis;
 
-    if (gsap && ScrollTrigger && Lenis) {
+    if (gsap && ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
 
-      const lenis = new Lenis({
-        duration: 1.4,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-        wheelMultiplier: 0.8,
-        touchMultiplier: 1.5,
-        normalizeWheel: true,
-      });
+      // Check if device is touch-enabled (mobile/tablet)
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-      // Expose lenis globally so modals can stop/start it
-      // @ts-ignore
-      window.lenis = lenis;
+      // Only use Lenis on desktop - it interferes with native mobile scrolling
+      if (!isTouchDevice && Lenis) {
+        const lenis = new Lenis({
+          duration: 1.4,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: 'vertical',
+          gestureOrientation: 'vertical',
+          smoothWheel: true,
+          wheelMultiplier: 0.8,
+          normalizeWheel: true,
+        });
 
-      function raf(time: number) {
-        lenis.raf(time);
+        // Expose lenis globally so modals can stop/start it
+        // @ts-ignore
+        window.lenis = lenis;
+
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
         requestAnimationFrame(raf);
+
+        lenis.on('scroll', ScrollTrigger.update);
+
+        // Refresh ScrollTrigger after content loads
+        const timer = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 500);
+
+        return () => {
+          clearTimeout(timer);
+          lenis.destroy();
+          // @ts-ignore
+          window.lenis = null;
+          ScrollTrigger.getAll().forEach((t: any) => t.kill());
+        };
+      } else {
+        // Mobile: just use native scrolling with ScrollTrigger
+        // Refresh ScrollTrigger after content loads
+        const timer = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 500);
+
+        return () => {
+          clearTimeout(timer);
+          ScrollTrigger.getAll().forEach((t: any) => t.kill());
+        };
       }
-      requestAnimationFrame(raf);
-
-      lenis.on('scroll', ScrollTrigger.update);
-
-      // Refresh ScrollTrigger after content loads
-      const timer = setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 500);
-
-      return () => {
-        clearTimeout(timer);
-        lenis.destroy();
-        ScrollTrigger.getAll().forEach((t: any) => t.kill());
-      };
     }
   }, [showContent]);
 
