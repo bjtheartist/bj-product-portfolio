@@ -56,7 +56,13 @@ const About: React.FC = () => {
               <p className={`text-base md:text-lg leading-relaxed mb-8 ${
                 theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'
               }`}>
-                My background is unconventional. I came from economic development, worked at an incubator helping founders build their visions, and somewhere along the way, I taught myself to code. React, Next.js, HTML, CSS—I've built over 30 projects learning by doing.
+                My background is unconventional. I came from economic development, worked at a tech innovation hub helping founders build their visions, and somewhere along the way, I taught myself to build. It started with no-code platforms like Bolt and Lovable—tools that let me bring ideas to life without waiting for permission.
+              </p>
+
+              <p className={`text-base md:text-lg leading-relaxed mb-8 ${
+                theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'
+              }`}>
+                From there, I dove deeper: React, Next.js, TypeScript, Tailwind CSS. I've built over 30 projects learning by doing—each one teaching me something new about how to solve real problems for real people.
               </p>
 
               <p className={`text-base md:text-lg leading-relaxed mb-8 ${
@@ -81,7 +87,7 @@ const About: React.FC = () => {
                   Background
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  {['Economic Development', 'Startup Incubator', 'Self-Taught Developer', 'Photography', 'Data & Analytics'].map((item) => (
+                  {['Economic Development', 'Tech Innovation Hub', 'No-Code → Code', 'Photography', 'Data & Analytics'].map((item) => (
                     <span 
                       key={item}
                       className={`px-4 py-2 text-sm rounded-full ${
