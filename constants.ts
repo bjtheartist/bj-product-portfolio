@@ -2,6 +2,19 @@ import { Project, Service } from './types';
 
 export const PROJECTS: Project[] = [
   {
+    id: '0',
+    title: 'CommuniData',
+    category: 'PRODUCT DESIGN',
+    imageUrl: '/project-communidata.png',
+    description: 'A civic data platform that turns Chicago\'s neighborhood data into funding-ready reports and strategic insights for community leaders.',
+    tags: ['React', 'Data', 'Civic Tech'],
+    problem: 'Community leaders, chambers of commerce, and nonprofits in Chicago needed access to hyper-local data to make informed decisions and secure funding, but raw city data was scattered, hard to interpret, and not actionable.',
+    solution: 'Built a neighborhood intelligence platform covering all 77 Chicago community areas with 112K+ data points. Users can explore interactive maps, generate PDF reports, and extract strategic insights—turning raw civic data into funding-ready documentation.',
+    tools: ['React', 'TypeScript', 'Tailwind CSS', 'Data Visualization', 'PDF Generation'],
+    githubUrl: 'https://github.com/Dunosis/CommuniData',
+    year: '2024'
+  },
+  {
     id: '1',
     title: 'ChiStartup Hub',
     category: 'WEB DESIGN',
