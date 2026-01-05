@@ -1,25 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { SERVICES } from '../constants';
+import { useTheme } from '../context/ThemeContext';
 
 const Services: React.FC = () => {
+  const { isDark } = useTheme();
   const [activeService, setActiveService] = useState<string>(SERVICES[0]?.id || '');
 
+  const handleMouseEnter = useCallback((id: string) => {
+    setActiveService(id);
+  }, []);
+
   return (
-    <section id="services" className="py-32 md:py-40 bg-zinc-950">
-      <div className="px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
+    <section id="services" className={`py-16 sm:py-24 md:py-32 ${
+      isDark ? 'bg-slate-950' : 'bg-slate-50'
+    }`}>
+      <div className="px-4 sm:px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
         {/* Header */}
-        <div className="mb-20">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="text-amber-400 text-xs font-mono">03</span>
-            <div className="w-12 h-px bg-amber-400/50" />
+        <div className="mb-12 sm:mb-16 md:mb-20">
+          <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+            <span className="text-blue-500 text-xs font-mono">03</span>
+            <div className="w-8 sm:w-12 h-px bg-blue-500/50" />
           </div>
           <h2 
-            className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight"
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight ${
+              isDark ? 'text-white' : 'text-black'
+            }`}
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             Services
           </h2>
-          <p className="text-white/40 text-sm mt-4 max-w-md">
+          <p className={`text-sm mt-3 sm:mt-4 max-w-md ${
+            isDark ? 'text-white/40' : 'text-black/40'
+          }`}>
             Professional photography services tailored to capture your special moments.
           </p>
         </div>
@@ -30,30 +42,32 @@ const Services: React.FC = () => {
             <div
               key={service.id}
               className="service-item group cursor-pointer"
-              onMouseEnter={() => setActiveService(service.id)}
+              onMouseEnter={() => handleMouseEnter(service.id)}
+              role="button"
+              tabIndex={0}
             >
               {/* Animated border */}
-              <div className="h-px bg-white/10" />
+              <div className={`h-px ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
               
-              <div className="py-8 md:py-10 grid grid-cols-12 gap-4 items-start">
+              <div className="py-6 sm:py-8 md:py-10 grid grid-cols-12 gap-2 sm:gap-4 items-start">
                 {/* Number */}
-                <div className="col-span-2 md:col-span-1">
-                  <span className={`text-sm font-mono transition-all duration-500 ${
+                <div className="col-span-2 sm:col-span-1">
+                  <span className={`text-xs sm:text-sm font-mono transition-all duration-500 ${
                     activeService === service.id
-                      ? 'text-amber-400'
-                      : 'text-white/30'
+                      ? 'text-blue-500'
+                      : isDark ? 'text-white/30' : 'text-black/30'
                   }`}>
                     {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
 
                 {/* Title */}
-                <div className="col-span-10 md:col-span-4">
+                <div className="col-span-10 sm:col-span-4">
                   <h3 
-                    className={`text-2xl md:text-3xl font-black tracking-tight transition-all duration-500 ${
+                    className={`text-xl sm:text-2xl md:text-3xl font-black tracking-tight transition-all duration-500 ${
                       activeService === service.id
-                        ? 'text-white translate-x-2'
-                        : 'text-white/50'
+                        ? isDark ? 'text-white translate-x-2' : 'text-black translate-x-2'
+                        : isDark ? 'text-white/50' : 'text-black/50'
                     }`}
                     style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                   >
@@ -62,23 +76,27 @@ const Services: React.FC = () => {
                 </div>
 
                 {/* Description */}
-                <div className="col-span-12 md:col-span-6 md:pl-8">
-                  <p className={`text-sm md:text-base leading-relaxed max-w-lg transition-all duration-500 ${
+                <div className="col-span-12 sm:col-span-6 sm:pl-4 md:pl-8 mt-2 sm:mt-0">
+                  <p className={`text-xs sm:text-sm md:text-base leading-relaxed max-w-lg transition-all duration-500 ${
                     activeService === service.id
-                      ? 'text-white/70 opacity-100'
-                      : 'text-white/40 opacity-60'
+                      ? isDark ? 'text-white/70 opacity-100' : 'text-black/70 opacity-100'
+                      : isDark ? 'text-white/40 opacity-60' : 'text-black/40 opacity-60'
                   }`}>
                     {service.description}
                   </p>
                   
                   {/* Features */}
-                  <div className={`flex flex-wrap gap-2 mt-4 transition-all duration-500 ${
+                  <div className={`flex flex-wrap gap-1.5 sm:gap-2 mt-3 sm:mt-4 transition-all duration-500 ${
                     activeService === service.id ? 'opacity-100' : 'opacity-0'
                   }`}>
                     {service.features.map((feature) => (
                       <span 
                         key={feature}
-                        className="px-3 py-1 text-xs text-amber-400/80 bg-amber-400/10 border border-amber-400/20"
+                        className={`px-2 sm:px-3 py-1 text-[10px] sm:text-xs rounded ${
+                          isDark 
+                            ? 'text-blue-400/80 bg-blue-400/10 border border-blue-400/20' 
+                            : 'text-blue-600/80 bg-blue-600/10 border border-blue-600/20'
+                        }`}
                       >
                         {feature}
                       </span>
@@ -87,7 +105,7 @@ const Services: React.FC = () => {
                 </div>
 
                 {/* Arrow indicator */}
-                <div className={`hidden md:flex col-span-12 md:col-span-1 justify-end items-center transition-all duration-300 ${
+                <div className={`hidden sm:flex col-span-12 sm:col-span-1 justify-end items-center transition-all duration-300 ${
                   activeService === service.id ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
                 }`}>
                   <svg 
@@ -97,7 +115,7 @@ const Services: React.FC = () => {
                     fill="none" 
                     stroke="currentColor" 
                     strokeWidth="2"
-                    className="text-amber-400"
+                    className="text-blue-500"
                   >
                     <path d="M7 17L17 7M17 7H7M17 7V17"/>
                   </svg>
@@ -107,17 +125,17 @@ const Services: React.FC = () => {
           ))}
           
           {/* Bottom border */}
-          <div className="h-px bg-white/10" />
+          <div className={`h-px ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
         </div>
 
         {/* CTA */}
-        <div className="mt-16 text-center">
-          <p className="text-white/40 text-sm mb-6">
+        <div className="mt-12 sm:mt-16 text-center">
+          <p className={`text-sm mb-4 sm:mb-6 ${isDark ? 'text-white/40' : 'text-black/40'}`}>
             Ready to capture your story?
           </p>
           <a 
             href="#contact"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-amber-400 text-black font-bold text-sm tracking-wider uppercase hover:bg-amber-300 transition-colors duration-300"
+            className="inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-blue-500 text-white font-bold text-xs sm:text-sm tracking-wider uppercase hover:bg-blue-400 transition-colors duration-300 rounded-lg"
           >
             Book a Session
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -130,4 +148,4 @@ const Services: React.FC = () => {
   );
 };
 
-export default Services;
+export default memo(Services);

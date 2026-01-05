@@ -1,144 +1,121 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, memo } from 'react';
 import { SITE_CONFIG } from '../constants';
+import { useTheme } from '../context/ThemeContext';
 
 interface PreloaderProps {
   onComplete: () => void;
 }
 
+// Memoized digit component for performance
+const Digit = memo<{ value: number }>(({ value }) => (
+  <span 
+    className="inline-block w-8 text-center tabular-nums"
+    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+  >
+    {value}
+  </span>
+));
+
+Digit.displayName = 'Digit';
+
 const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
+  const { isDark } = useTheme();
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
 
+  // Smooth eased progress animation using requestAnimationFrame
   useEffect(() => {
-    const duration = 2200;
-    const interval = 25;
-    const increment = 100 / (duration / interval);
+    const duration = 2000;
+    const startTime = performance.now();
+    let animationId: number;
     
-    const timer = setInterval(() => {
-      setProgress(prev => {
-        const next = prev + increment + (Math.random() * 0.5);
-        if (next >= 100) {
-          clearInterval(timer);
-          return 100;
-        }
-        return next;
-      });
-    }, interval);
-
-    return () => clearInterval(timer);
+    const easeOutQuart = (t: number): number => 1 - Math.pow(1 - t, 4);
+    
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const linearProgress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeOutQuart(linearProgress) * 100;
+      
+      setProgress(easedProgress);
+      
+      if (linearProgress < 1) {
+        animationId = requestAnimationFrame(animate);
+      }
+    };
+    
+    animationId = requestAnimationFrame(animate);
+    
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
   }, []);
 
+  // Handle completion
   useEffect(() => {
-    if (progress >= 100) {
+    if (progress >= 99.9) {
       const exitTimer = setTimeout(() => {
         setIsExiting(true);
-        setTimeout(onComplete, 600);
-      }, 300);
+        setTimeout(onComplete, 400);
+      }, 150);
       
       return () => clearTimeout(exitTimer);
     }
   }, [progress, onComplete]);
 
-  // Get individual digits for the sliced animation
-  const progressInt = Math.min(Math.floor(progress), 100);
-  const digits = progressInt.toString().padStart(3, '0').split('');
+  // Calculate display value
+  const displayValue = Math.min(Math.round(progress), 100);
+
+  // Memoize the formatted digits
+  const formattedDigits = useMemo(() => {
+    const str = displayValue.toString().padStart(3, '0');
+    return str.split('').map(Number);
+  }, [displayValue]);
 
   return (
     <div 
-      className={`fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center transition-all duration-600 ease-out ${
-        isExiting ? 'opacity-0' : 'opacity-100'
-      }`}
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center transition-all duration-400 ${
+        isExiting ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
+      } ${isDark ? 'bg-black' : 'bg-white'}`}
     >
-      {/* Logo - TemsVision Eye */}
+      {/* Logo - Using actual TemsVision logo image */}
       <div 
-        className={`mb-8 transition-all duration-500 ease-out ${
+        className={`mb-4 transition-all duration-500 ${
           isExiting ? 'scale-110 opacity-0' : 'scale-100 opacity-100'
         }`}
       >
-        {/* Simplified eye logo representation */}
-        <div className="relative w-32 h-20 flex items-center justify-center">
-          <svg viewBox="0 0 120 60" className="w-full h-full">
-            {/* Eye outline */}
-            <path 
-              d="M60 5 Q100 30 60 55 Q20 30 60 5" 
-              fill="none" 
-              stroke="#f59e0b" 
-              strokeWidth="3"
-              className="animate-pulse"
-            />
-            {/* Iris */}
-            <circle cx="60" cy="30" r="15" fill="none" stroke="#38bdf8" strokeWidth="2" />
-            {/* Pupil */}
-            <circle cx="60" cy="30" r="8" fill="#38bdf8" />
-            {/* Aperture blades */}
-            <path d="M60 15 L52 30 L60 45" fill="#0ea5e9" opacity="0.8" />
-            <path d="M60 15 L68 30 L60 45" fill="#06b6d4" opacity="0.8" />
-            <path d="M45 30 L60 22 L75 30" fill="#22d3d8" opacity="0.6" />
-          </svg>
-        </div>
-        
-        {/* Brand name */}
-        <div className="text-center mt-4">
-          <span 
-            className="text-3xl font-black text-white tracking-wider"
-            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-          >
-            TEMS<span className="text-amber-400">VISION</span>
-          </span>
-        </div>
+        <img 
+          src="/temsvision-logo.png" 
+          alt="TemsVision Logo"
+          className="w-32 h-auto object-contain"
+          style={{ 
+            filter: isDark ? 'invert(1) brightness(2)' : 'none'
+          }}
+        />
       </div>
 
       {/* Tagline */}
-      <p className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-white/40 mb-12">
+      <p className={`text-[10px] tracking-[0.2em] uppercase mb-8 ${
+        isDark ? 'text-white/40' : 'text-black/40'
+      }`}>
         [{SITE_CONFIG.tagline}]
       </p>
 
-      {/* Sliced/Diced Loading Counter - O'Shane Howard Style */}
-      <div className="flex items-center gap-1">
-        <span className="text-[10px] font-mono tracking-wider text-white/30 mr-4 uppercase">
-          Loading
-        </span>
-        
-        {/* Animated digit columns */}
-        <div className="flex">
-          {digits.map((digit, index) => (
-            <div 
-              key={index} 
-              className="relative w-8 h-12 overflow-hidden mx-0.5"
-              style={{
-                maskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)',
-                WebkitMaskImage: 'linear-gradient(to bottom, transparent, black 20%, black 80%, transparent)'
-              }}
-            >
-              <div 
-                className="absolute inset-0 flex flex-col items-center transition-transform duration-150 ease-out"
-                style={{ 
-                  transform: `translateY(-${parseInt(digit) * 10}%)`,
-                }}
-              >
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                  <span 
-                    key={num}
-                    className="text-3xl font-mono text-white h-12 flex items-center justify-center"
-                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                  >
-                    {num}
-                  </span>
-                ))}
-              </div>
-              
-              {/* Slice lines for diced effect */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/4 left-0 right-0 h-px bg-black/50" />
-                <div className="absolute top-2/4 left-0 right-0 h-px bg-black/30" />
-                <div className="absolute top-3/4 left-0 right-0 h-px bg-black/50" />
-              </div>
-            </div>
+      {/* Counter Display - Simple and smooth */}
+      <div className="flex items-baseline justify-center">
+        <div 
+          className={`text-5xl md:text-6xl font-light tracking-tight ${
+            isDark ? 'text-white' : 'text-black'
+          }`}
+          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+        >
+          {formattedDigits.map((digit, index) => (
+            <Digit key={index} value={digit} />
           ))}
         </div>
-        
         <span 
-          className="text-3xl font-mono text-amber-400 ml-1"
+          className="text-3xl md:text-4xl font-light text-blue-500 ml-1"
           style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
           %
@@ -146,32 +123,23 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       </div>
 
       {/* Progress bar */}
-      <div className="mt-8 w-48 h-px bg-white/10 overflow-hidden">
+      <div className={`mt-8 w-48 h-0.5 overflow-hidden rounded-full ${
+        isDark ? 'bg-white/10' : 'bg-black/10'
+      }`}>
         <div 
-          className="h-full bg-gradient-to-r from-amber-400 to-amber-500"
-          style={{ 
-            width: `${progress}%`,
-            transition: 'width 25ms linear'
-          }}
+          className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 rounded-full transition-all duration-75 ease-linear"
+          style={{ width: `${progress}%` }}
         />
       </div>
 
-      {/* Decorative sliced lines */}
-      <div className="absolute bottom-20 left-0 right-0 flex justify-center gap-2 opacity-20">
-        {[...Array(5)].map((_, i) => (
-          <div 
-            key={i}
-            className="w-px bg-white"
-            style={{
-              height: `${20 + i * 10}px`,
-              opacity: progress > (i * 20) ? 1 : 0.3,
-              transition: 'opacity 200ms ease-out'
-            }}
-          />
-        ))}
-      </div>
+      {/* Loading text */}
+      <p className={`mt-6 text-[10px] tracking-[0.3em] uppercase ${
+        isDark ? 'text-white/30' : 'text-black/30'
+      }`}>
+        Loading
+      </p>
     </div>
   );
 };
 
-export default Preloader;
+export default memo(Preloader);

@@ -1,5 +1,18 @@
 import { Project, Service } from './types';
 
+// Blue color palette from TemsVision logo
+export const COLORS = {
+  primary: {
+    darkNavy: '#1e3a5f',
+    blue: '#3b82f6',
+    cyan: '#22d3ee',
+    skyBlue: '#7dd3fc',
+    lightCyan: '#a5f3fc',
+  },
+  // For Tailwind classes
+  accent: 'blue', // Use blue-400, blue-500, etc.
+};
+
 export const SITE_CONFIG = {
   name: 'TemsVision',
   tagline: 'PHOTOGRAPHER, CREATIVE DIRECTOR & VISUAL STORYTELLER',
@@ -96,7 +109,7 @@ export const SERVICES: Service[] = [
     id: 'sports',
     name: 'Sports Photography',
     description: 'Dynamic action shots that freeze the intensity and emotion of athletic performance.',
-    imageUrl: 'https://images.unsplash.com/photo-1461896836934- voices-of-the-game?w=800&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1461896836934-voices-of-the-game?w=800&q=80',
     features: ['Action Shots', 'Team Photos', 'Athletic Portraits', 'Event Coverage']
   },
   {

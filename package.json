@@ -1,12 +1,16 @@
 {
-  "name": "bjtheartist-photography",
+  "name": "temsvision-website",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "TemsVision Photography Portfolio - Professional photography by Temilade Amire Quadri",
+  "author": "TemsVision",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "audit": "npm audit",
+    "audit:fix": "npm audit fix"
   },
   "dependencies": {
     "react": "^19.2.3",
@@ -20,5 +24,8 @@
     "@vitejs/plugin-react": "^5.0.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

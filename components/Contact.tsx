@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { SITE_CONFIG, SOCIAL_LINKS } from '../constants';
+import { useTheme } from '../context/ThemeContext';
 
 const Contact: React.FC = () => {
+  const { isDark } = useTheme();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,7 +25,7 @@ const Contact: React.FC = () => {
     'Other'
   ];
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
     setErrorMessage('');
@@ -49,65 +51,89 @@ const Contact: React.FC = () => {
       setStatus('error');
       setErrorMessage(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
     }
-  };
+  }, [formData]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
     }));
-  };
+  }, []);
+
+  const inputClasses = `w-full px-0 py-3 sm:py-4 bg-transparent border-0 border-b text-sm sm:text-base focus:outline-none transition-colors ${
+    isDark 
+      ? 'border-white/20 text-white placeholder-white/30 focus:border-blue-400' 
+      : 'border-black/20 text-black placeholder-black/30 focus:border-blue-600'
+  }`;
 
   return (
-    <section id="contact" className="relative py-32 md:py-40 bg-black overflow-hidden">
+    <section id="contact" className={`relative py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden ${
+      isDark ? 'bg-black' : 'bg-white'
+    }`}>
       {/* Background Accent */}
-      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-amber-400/5 to-transparent pointer-events-none" />
+      <div className={`absolute bottom-0 left-0 w-full h-1/2 pointer-events-none ${
+        isDark 
+          ? 'bg-gradient-to-t from-blue-500/5 to-transparent' 
+          : 'bg-gradient-to-t from-blue-100/50 to-transparent'
+      }`} />
 
-      <div className="relative z-10 px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
+      <div className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
         {/* Section Header */}
-        <div className="mb-20">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="text-amber-400 text-xs font-mono">04</span>
-            <div className="w-12 h-px bg-amber-400/50" />
+        <div className="mb-12 sm:mb-16 md:mb-20">
+          <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+            <span className="text-blue-500 text-xs font-mono">04</span>
+            <div className="w-8 sm:w-12 h-px bg-blue-500/50" />
           </div>
           <h2 
-            className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight"
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight ${
+              isDark ? 'text-white' : 'text-black'
+            }`}
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
-            Let's Start<br />Your Journey
+            Let's Start<br className="hidden sm:block" />Your Journey
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
           {/* Left Column - Info */}
           <div>
-            <p className="text-xl md:text-2xl text-white/80 leading-relaxed mb-12">
+            <p className={`text-lg sm:text-xl md:text-2xl leading-relaxed mb-8 sm:mb-12 ${
+              isDark ? 'text-white/80' : 'text-black/80'
+            }`}>
               Ready to capture your special moments? Let's discuss your vision 
               and create something beautiful together.
             </p>
 
             {/* Contact Info */}
-            <div className="space-y-8 mb-12">
+            <div className="space-y-6 sm:space-y-8 mb-8 sm:mb-12">
               <div>
-                <p className="text-xs tracking-[0.2em] uppercase text-white/40 mb-2">
+                <p className={`text-xs tracking-[0.2em] uppercase mb-2 ${
+                  isDark ? 'text-white/40' : 'text-black/40'
+                }`}>
                   Instagram
                 </p>
                 <a 
                   href={SOCIAL_LINKS.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xl md:text-2xl font-bold text-white hover:text-amber-400 transition-colors"
+                  className={`text-lg sm:text-xl md:text-2xl font-bold transition-colors ${
+                    isDark ? 'text-white hover:text-blue-400' : 'text-black hover:text-blue-600'
+                  }`}
                   style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                 >
                   {SITE_CONFIG.instagram}
                 </a>
               </div>
               <div>
-                <p className="text-xs tracking-[0.2em] uppercase text-white/40 mb-2">
+                <p className={`text-xs tracking-[0.2em] uppercase mb-2 ${
+                  isDark ? 'text-white/40' : 'text-black/40'
+                }`}>
                   Location
                 </p>
                 <p 
-                  className="text-xl md:text-2xl font-bold text-white"
+                  className={`text-lg sm:text-xl md:text-2xl font-bold ${
+                    isDark ? 'text-white' : 'text-black'
+                  }`}
                   style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                 >
                   {SITE_CONFIG.location}
@@ -117,16 +143,20 @@ const Contact: React.FC = () => {
 
             {/* Social Links */}
             <div>
-              <p className="text-xs tracking-[0.2em] uppercase text-white/40 mb-4">
+              <p className={`text-xs tracking-[0.2em] uppercase mb-3 sm:mb-4 ${
+                isDark ? 'text-white/40' : 'text-black/40'
+              }`}>
                 Follow
               </p>
-              <div className="flex gap-6">
+              <div className="flex flex-wrap gap-4 sm:gap-6">
                 {SOCIAL_LINKS.instagram && (
                   <a 
                     href={SOCIAL_LINKS.instagram} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
+                    className={`text-xs sm:text-sm tracking-[0.1em] uppercase transition-colors ${
+                      isDark ? 'text-white/60 hover:text-blue-400' : 'text-black/60 hover:text-blue-600'
+                    }`}
                   >
                     Instagram
                   </a>
@@ -136,7 +166,9 @@ const Contact: React.FC = () => {
                     href={SOCIAL_LINKS.facebook} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
+                    className={`text-xs sm:text-sm tracking-[0.1em] uppercase transition-colors ${
+                      isDark ? 'text-white/60 hover:text-blue-400' : 'text-black/60 hover:text-blue-600'
+                    }`}
                   >
                     Facebook
                   </a>
@@ -146,7 +178,9 @@ const Contact: React.FC = () => {
                     href={SOCIAL_LINKS.linkedin} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
+                    className={`text-xs sm:text-sm tracking-[0.1em] uppercase transition-colors ${
+                      isDark ? 'text-white/60 hover:text-blue-400' : 'text-black/60 hover:text-blue-600'
+                    }`}
                   >
                     LinkedIn
                   </a>
@@ -156,7 +190,9 @@ const Contact: React.FC = () => {
                     href={SOCIAL_LINKS.pinterest} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
+                    className={`text-xs sm:text-sm tracking-[0.1em] uppercase transition-colors ${
+                      isDark ? 'text-white/60 hover:text-blue-400' : 'text-black/60 hover:text-blue-600'
+                    }`}
                   >
                     Pinterest
                   </a>
@@ -168,42 +204,45 @@ const Contact: React.FC = () => {
           {/* Right Column - Form */}
           <div>
             {status === 'success' ? (
-              <div className="py-16 text-center">
-                <p className="text-3xl font-black text-white mb-4" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+              <div className="py-12 sm:py-16 text-center">
+                <p className={`text-2xl sm:text-3xl font-black mb-4 ${isDark ? 'text-white' : 'text-black'}`} 
+                   style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                   Thank You
                 </p>
-                <p className="text-base text-white/60 mb-8">
+                <p className={`text-sm sm:text-base mb-6 sm:mb-8 ${isDark ? 'text-white/60' : 'text-black/60'}`}>
                   I'll get back to you within 24 hours to discuss your session.
                 </p>
                 <button
                   onClick={() => setStatus('idle')}
-                  className="text-xs tracking-[0.2em] uppercase text-amber-400 hover:text-amber-300 transition-colors"
+                  className="text-xs tracking-[0.2em] uppercase text-blue-500 hover:text-blue-400 transition-colors"
                 >
                   [Send Another Message]
                 </button>
               </div>
             ) : status === 'error' ? (
-              <div className="py-16 text-center">
-                <p className="text-3xl font-black text-red-500 mb-4" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+              <div className="py-12 sm:py-16 text-center">
+                <p className="text-2xl sm:text-3xl font-black text-red-500 mb-4" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                   Oops
                 </p>
-                <p className="text-base text-white/60 mb-8">
+                <p className={`text-sm sm:text-base mb-6 sm:mb-8 ${isDark ? 'text-white/60' : 'text-black/60'}`}>
                   {errorMessage}
                 </p>
                 <button
                   onClick={() => setStatus('idle')}
-                  className="text-xs tracking-[0.2em] uppercase text-amber-400 hover:text-amber-300 transition-colors"
+                  className="text-xs tracking-[0.2em] uppercase text-blue-500 hover:text-blue-400 transition-colors"
                 >
                   [Try Again]
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                   <div>
                     <label 
                       htmlFor="name"
-                      className="block text-xs tracking-[0.2em] uppercase text-white/40 mb-3"
+                      className={`block text-xs tracking-[0.2em] uppercase mb-2 sm:mb-3 ${
+                        isDark ? 'text-white/40' : 'text-black/40'
+                      }`}
                     >
                       Your Name *
                     </label>
@@ -215,13 +254,15 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       required
                       placeholder="Your name"
-                      className="w-full px-0 py-4 bg-transparent border-0 border-b border-white/20 text-white text-base placeholder-white/30 focus:outline-none focus:border-amber-400 transition-colors"
+                      className={inputClasses}
                     />
                   </div>
                   <div>
                     <label 
                       htmlFor="email"
-                      className="block text-xs tracking-[0.2em] uppercase text-white/40 mb-3"
+                      className={`block text-xs tracking-[0.2em] uppercase mb-2 sm:mb-3 ${
+                        isDark ? 'text-white/40' : 'text-black/40'
+                      }`}
                     >
                       Email Address *
                     </label>
@@ -233,7 +274,7 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       required
                       placeholder="your@email.com"
-                      className="w-full px-0 py-4 bg-transparent border-0 border-b border-white/20 text-white text-base placeholder-white/30 focus:outline-none focus:border-amber-400 transition-colors"
+                      className={inputClasses}
                     />
                   </div>
                 </div>
@@ -241,7 +282,9 @@ const Contact: React.FC = () => {
                 <div>
                   <label 
                     htmlFor="sessionType"
-                    className="block text-xs tracking-[0.2em] uppercase text-white/40 mb-3"
+                    className={`block text-xs tracking-[0.2em] uppercase mb-2 sm:mb-3 ${
+                      isDark ? 'text-white/40' : 'text-black/40'
+                    }`}
                   >
                     What type of session are you looking for?
                   </label>
@@ -250,12 +293,17 @@ const Contact: React.FC = () => {
                     name="sessionType"
                     value={formData.sessionType}
                     onChange={handleChange}
-                    className="w-full px-0 py-4 bg-transparent border-0 border-b border-white/20 text-white text-base focus:outline-none focus:border-amber-400 transition-colors appearance-none cursor-pointer"
-                    style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ffffff40'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right center', backgroundSize: '20px' }}
+                    className={`${inputClasses} appearance-none cursor-pointer`}
+                    style={{ 
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='${isDark ? '%23ffffff40' : '%2300000040'}'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, 
+                      backgroundRepeat: 'no-repeat', 
+                      backgroundPosition: 'right center', 
+                      backgroundSize: '20px' 
+                    }}
                   >
-                    <option value="" className="bg-black">Select an option</option>
+                    <option value="" className={isDark ? 'bg-black' : 'bg-white'}>Select an option</option>
                     {sessionTypes.map((type) => (
-                      <option key={type} value={type} className="bg-black">{type}</option>
+                      <option key={type} value={type} className={isDark ? 'bg-black' : 'bg-white'}>{type}</option>
                     ))}
                   </select>
                 </div>
@@ -263,7 +311,9 @@ const Contact: React.FC = () => {
                 <div>
                   <label 
                     htmlFor="message"
-                    className="block text-xs tracking-[0.2em] uppercase text-white/40 mb-3"
+                    className={`block text-xs tracking-[0.2em] uppercase mb-2 sm:mb-3 ${
+                      isDark ? 'text-white/40' : 'text-black/40'
+                    }`}
                   >
                     Message *
                   </label>
@@ -275,16 +325,18 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     placeholder="Tell me about your vision..."
-                    className="w-full px-0 py-4 bg-transparent border-0 border-b border-white/20 text-white text-base placeholder-white/30 focus:outline-none focus:border-amber-400 resize-none transition-colors"
+                    className={`${inputClasses} resize-none`}
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className={`group inline-flex items-center gap-4 px-8 py-4 bg-amber-400 text-black text-sm font-bold tracking-[0.1em] uppercase transition-all duration-300 hover:bg-amber-300 ${
-                    status === 'sending' ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  className={`group inline-flex items-center gap-3 sm:gap-4 px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-bold tracking-[0.1em] uppercase transition-all duration-300 rounded-lg ${
+                    status === 'sending' 
+                      ? 'bg-blue-500/50 cursor-not-allowed' 
+                      : 'bg-blue-500 hover:bg-blue-400'
+                  } text-white`}
                 >
                   {status === 'sending' ? 'Sending...' : 'Send Message'}
                   <svg 
@@ -308,4 +360,4 @@ const Contact: React.FC = () => {
   );
 };
 
-export default Contact;
+export default memo(Contact);
