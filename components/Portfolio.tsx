@@ -1,297 +1,162 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState } from 'react';
 import { PROJECTS } from '../constants';
-import { useTheme } from '../context/ThemeContext';
-import { Project } from '../types';
 
 const Portfolio: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
-  useEffect(() => {
-    // @ts-ignore
-    const gsap = window.gsap;
-    // @ts-ignore
-    const ScrollTrigger = window.ScrollTrigger;
-    
-    if (gsap && ScrollTrigger) {
-      // Horizontal scroll animation
-      const container = scrollContainerRef.current;
-      if (container) {
-        const scrollWidth = container.scrollWidth - container.clientWidth;
-        
-        gsap.to(container, {
-          scrollLeft: scrollWidth,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '#portfolio',
-            start: 'top top',
-            end: () => `+=${scrollWidth}`,
-            scrub: 1,
-            pin: true,
-            anticipatePin: 1,
-          }
-        });
-      }
-
-      // Section title animation
-      gsap.fromTo('.portfolio-title',
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '#portfolio',
-            start: 'top 80%',
-          }
-        }
-      );
-    }
-  }, []);
-
-  // Close modal on escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeModal();
-    };
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, []);
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden';
-      // @ts-ignore
-      if (window.lenis) window.lenis.stop();
-    } else {
-      document.body.style.overflow = '';
-      // @ts-ignore
-      if (window.lenis) window.lenis.start();
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [selectedProject]);
-
-  const openModal = (project: Project) => {
-    setSelectedProject(project);
-  };
-
-  const closeModal = () => {
-    setSelectedProject(null);
-  };
+  // Photography categories matching Temsvision's portfolio
+  const categories = [
+    { id: 'PORTRAITS', title: 'Portrait Sessions', subtitle: 'Capturing personality & style' },
+    { id: 'SPORTS', title: 'Sports Action', subtitle: 'Dynamic athletic moments' },
+    { id: 'LOVE STORIES', title: 'Love Stories', subtitle: 'Engagement & couples' },
+    { id: 'B & W', title: 'Black & White', subtitle: 'Timeless monochrome' },
+  ];
 
   return (
-    <>
-      <section id="portfolio" className="relative h-screen bg-black overflow-hidden">
-        {/* Section Header */}
-        <div className="absolute top-8 left-6 md:left-12 lg:left-24 z-20">
-          <h2 
-            className="portfolio-title text-xs tracking-[0.3em] uppercase text-white/50"
-          >
-            Selected Work
-          </h2>
+    <section id="portfolio" className="relative bg-black py-24 md:py-32">
+      {/* Section Header */}
+      <div className="px-6 md:px-12 lg:px-24 mb-16">
+        <div className="flex items-center gap-4 mb-4">
+          <span className="text-amber-400 text-xs font-mono">01</span>
+          <div className="w-12 h-px bg-amber-400/50" />
         </div>
-
-        {/* Horizontal Scroll Container */}
-        <div 
-          ref={scrollContainerRef}
-          className="h-full flex items-center gap-8 px-6 md:px-12 lg:px-24 overflow-x-auto scrollbar-hide"
-          style={{ scrollBehavior: 'smooth' }}
+        <h2 
+          className="text-4xl md:text-5xl lg:text-6xl font-black text-white"
+          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
-          {/* Spacer for initial view */}
-          <div className="flex-shrink-0 w-[20vw]" />
+          Selected Work
+        </h2>
+        <p className="text-white/40 text-sm mt-4 max-w-md">
+          A collection of moments captured through my lens. Each project tells a unique story.
+        </p>
+      </div>
 
-          {PROJECTS.map((project, index) => (
-            <article 
-              key={project.id}
-              className="portfolio-item flex-shrink-0 relative group cursor-pointer"
-              onClick={() => openModal(project)}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              {/* Image Container */}
-              <div className="relative w-[70vw] md:w-[50vw] lg:w-[40vw] aspect-[4/3] overflow-hidden">
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  loading="lazy"
-                  className={`w-full h-full object-cover transition-all duration-700 ${
-                    hoveredIndex === index ? 'scale-105' : 'scale-100'
+      {/* Gallery Wall - O'Shane Howard Style Free-Floating Sections */}
+      <div className="px-6 md:px-12 lg:px-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          {categories.map((category, index) => {
+            const categoryProjects = PROJECTS.filter(p => p.category === category.id);
+            const isHovered = hoveredCategory === category.id;
+            
+            // Gradient backgrounds for each category
+            const gradients = [
+              'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+              'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)',
+              'linear-gradient(135deg, #2d1f3d 0%, #1a1a2e 50%, #16213e 100%)',
+              'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%)',
+            ];
+            
+            return (
+              <div
+                key={category.id}
+                className={`group relative aspect-[4/3] overflow-hidden cursor-pointer transition-all duration-500 ease-out ${
+                  isHovered ? 'scale-[1.02] z-10' : 'scale-100 z-0'
+                }`}
+                onMouseEnter={() => setHoveredCategory(category.id)}
+                onMouseLeave={() => setHoveredCategory(null)}
+              >
+                {/* Background */}
+                <div 
+                  className={`absolute inset-0 transition-transform duration-700 ease-out ${
+                    isHovered ? 'scale-110' : 'scale-100'
                   }`}
+                  style={{ background: gradients[index] }}
                 />
                 
-                {/* Overlay */}
-                <div className={`absolute inset-0 bg-black transition-opacity duration-500 ${
-                  hoveredIndex === index ? 'opacity-30' : 'opacity-0'
+                {/* Placeholder pattern for images */}
+                <div className="absolute inset-0 opacity-10">
+                  <div 
+                    className="w-full h-full"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                    }}
+                  />
+                </div>
+                
+                {/* Gradient overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent transition-opacity duration-500 ${
+                  isHovered ? 'opacity-70' : 'opacity-80'
                 }`} />
-              </div>
 
-              {/* Project Info */}
-              <div className="mt-6 flex justify-between items-start">
-                <div>
-                  <h3 
-                    className="text-2xl md:text-3xl font-bold text-white mb-2"
-                    style={{ fontFamily: "'Syne', sans-serif" }}
+                {/* Large category number */}
+                <div className="absolute top-4 left-6 md:top-6 md:left-8">
+                  <span 
+                    className={`text-6xl md:text-7xl lg:text-8xl font-black transition-all duration-500 ${
+                      isHovered ? 'text-white/30' : 'text-white/10'
+                    }`}
+                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                   >
-                    {project.title}
-                  </h3>
-                  <span className="text-xs tracking-[0.2em] uppercase text-amber-400">
-                    {project.category}
+                    {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
-                <span className="text-white/30 text-sm font-mono">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-              </div>
-            </article>
-          ))}
 
-          {/* End Spacer */}
-          <div className="flex-shrink-0 w-[20vw]" />
-        </div>
-
-        {/* Progress Indicator */}
-        <div className="absolute bottom-8 left-6 md:left-12 lg:left-24 right-6 md:right-12 lg:right-24 z-20">
-          <div className="flex items-center gap-4">
-            <span className="text-xs tracking-[0.2em] uppercase text-white/30">
-              Scroll
-            </span>
-            <div className="flex-1 h-px bg-white/10">
-              <div className="h-full bg-amber-400 w-0 transition-all duration-300" id="scroll-progress" />
-            </div>
-            <span className="text-xs text-white/30 font-mono">
-              {String(PROJECTS.length).padStart(2, '0')} Projects
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Project Modal */}
-      {selectedProject && (
-        <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center"
-          onClick={closeModal}
-        >
-          {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/95 backdrop-blur-sm" />
-          
-          {/* Modal Content */}
-          <div 
-            ref={modalRef}
-            className="relative z-10 w-full max-w-6xl max-h-[90vh] mx-4 overflow-y-auto bg-zinc-900 rounded-lg"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              onClick={closeModal}
-              className="absolute top-6 right-6 z-20 text-xs tracking-[0.2em] uppercase text-white/60 hover:text-white transition-colors"
-            >
-              [Close]
-            </button>
-
-            {/* Hero Image */}
-            <div className="relative aspect-video">
-              <img
-                src={selectedProject.imageUrl}
-                alt={selectedProject.title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent" />
-            </div>
-
-            {/* Content */}
-            <div className="p-8 md:p-12">
-              {/* Header */}
-              <div className="mb-8">
-                <span className="text-xs tracking-[0.2em] uppercase text-amber-400 mb-4 block">
-                  {selectedProject.category}
-                </span>
-                <h2 
-                  className="text-4xl md:text-5xl font-bold text-white mb-4"
-                  style={{ fontFamily: "'Syne', sans-serif" }}
-                >
-                  {selectedProject.title}
-                </h2>
-                <p className="text-lg text-white/70 max-w-2xl">
-                  {selectedProject.description}
-                </p>
-              </div>
-
-              {/* Details Grid */}
-              <div className="grid md:grid-cols-2 gap-12">
-                {/* Problem */}
-                {selectedProject.problem && (
-                  <div>
-                    <h3 className="text-xs tracking-[0.2em] uppercase text-white/50 mb-4">
-                      The Challenge
-                    </h3>
-                    <p className="text-white/70 leading-relaxed">
-                      {selectedProject.problem}
-                    </p>
+                {/* Content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                  {/* Category label */}
+                  <div className={`mb-2 transition-all duration-300 ${
+                    isHovered ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-60'
+                  }`}>
+                    <span className="text-amber-400 text-[10px] tracking-[0.3em] uppercase font-medium">
+                      {category.id}
+                    </span>
                   </div>
-                )}
+                  
+                  {/* Title */}
+                  <h3 
+                    className={`text-2xl md:text-3xl lg:text-4xl font-black text-white transition-all duration-300 ${
+                      isHovered ? 'translate-y-0' : 'translate-y-1'
+                    }`}
+                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                  >
+                    {category.title}
+                  </h3>
 
-                {/* Solution */}
-                {selectedProject.solution && (
-                  <div>
-                    <h3 className="text-xs tracking-[0.2em] uppercase text-white/50 mb-4">
-                      The Solution
-                    </h3>
-                    <p className="text-white/70 leading-relaxed">
-                      {selectedProject.solution}
-                    </p>
-                  </div>
-                )}
-              </div>
+                  {/* Subtitle */}
+                  <p className={`text-white/50 text-sm mt-2 transition-all duration-500 ${
+                    isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`}>
+                    {category.subtitle}
+                  </p>
 
-              {/* Tools & Links */}
-              <div className="mt-12 pt-8 border-t border-white/10">
-                <div className="flex flex-wrap gap-8 items-center justify-between">
-                  {/* Tools */}
-                  {selectedProject.tools && (
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProject.tools.map((tool) => (
-                        <span 
-                          key={tool}
-                          className="px-3 py-1 text-xs tracking-wide text-white/60 border border-white/20 rounded-full"
-                        >
-                          {tool}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Links */}
-                  <div className="flex gap-6">
-                    {selectedProject.githubUrl && (
-                      <a
-                        href={selectedProject.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs tracking-[0.2em] uppercase text-amber-400 hover:text-amber-300 transition-colors"
-                      >
-                        View Code →
-                      </a>
-                    )}
-                    {selectedProject.year && (
-                      <span className="text-xs tracking-[0.2em] uppercase text-white/30">
-                        {selectedProject.year}
-                      </span>
-                    )}
+                  {/* View indicator */}
+                  <div className={`mt-4 flex items-center gap-2 transition-all duration-500 ${
+                    isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
+                  }`}>
+                    <span className="text-white text-xs tracking-wider uppercase">View Gallery</span>
+                    <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
                   </div>
                 </div>
+
+                {/* Corner accent */}
+                <div className={`absolute top-0 right-0 transition-all duration-500 ${
+                  isHovered ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  <div className="absolute top-4 right-4 w-8 h-px bg-amber-400" />
+                  <div className="absolute top-4 right-4 w-px h-8 bg-amber-400" />
+                </div>
+
+                {/* Bottom line accent */}
+                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 to-amber-600 transition-all duration-500 origin-left ${
+                  isHovered ? 'scale-x-100' : 'scale-x-0'
+                }`} />
               </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
-      )}
-    </>
+      </div>
+
+      {/* Bottom info */}
+      <div className="px-6 md:px-12 lg:px-24 mt-16 flex justify-between items-center">
+        <span className="text-white/30 text-xs font-mono">
+          {categories.length} Categories
+        </span>
+        <span className="text-white/30 text-xs tracking-wider uppercase">
+          Click to explore
+        </span>
+      </div>
+    </section>
   );
 };
 

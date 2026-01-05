@@ -3,33 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Temsvision | Creative Director & Visual Storyteller</title>
-    <meta name="description" content="Temsvision is a creative director and visual storyteller crafting digital experiences through thoughtful design, web development, and brand identity." />
+    <title>TemsVision | Photographer, Creative Director & Visual Storyteller</title>
+    <meta name="description" content="TemsVision - Professional photography by Temilade Amire Quadri. Portraits, Sports, Weddings, and Events in Kalamazoo, Michigan. My Vision, Your Story." />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
-    <!-- Lenis for Smooth Scrolling -->
-    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Syne:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="TemsVision | Photographer, Creative Director & Visual Storyteller" />
+    <meta property="og:description" content="Professional photography by Temilade Amire Quadri. Capturing your vision, one frame at a time." />
+    <meta property="og:type" content="website" />
+    
     <style>
-      /* Correct Lenis CSS integration */
-      html.lenis, html.lenis body {
-        height: auto !important;
-      }
-      .lenis.lenis-smooth {
-        scroll-behavior: auto !important;
-      }
-      .lenis.lenis-smooth [data-lenis-prevent] {
-        overscroll-behavior: contain;
-      }
-      .lenis.lenis-stopped {
-        overflow: hidden;
-      }
-      .lenis.lenis-scrolling iframe {
-        pointer-events: none;
-      }
-
       /* Dark mode (default and only mode) */
       body {
         font-family: 'Inter', sans-serif;
@@ -39,17 +23,9 @@
         padding: 0;
       }
 
-      /* Custom cursor */
-      .custom-cursor {
-        width: 20px;
-        height: 20px;
-        background: #f59e0b;
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        mix-blend-mode: difference;
-        transition: transform 0.1s ease-out;
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
       }
 
       /* Hide scrollbar but keep functionality */
@@ -61,20 +37,10 @@
         display: none;
       }
 
-      /* Marquee animation */
-      .marquee-content {
-        display: flex;
-        width: fit-content;
-      }
-
-      /* Floating particles effect */
-      .particle {
-        position: absolute;
-        width: 4px;
-        height: 4px;
+      /* Selection color */
+      ::selection {
         background: #f59e0b;
-        border-radius: 50%;
-        pointer-events: none;
+        color: #000;
       }
 
       /* Button glow effect */
@@ -95,33 +61,10 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
       }
-
-      /* Outline text effect */
-      .outline-text {
-        -webkit-text-stroke: 2px #f59e0b;
-        -webkit-text-fill-color: transparent;
-      }
-
-      /* Selection color */
-      ::selection {
-        background: #f59e0b;
-        color: #000;
-      }
     </style>
   </head>
   <body>
     <div id="root"></div>
-    <div class="custom-cursor" id="cursor"></div>
-
-    <script>
-      const cursor = document.getElementById('cursor');
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-      });
-      document.addEventListener('mousedown', () => cursor.style.transform = 'scale(2.5)');
-      document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
-    </script>
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>

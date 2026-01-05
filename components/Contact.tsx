@@ -1,54 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { useTheme } from '../context/ThemeContext';
+import React, { useState } from 'react';
 import { SITE_CONFIG, SOCIAL_LINKS } from '../constants';
 
 const Contact: React.FC = () => {
-  const { theme } = useTheme();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    sessionType: '',
     message: ''
   });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    // @ts-ignore
-    const gsap = window.gsap;
-    // @ts-ignore
-    const ScrollTrigger = window.ScrollTrigger;
-    
-    if (gsap && ScrollTrigger) {
-      gsap.fromTo('.contact-title',
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '#contact',
-            start: 'top 80%',
-          }
-        }
-      );
-
-      gsap.fromTo('.contact-content',
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '#contact',
-            start: 'top 70%',
-          }
-        }
-      );
-    }
-  }, []);
+  const sessionTypes = [
+    'Birthday',
+    'Graduation',
+    'Group Session',
+    'Family',
+    'Boudoir',
+    'Wedding',
+    'Engagement',
+    'Portrait',
+    'Other'
+  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,14 +44,14 @@ const Contact: React.FC = () => {
       }
 
       setStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', sessionType: '', message: '' });
     } catch (err) {
       setStatus('error');
       setErrorMessage(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -93,37 +66,40 @@ const Contact: React.FC = () => {
       <div className="relative z-10 px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
         {/* Section Header */}
         <div className="mb-20">
-          <span className="text-xs tracking-[0.3em] uppercase text-amber-400 mb-4 block">
-            Get in Touch
-          </span>
+          <div className="flex items-center gap-4 mb-4">
+            <span className="text-amber-400 text-xs font-mono">04</span>
+            <div className="w-12 h-px bg-amber-400/50" />
+          </div>
           <h2 
-            className="contact-title text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight"
+            className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight"
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
-            Let's Work<br />Together
+            Let's Start<br />Your Journey
           </h2>
         </div>
 
-        <div className="contact-content grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Left Column - Info */}
           <div>
             <p className="text-xl md:text-2xl text-white/80 leading-relaxed mb-12">
-              Have a project in mind? I'd love to hear about it. Let's discuss 
-              how we can bring your vision to life.
+              Ready to capture your special moments? Let's discuss your vision 
+              and create something beautiful together.
             </p>
 
             {/* Contact Info */}
             <div className="space-y-8 mb-12">
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase text-white/40 mb-2">
-                  Email
+                  Instagram
                 </p>
                 <a 
-                  href={`mailto:${SITE_CONFIG.email}`}
+                  href={SOCIAL_LINKS.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-xl md:text-2xl font-bold text-white hover:text-amber-400 transition-colors"
                   style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                 >
-                  {SITE_CONFIG.email}
+                  {SITE_CONFIG.instagram}
                 </a>
               </div>
               <div>
@@ -145,43 +121,59 @@ const Contact: React.FC = () => {
                 Follow
               </p>
               <div className="flex gap-6">
-                <a 
-                  href={SOCIAL_LINKS.instagram} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
-                >
-                  Instagram
-                </a>
-                <a 
-                  href={SOCIAL_LINKS.linkedin} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
-                >
-                  LinkedIn
-                </a>
-                <a 
-                  href={SOCIAL_LINKS.github} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
-                >
-                  GitHub
-                </a>
+                {SOCIAL_LINKS.instagram && (
+                  <a 
+                    href={SOCIAL_LINKS.instagram} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
+                  >
+                    Instagram
+                  </a>
+                )}
+                {SOCIAL_LINKS.facebook && (
+                  <a 
+                    href={SOCIAL_LINKS.facebook} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
+                  >
+                    Facebook
+                  </a>
+                )}
+                {SOCIAL_LINKS.linkedin && (
+                  <a 
+                    href={SOCIAL_LINKS.linkedin} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
+                  >
+                    LinkedIn
+                  </a>
+                )}
+                {SOCIAL_LINKS.pinterest && (
+                  <a 
+                    href={SOCIAL_LINKS.pinterest} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
+                  >
+                    Pinterest
+                  </a>
+                )}
               </div>
             </div>
           </div>
 
           {/* Right Column - Form */}
-          <div className="contact-content">
+          <div>
             {status === 'success' ? (
               <div className="py-16 text-center">
                 <p className="text-3xl font-black text-white mb-4" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                   Thank You
                 </p>
                 <p className="text-base text-white/60 mb-8">
-                  I'll get back to you within 24 hours.
+                  I'll get back to you within 24 hours to discuss your session.
                 </p>
                 <button
                   onClick={() => setStatus('idle')}
@@ -213,7 +205,7 @@ const Contact: React.FC = () => {
                       htmlFor="name"
                       className="block text-xs tracking-[0.2em] uppercase text-white/40 mb-3"
                     >
-                      Name
+                      Your Name *
                     </label>
                     <input
                       type="text"
@@ -231,7 +223,7 @@ const Contact: React.FC = () => {
                       htmlFor="email"
                       className="block text-xs tracking-[0.2em] uppercase text-white/40 mb-3"
                     >
-                      Email
+                      Email Address *
                     </label>
                     <input
                       type="email"
@@ -245,13 +237,35 @@ const Contact: React.FC = () => {
                     />
                   </div>
                 </div>
+
+                <div>
+                  <label 
+                    htmlFor="sessionType"
+                    className="block text-xs tracking-[0.2em] uppercase text-white/40 mb-3"
+                  >
+                    What type of session are you looking for?
+                  </label>
+                  <select
+                    id="sessionType"
+                    name="sessionType"
+                    value={formData.sessionType}
+                    onChange={handleChange}
+                    className="w-full px-0 py-4 bg-transparent border-0 border-b border-white/20 text-white text-base focus:outline-none focus:border-amber-400 transition-colors appearance-none cursor-pointer"
+                    style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ffffff40'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right center', backgroundSize: '20px' }}
+                  >
+                    <option value="" className="bg-black">Select an option</option>
+                    {sessionTypes.map((type) => (
+                      <option key={type} value={type} className="bg-black">{type}</option>
+                    ))}
+                  </select>
+                </div>
                 
                 <div>
                   <label 
                     htmlFor="message"
                     className="block text-xs tracking-[0.2em] uppercase text-white/40 mb-3"
                   >
-                    Message
+                    Message *
                   </label>
                   <textarea
                     id="message"
@@ -260,7 +274,7 @@ const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    placeholder="Tell me about your project..."
+                    placeholder="Tell me about your vision..."
                     className="w-full px-0 py-4 bg-transparent border-0 border-b border-white/20 text-white text-base placeholder-white/30 focus:outline-none focus:border-amber-400 resize-none transition-colors"
                   />
                 </div>

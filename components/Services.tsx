@@ -1,126 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { useTheme } from '../context/ThemeContext';
-
-interface Service {
-  id: string;
-  number: string;
-  title: string;
-  description: string;
-}
-
-const SERVICES_DATA: Service[] = [
-  {
-    id: 'product',
-    number: '01',
-    title: 'Product Design',
-    description: 'End-to-end UX/UI design for web applications. From research and strategy to polished, production-ready interfaces.',
-  },
-  {
-    id: 'web',
-    number: '02',
-    title: 'Web Design',
-    description: 'Custom website design that combines stunning visuals with intuitive user experience. Responsive, accessible, and optimized.',
-  },
-  {
-    id: 'brand',
-    number: '03',
-    title: 'Brand Identity',
-    description: 'Comprehensive visual identity systems including logo design, typography, color palette, and brand guidelines.',
-  },
-  {
-    id: 'data',
-    number: '04',
-    title: 'Data & Analytics',
-    description: 'Turn complex data into clear insights. Interactive dashboards, visualizations, and analytics that help you make better decisions.',
-  },
-];
+import React, { useState } from 'react';
+import { SERVICES } from '../constants';
 
 const Services: React.FC = () => {
-  const [activeService, setActiveService] = useState<string>('product');
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    // @ts-ignore
-    const gsap = window.gsap;
-    // @ts-ignore
-    const ScrollTrigger = window.ScrollTrigger;
-    
-    if (gsap && ScrollTrigger) {
-      // Animate section title
-      gsap.fromTo('.services-title',
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '#services',
-            start: 'top 80%',
-          }
-        }
-      );
-
-      // Animate service items
-      gsap.fromTo('.service-item',
-        { opacity: 0, x: -30 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.services-list',
-            start: 'top 80%',
-          }
-        }
-      );
-
-      // Animate the border lines
-      gsap.fromTo('.service-line',
-        { scaleX: 0, transformOrigin: 'left center' },
-        {
-          scaleX: 1,
-          duration: 1,
-          stagger: 0.1,
-          ease: 'power3.inOut',
-          scrollTrigger: {
-            trigger: '.services-list',
-            start: 'top 80%',
-          }
-        }
-      );
-    }
-  }, []);
+  const [activeService, setActiveService] = useState<string>(SERVICES[0]?.id || '');
 
   return (
     <section id="services" className="py-32 md:py-40 bg-zinc-950">
       <div className="px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
         {/* Header */}
         <div className="mb-20">
-          <span className="text-xs tracking-[0.3em] uppercase text-amber-400 mb-4 block">
-            What I Do
-          </span>
+          <div className="flex items-center gap-4 mb-4">
+            <span className="text-amber-400 text-xs font-mono">03</span>
+            <div className="w-12 h-px bg-amber-400/50" />
+          </div>
           <h2 
-            className="services-title text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight"
+            className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight"
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             Services
           </h2>
+          <p className="text-white/40 text-sm mt-4 max-w-md">
+            Professional photography services tailored to capture your special moments.
+          </p>
         </div>
 
         {/* Services List */}
         <div className="services-list">
-          {SERVICES_DATA.map((service) => (
+          {SERVICES.map((service, index) => (
             <div
               key={service.id}
-              data-cursor="link"
               className="service-item group cursor-pointer"
               onMouseEnter={() => setActiveService(service.id)}
             >
               {/* Animated border */}
-              <div className="service-line h-px bg-white/10" />
+              <div className="h-px bg-white/10" />
               
               <div className="py-8 md:py-10 grid grid-cols-12 gap-4 items-start">
                 {/* Number */}
@@ -130,7 +43,7 @@ const Services: React.FC = () => {
                       ? 'text-amber-400'
                       : 'text-white/30'
                   }`}>
-                    {service.number}
+                    {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
 
@@ -144,7 +57,7 @@ const Services: React.FC = () => {
                     }`}
                     style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                   >
-                    {service.title}
+                    {service.name}
                   </h3>
                 </div>
 
@@ -157,6 +70,20 @@ const Services: React.FC = () => {
                   }`}>
                     {service.description}
                   </p>
+                  
+                  {/* Features */}
+                  <div className={`flex flex-wrap gap-2 mt-4 transition-all duration-500 ${
+                    activeService === service.id ? 'opacity-100' : 'opacity-0'
+                  }`}>
+                    {service.features.map((feature) => (
+                      <span 
+                        key={feature}
+                        className="px-3 py-1 text-xs text-amber-400/80 bg-amber-400/10 border border-amber-400/20"
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Arrow indicator */}
@@ -180,7 +107,23 @@ const Services: React.FC = () => {
           ))}
           
           {/* Bottom border */}
-          <div className="service-line h-px bg-white/10" />
+          <div className="h-px bg-white/10" />
+        </div>
+
+        {/* CTA */}
+        <div className="mt-16 text-center">
+          <p className="text-white/40 text-sm mb-6">
+            Ready to capture your story?
+          </p>
+          <a 
+            href="#contact"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-amber-400 text-black font-bold text-sm tracking-wider uppercase hover:bg-amber-300 transition-colors duration-300"
+          >
+            Book a Session
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
         </div>
       </div>
     </section>

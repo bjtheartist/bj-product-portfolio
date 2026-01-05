@@ -1,155 +1,152 @@
 import { Project, Service } from './types';
 
 export const SITE_CONFIG = {
-  name: 'Temsvision',
-  tagline: 'PHOTOGRAPHER & CREATIVE DIRECTOR',
-  location: 'Based Worldwide',
+  name: 'TemsVision',
+  tagline: 'PHOTOGRAPHER, CREATIVE DIRECTOR & VISUAL STORYTELLER',
+  location: 'Kalamazoo, Michigan',
   email: 'hello@temsvision.com',
+  instagram: '@TEMS.VISION',
+  fullName: 'Temilade Amire Quadri',
 };
 
 export const PROJECTS: Project[] = [
   {
     id: '0',
-    title: 'CommuniData',
-    category: 'PRODUCT DESIGN',
-    imageUrl: '/project-communidata.png',
-    description: 'A civic data platform that turns Chicago\'s neighborhood data into funding-ready reports and strategic insights for community leaders.',
-    tags: ['React', 'Data', 'Civic Tech'],
-    problem: 'Community leaders, chambers of commerce, and nonprofits in Chicago needed access to hyper-local data to make informed decisions and secure funding, but raw city data was scattered, hard to interpret, and not actionable.',
-    solution: 'Built a neighborhood intelligence platform covering all 77 Chicago community areas with 112K+ data points. Users can explore interactive maps, generate PDF reports, and extract strategic insights—turning raw civic data into funding-ready documentation.',
-    tools: ['React', 'TypeScript', 'Tailwind CSS', 'Data Visualization', 'PDF Generation'],
-    githubUrl: 'https://github.com/Dunosis/CommuniData',
-    year: '2025'
+    title: 'Golden Hour Portraits',
+    category: 'PORTRAITS',
+    imageUrl: '/project-portraits-1.jpg',
+    description: 'Vibrant portrait sessions capturing personality and style during the magical golden hour.',
+    tags: ['Portraits', 'Fashion', 'Golden Hour'],
+    problem: '',
+    solution: '',
+    tools: ['Canon', 'Natural Light', 'Adobe Lightroom'],
+    year: '2024'
   },
   {
     id: '1',
-    title: 'ChiStartup Hub',
-    category: 'WEB DESIGN',
-    imageUrl: '/project-chistartuphub.png',
-    description: 'A comprehensive resource hub for Chicago\'s startup ecosystem, featuring success stories, blueprints, and community resources.',
-    tags: ['React', 'TypeScript', 'Community'],
-    problem: 'Chicago founders were scattered across dozens of resources, Slack channels, and newsletters. There was no single place to find curated startup resources, learn from local exits, or connect with the ecosystem.',
-    solution: 'Built a centralized hub that aggregates Chicago startup resources, showcases success stories from real exits, and provides actionable blueprints for founders at every stage.',
-    tools: ['React', 'TypeScript', 'Tailwind CSS', 'Base44'],
-    githubUrl: 'https://github.com/bjtheartist/chistartuphub',
-    year: '2025'
+    title: 'Soccer Action Series',
+    category: 'SPORTS',
+    imageUrl: '/project-sports-1.jpg',
+    description: 'Dynamic sports photography capturing athletes in motion with dramatic skies.',
+    tags: ['Sports', 'Action', 'Athletes'],
+    problem: '',
+    solution: '',
+    tools: ['High-Speed Photography', 'Adobe Photoshop'],
+    year: '2024'
   },
   {
     id: '2',
-    title: '1871 Innovation Labs Calendar',
-    category: 'PRODUCT DESIGN',
-    imageUrl: '/project-innovationlabs.png',
-    description: 'An event discovery platform for 1871\'s Innovation Labs programs, featuring smart filtering by clusters, tracks, and event types.',
-    tags: ['React', 'Lovable', 'Events'],
-    problem: 'The tech innovation hub had dozens of events across multiple clusters (Emerging Tech, Tech for Good, Build Tech) and tracks (AI, Climate, Fintech, etc.). Founders couldn\'t easily find relevant events for their specific interests.',
-    solution: 'Designed and built a filterable calendar with multiple view modes (list, calendar, cards), allowing users to filter by Innovation Lab clusters, industry tracks, and event types like Connect Events, Signature Summits, and Innovation Weeks.',
-    tools: ['React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'Lovable'],
-    githubUrl: 'https://github.com/bjtheartist/innovationlabs-calendar',
-    year: '2025'
+    title: 'Engagement Sessions',
+    category: 'LOVE STORIES',
+    imageUrl: '/project-love-1.jpg',
+    description: 'Intimate moments captured with artistic film-style processing.',
+    tags: ['Couples', 'Engagement', 'Romance'],
+    problem: '',
+    solution: '',
+    tools: ['Film Emulation', 'Adobe Lightroom'],
+    year: '2024'
   },
   {
     id: '3',
-    title: 'RecipeVault',
-    category: 'WEB DESIGN',
-    imageUrl: '/project-recipevault.png',
-    description: 'A personal recipe management app with smart search, meal planning calendar, and grocery list generation.',
-    tags: ['React', 'Meal Planning', 'UX'],
-    problem: 'Home cooks struggle to organize recipes from different sources, plan weekly meals, and generate shopping lists. Existing apps are either too complex or lack key features.',
-    solution: 'Created an intuitive recipe vault with smart search by ingredients/cuisine/dietary preferences, a drag-and-drop meal planning calendar, custom collections, and personalized recommendations based on cooking history.',
-    tools: ['React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
-    year: '2025'
+    title: 'Timeless Monochrome',
+    category: 'B & W',
+    imageUrl: '/project-bw-1.jpg',
+    description: 'Classic black and white portraits emphasizing emotion and form.',
+    tags: ['Black & White', 'Fine Art', 'Portraits'],
+    problem: '',
+    solution: '',
+    tools: ['Black & White Processing', 'Adobe Lightroom'],
+    year: '2024'
   },
   {
     id: '4',
-    title: 'Fontis Food',
-    category: 'WEB DESIGN',
-    imageUrl: '/project-fontis.png',
-    description: 'A food ordering website for a South African Kota restaurant in Pretoria, featuring WhatsApp integration for seamless ordering.',
-    tags: ['React', 'Lovable', 'Food & Bev'],
-    problem: 'A local restaurant in Pretoria needed an online presence to showcase their menu and take orders, but didn\'t have the budget for a complex ordering system or delivery infrastructure.',
-    solution: 'Built a clean, appetizing website that showcases the menu with beautiful food photography and integrates directly with WhatsApp for ordering—meeting customers where they already are.',
-    tools: ['React', 'TypeScript', 'Tailwind CSS', 'Lovable', 'WhatsApp API'],
-    githubUrl: 'https://github.com/bjtheartist/fontis-food',
-    year: '2025'
+    title: 'Cultural Fashion',
+    category: 'PORTRAITS',
+    imageUrl: '/project-portraits-2.jpg',
+    description: 'Celebrating African fashion and culture through vibrant portrait photography.',
+    tags: ['Fashion', 'Culture', 'Style'],
+    problem: '',
+    solution: '',
+    tools: ['Studio Lighting', 'Adobe Photoshop'],
+    year: '2024'
   },
   {
     id: '5',
-    title: 'Sahara Tax Pro',
-    category: 'WEB DESIGN',
-    imageUrl: '/project-saharatax.png',
-    description: 'A professional website for a boutique tax preparation service, emphasizing trust, expertise, and personalized service.',
-    tags: ['Web Design', 'Professional Services', 'Branding'],
-    problem: 'A boutique tax preparation practice needed to differentiate from big-box tax services and communicate their personalized, human-centered approach to financial guidance.',
-    solution: 'Designed a sophisticated, trust-building website that emphasizes the boutique nature of the practice, highlights their dedication to understanding each client\'s unique story, and makes booking consultations frictionless.',
-    tools: ['React', 'TypeScript', 'Tailwind CSS'],
-    year: '2025'
-  },
-  {
-    id: '6',
-    title: 'Just AFC',
-    category: 'WEB DESIGN',
-    imageUrl: '/project-justafc.png',
-    description: 'A compassionate website for an adult foster care service, designed to build trust with families seeking care for their loved ones.',
-    tags: ['Healthcare', 'Web Design', 'Accessibility'],
-    problem: 'Families searching for adult foster care face an emotional, high-stakes decision. Most care facility websites feel clinical and impersonal, failing to convey the warmth and compassion families are looking for.',
-    solution: 'Created a warm, welcoming website that leads with compassion and respect. The design uses soft colors, genuine photography, and clear information architecture to help families feel confident in their choice.',
-    tools: ['React', 'TypeScript', 'Tailwind CSS'],
-    year: '2025'
+    title: 'Group Dynamics',
+    category: 'PORTRAITS',
+    imageUrl: '/project-portraits-3.jpg',
+    description: 'Group portraits capturing connections and relationships.',
+    tags: ['Groups', 'Friends', 'Connections'],
+    problem: '',
+    solution: '',
+    tools: ['Natural Light', 'Adobe Lightroom'],
+    year: '2024'
   }
 ];
 
 export const SERVICES: Service[] = [
   {
-    id: 'web-apps',
-    name: 'Web Applications',
-    description: 'Full-stack web applications built with modern tools. From idea to deployed product, I help bring digital products to life.',
-    imageUrl: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80',
-    features: ['React/Next.js', 'TypeScript', 'Tailwind CSS', 'Database Integration', 'API Development']
+    id: 'portraits',
+    name: 'Portrait Sessions',
+    description: 'Individual and group portrait sessions that capture your unique personality and style. From headshots to creative concepts.',
+    imageUrl: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80',
+    features: ['Individual Portraits', 'Group Sessions', 'Headshots', 'Creative Concepts', 'Golden Hour']
   },
   {
-    id: 'web-design',
-    name: 'Website Design',
-    description: 'Custom websites that tell your story. Clean, fast, and designed to convert visitors into customers.',
-    imageUrl: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800&q=80',
-    features: ['Custom Design', 'Responsive', 'SEO Ready', 'Fast Loading', 'CMS Integration']
+    id: 'sports',
+    name: 'Sports Photography',
+    description: 'Dynamic action shots that freeze the intensity and emotion of athletic performance.',
+    imageUrl: 'https://images.unsplash.com/photo-1461896836934- voices-of-the-game?w=800&q=80',
+    features: ['Action Shots', 'Team Photos', 'Athletic Portraits', 'Event Coverage']
   },
   {
-    id: 'rapid-prototyping',
-    name: 'Rapid Prototyping',
-    description: 'Quick iterations using no-code and low-code tools. Test ideas fast before committing to full development.',
-    imageUrl: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80',
-    features: ['Lovable', 'Bolt', 'Figma', 'Quick Turnaround', 'User Testing']
+    id: 'weddings',
+    name: 'Love Stories',
+    description: 'Engagement sessions, weddings, and couples photography that tells your unique love story.',
+    imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80',
+    features: ['Engagement Sessions', 'Wedding Photography', 'Couples Portraits', 'Anniversary Sessions']
   },
   {
-    id: 'data-viz',
-    name: 'Data & Dashboards',
-    description: 'Turn complex data into clear insights. Interactive dashboards and visualizations that help you make better decisions.',
-    imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
-    features: ['Data Visualization', 'Interactive Dashboards', 'Analytics', 'Reporting', 'Charts & Graphs']
+    id: 'events',
+    name: 'Events & Special Occasions',
+    description: 'Birthday parties, graduations, family gatherings, and milestone celebrations captured beautifully.',
+    imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',
+    features: ['Birthday Sessions', 'Graduation Photos', 'Family Sessions', 'Boudoir']
   }
 ];
 
 export const SKILLS = [
-  'React',
-  'Next.js',
-  'TypeScript',
-  'Tailwind CSS',
-  'Postgres',
-  'Supabase',
-  'Cloudflare',
-  'Google Analytics',
-  'Claude Code',
-  'Codex',
-  'Antigravity',
-  'Lovable',
-  'Bolt',
-  'Figma',
-  'Data Analysis',
-  'Photography'
+  'Portrait Photography',
+  'Sports Photography',
+  'Wedding Photography',
+  'Event Photography',
+  'Adobe Lightroom',
+  'Adobe Photoshop',
+  'Natural Light',
+  'Studio Lighting',
+  'Film Emulation',
+  'Black & White',
+  'Golden Hour',
+  'Action Shots'
 ];
 
 export const SOCIAL_LINKS = {
-  linkedin: 'https://linkedin.com/in/bjtheartist',
-  github: 'https://github.com/bjtheartist',
-  instagram: 'https://instagram.com/bjtheartist'
+  linkedin: 'https://www.linkedin.com/in/temilade-quadri-bbb980a8/',
+  github: '',
+  instagram: 'https://www.instagram.com/temsvision/',
+  facebook: 'https://www.facebook.com/temsvision',
+  pinterest: 'https://www.pinterest.com/homefeed/'
+};
+
+export const ABOUT_BIO = {
+  intro: "Hi, I am Temilade Amire Quadri.",
+  background: "I am a Nigerian American photographer born in New Jersey but raised in Nigeria. I currently live in Kalamazoo Michigan, U.S.",
+  story: "Photography for me started as a hobby. I started during the first Covid-19 pandemic lockdown in Michigan and this has evolved into a business called TemsVision. The name TemsVision came from my name Temilade pronounced (teh-meh-la-day) which in the Yoruba language of Western Nigeria means 'The crown is mine' and Temi pronounced (Tee-meeh) meaning 'Mine'. TemsVision basically means 'My Vision'.",
+  philosophy: "A vision without action is only a thought so contact me and let's make those ideas and imaginations a reality.",
+  approach: "I am no professional photographer because the learning curve in photography or life in general doesn't stop. I love challenges and those 'seemingly' impossible tasks, so I urge you to bring them on.",
+  nameMeaning: {
+    temilade: "The crown is mine",
+    temi: "Mine",
+    temsvision: "My Vision"
+  }
 };
