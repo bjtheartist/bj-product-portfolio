@@ -5,6 +5,7 @@ import { SITE_CONFIG } from '../constants';
 const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const [currentProject, setCurrentProject] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
   const { theme } = useTheme();
 
   // Sample hero images - these would be your featured project images
@@ -15,43 +16,10 @@ const Hero: React.FC = () => {
     '/project-fontis.png',
   ];
 
+  // Simple fade-in on mount
   useEffect(() => {
-    // @ts-ignore
-    const gsap = window.gsap;
-    if (!gsap) return;
-
-    // Entrance animations
-    const tl = gsap.timeline({ delay: 0.3 });
-
-    // Logo animation
-    tl.fromTo('.hero-logo',
-      { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }
-    );
-
-    // Tagline animation
-    tl.fromTo('.hero-tagline',
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-      '-=0.5'
-    );
-
-    // Scroll indicator
-    tl.fromTo('.scroll-indicator',
-      { opacity: 0 },
-      { opacity: 1, duration: 0.6, ease: 'power2.out' },
-      '-=0.3'
-    );
-
-    // Background image subtle animation
-    gsap.to('.hero-bg-image', {
-      scale: 1.05,
-      duration: 20,
-      ease: 'none',
-      repeat: -1,
-      yoyo: true,
-    });
-
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
   // Auto-rotate background images
@@ -79,7 +47,7 @@ const Hero: React.FC = () => {
         {heroImages.map((img, index) => (
           <div
             key={img}
-            className={`hero-bg-image absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-out ${
               index === currentProject ? 'opacity-40' : 'opacity-0'
             }`}
             style={{ backgroundImage: `url(${img})` }}
@@ -93,7 +61,11 @@ const Hero: React.FC = () => {
       {/* Main Content */}
       <div className="relative z-10 flex-1 flex flex-col justify-center items-center px-6">
         {/* Logo/Monogram */}
-        <div className="hero-logo mb-8">
+        <div 
+          className={`mb-8 transition-all duration-500 ease-out ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
           <div 
             className="text-[20vw] md:text-[15vw] lg:text-[12vw] font-black leading-none text-amber-400"
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
@@ -103,7 +75,11 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Tagline in brackets */}
-        <div className="hero-tagline text-center">
+        <div 
+          className={`text-center transition-all duration-500 ease-out delay-100 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          }`}
+        >
           <span 
             className="text-xs md:text-sm tracking-[0.3em] uppercase text-white/80"
             style={{ fontFamily: "'Inter', sans-serif" }}
@@ -115,26 +91,36 @@ const Hero: React.FC = () => {
 
       {/* Scroll Indicator */}
       <div 
-        className="scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 cursor-pointer group"
+        className={`absolute bottom-12 left-1/2 -translate-x-1/2 cursor-pointer group transition-all duration-500 ease-out delay-200 ${
+          isVisible ? 'opacity-100' : 'opacity-0'
+        }`}
         onClick={scrollToWork}
       >
         <div className="flex flex-col items-center gap-4">
-          <span className="text-[10px] tracking-[0.2em] uppercase text-white/50 group-hover:text-white/80 transition-colors">
+          <span className="text-[10px] tracking-[0.2em] uppercase text-white/50 group-hover:text-white/80 transition-colors duration-150">
             &lt;&lt; Scroll to Explore &gt;&gt;
           </span>
-          <div className="w-px h-12 bg-gradient-to-b from-white/50 to-transparent animate-pulse" />
+          <div className="w-px h-12 bg-gradient-to-b from-white/50 to-transparent" />
         </div>
       </div>
 
       {/* Project Counter */}
-      <div className="absolute bottom-12 right-6 md:right-12 lg:right-24 text-white/30 text-xs font-mono">
+      <div 
+        className={`absolute bottom-12 right-6 md:right-12 lg:right-24 text-white/30 text-xs font-mono transition-opacity duration-500 delay-300 ${
+          isVisible ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         <span className="text-white">{String(currentProject + 1).padStart(2, '0')}</span>
         <span className="mx-2">/</span>
         <span>{String(heroImages.length).padStart(2, '0')}</span>
       </div>
 
       {/* Location */}
-      <div className="absolute bottom-12 left-6 md:left-12 lg:left-24">
+      <div 
+        className={`absolute bottom-12 left-6 md:left-12 lg:left-24 transition-opacity duration-500 delay-300 ${
+          isVisible ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         <span className="text-[10px] tracking-[0.2em] uppercase text-white/50">
           {SITE_CONFIG.location}
         </span>

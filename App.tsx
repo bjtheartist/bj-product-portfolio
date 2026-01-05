@@ -8,7 +8,6 @@ import Services from './components/Services';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import MagneticCursor from './components/MagneticCursor';
 
 const AppContent: React.FC = () => {
   const { theme } = useTheme();
@@ -30,7 +29,7 @@ const AppContent: React.FC = () => {
   useEffect(() => {
     if (!isLoading) {
       // Small delay before showing content for smooth transition
-      setTimeout(() => setShowContent(true), 100);
+      setTimeout(() => setShowContent(true), 50);
     }
   }, [isLoading]);
 
@@ -41,63 +40,22 @@ const AppContent: React.FC = () => {
     const gsap = window.gsap;
     // @ts-ignore
     const ScrollTrigger = window.ScrollTrigger;
-    // @ts-ignore
-    const Lenis = window.Lenis;
 
     if (gsap && ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Check if device is touch-enabled (mobile/tablet)
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      // Simple ScrollTrigger setup without Lenis for better performance
+      // Native browser scrolling is smoother on most modern browsers
+      
+      // Refresh ScrollTrigger after content loads
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 300);
 
-      // Only use Lenis on desktop - it interferes with native mobile scrolling
-      if (!isTouchDevice && Lenis) {
-        const lenis = new Lenis({
-          duration: 1.4,
-          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          orientation: 'vertical',
-          gestureOrientation: 'vertical',
-          smoothWheel: true,
-          wheelMultiplier: 0.8,
-          normalizeWheel: true,
-        });
-
-        // Expose lenis globally so modals can stop/start it
-        // @ts-ignore
-        window.lenis = lenis;
-
-        function raf(time: number) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        lenis.on('scroll', ScrollTrigger.update);
-
-        // Refresh ScrollTrigger after content loads
-        const timer = setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 500);
-
-        return () => {
-          clearTimeout(timer);
-          lenis.destroy();
-          // @ts-ignore
-          window.lenis = null;
-          ScrollTrigger.getAll().forEach((t: any) => t.kill());
-        };
-      } else {
-        // Mobile: just use native scrolling with ScrollTrigger
-        // Refresh ScrollTrigger after content loads
-        const timer = setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 500);
-
-        return () => {
-          clearTimeout(timer);
-          ScrollTrigger.getAll().forEach((t: any) => t.kill());
-        };
-      }
+      return () => {
+        clearTimeout(timer);
+        ScrollTrigger.getAll().forEach((t: any) => t.kill());
+      };
     }
   }, [showContent]);
 
@@ -109,16 +67,12 @@ const AppContent: React.FC = () => {
     <>
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       
-      {/* Custom Magnetic Cursor - only on desktop */}
-      {showContent && <MagneticCursor />}
-      
-      <main className={`relative min-h-screen overflow-x-hidden bg-black text-white selection:bg-amber-400 selection:text-black ${showContent ? 'opacity-100' : 'opacity-0'}`}
-      style={{ transition: 'opacity 0.6s ease-out' }}
+      <main 
+        className={`relative min-h-screen overflow-x-hidden bg-black text-white selection:bg-amber-400 selection:text-black transition-opacity duration-300 ease-out ${
+          showContent ? 'opacity-100' : 'opacity-0'
+        }`}
       >
         <Navbar />
-
-        {/* Subtle noise texture overlay */}
-        <div className="fixed inset-0 z-[1] pointer-events-none opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat"></div>
 
         <div className="relative z-10">
           <Hero />

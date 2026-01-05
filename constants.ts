@@ -2,7 +2,7 @@ import { Project, Service } from './types';
 
 export const SITE_CONFIG = {
   name: 'Temsvision',
-  tagline: 'CREATIVE DIRECTOR & VISUAL STORYTELLER',
+  tagline: 'PHOTOGRAPHER & CREATIVE DIRECTOR',
   location: 'Based Worldwide',
   email: 'hello@temsvision.com',
 };
