@@ -1,5 +1,12 @@
 import { Project, Service } from './types';
 
+export const SITE_CONFIG = {
+  name: 'Temsvision',
+  tagline: 'CREATIVE DIRECTOR & VISUAL STORYTELLER',
+  location: 'Based Worldwide',
+  email: 'hello@temsvision.com',
+};
+
 export const PROJECTS: Project[] = [
   {
     id: '0',

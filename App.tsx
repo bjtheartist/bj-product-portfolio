@@ -8,7 +8,6 @@ import Services from './components/Services';
 import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import ThemeToggle from './components/ThemeToggle';
 import MagneticCursor from './components/MagneticCursor';
 
 const AppContent: React.FC = () => {
@@ -113,15 +112,10 @@ const AppContent: React.FC = () => {
       {/* Custom Magnetic Cursor - only on desktop */}
       {showContent && <MagneticCursor />}
       
-      <main className={`relative min-h-screen overflow-x-hidden transition-colors duration-700 ${
-        theme === 'dark'
-          ? 'bg-black text-white selection:bg-white selection:text-black'
-          : 'bg-white text-black selection:bg-black selection:text-white'
-      } ${showContent ? 'opacity-100' : 'opacity-0'}`}
+      <main className={`relative min-h-screen overflow-x-hidden bg-black text-white selection:bg-amber-400 selection:text-black ${showContent ? 'opacity-100' : 'opacity-0'}`}
       style={{ transition: 'opacity 0.6s ease-out' }}
       >
         <Navbar />
-        <ThemeToggle />
 
         {/* Subtle noise texture overlay */}
         <div className="fixed inset-0 z-[1] pointer-events-none opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat"></div>

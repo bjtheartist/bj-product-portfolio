@@ -46,29 +46,22 @@ const Services: React.FC = () => {
     const ScrollTrigger = window.ScrollTrigger;
     
     if (gsap && ScrollTrigger) {
-      // Split and animate header text
-      const headerTitle = document.querySelector('.services-header h2');
-      if (headerTitle) {
-        const text = headerTitle.textContent || '';
-        headerTitle.innerHTML = text.split('').map(char => 
-          `<span class="char inline-block" style="opacity: 0; transform: translateY(60px) rotateX(45deg);">${char === ' ' ? '&nbsp;' : char}</span>`
-        ).join('');
-        
-        gsap.to('.services-header .char', {
+      // Animate section title
+      gsap.fromTo('.services-title',
+        { opacity: 0, y: 50 },
+        {
           opacity: 1,
           y: 0,
-          rotateX: 0,
-          duration: 0.6,
-          stagger: 0.03,
+          duration: 1,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: '#services',
             start: 'top 80%',
           }
-        });
-      }
+        }
+      );
 
-      // Animate service items with line drawing effect
+      // Animate service items
       gsap.fromTo('.service-item',
         { opacity: 0, x: -30 },
         {
@@ -102,17 +95,16 @@ const Services: React.FC = () => {
   }, []);
 
   return (
-    <section id="services" className={`py-24 md:py-32 lg:py-40 transition-colors duration-500 ${
-      theme === 'dark' ? 'bg-zinc-950' : 'bg-zinc-50'
-    }`}>
+    <section id="services" className="py-32 md:py-40 bg-zinc-950">
       <div className="px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
         {/* Header */}
-        <div className="services-header mb-16 md:mb-20" style={{ perspective: '1000px' }}>
+        <div className="mb-20">
+          <span className="text-xs tracking-[0.3em] uppercase text-amber-400 mb-4 block">
+            What I Do
+          </span>
           <h2 
-            className={`text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight ${
-              theme === 'dark' ? 'text-white' : 'text-black'
-            }`}
-            style={{ fontFamily: "'Syne', sans-serif", transformStyle: 'preserve-3d' }}
+            className="services-title text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight"
+            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             Services
           </h2>
@@ -128,17 +120,15 @@ const Services: React.FC = () => {
               onMouseEnter={() => setActiveService(service.id)}
             >
               {/* Animated border */}
-              <div className={`service-line h-px ${
-                theme === 'dark' ? 'bg-white/10' : 'bg-black/10'
-              }`} />
+              <div className="service-line h-px bg-white/10" />
               
               <div className="py-8 md:py-10 grid grid-cols-12 gap-4 items-start">
                 {/* Number */}
                 <div className="col-span-2 md:col-span-1">
-                  <span className={`text-[11px] font-medium tracking-wider transition-all duration-500 ${
+                  <span className={`text-sm font-mono transition-all duration-500 ${
                     activeService === service.id
-                      ? theme === 'dark' ? 'text-white' : 'text-black'
-                      : theme === 'dark' ? 'text-zinc-600' : 'text-zinc-400'
+                      ? 'text-amber-400'
+                      : 'text-white/30'
                   }`}>
                     {service.number}
                   </span>
@@ -147,23 +137,23 @@ const Services: React.FC = () => {
                 {/* Title */}
                 <div className="col-span-10 md:col-span-4">
                   <h3 
-                    className={`text-xl md:text-2xl font-bold tracking-tight transition-all duration-500 ${
+                    className={`text-2xl md:text-3xl font-black tracking-tight transition-all duration-500 ${
                       activeService === service.id
-                        ? theme === 'dark' ? 'text-white translate-x-2' : 'text-black translate-x-2'
-                        : theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
+                        ? 'text-white translate-x-2'
+                        : 'text-white/50'
                     }`}
-                    style={{ fontFamily: "'Syne', sans-serif" }}
+                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                   >
                     {service.title}
                   </h3>
                 </div>
 
                 {/* Description */}
-                <div className="col-span-12 md:col-span-7 md:pl-8">
+                <div className="col-span-12 md:col-span-6 md:pl-8">
                   <p className={`text-sm md:text-base leading-relaxed max-w-lg transition-all duration-500 ${
                     activeService === service.id
-                      ? theme === 'dark' ? 'text-zinc-400 opacity-100' : 'text-zinc-600 opacity-100'
-                      : theme === 'dark' ? 'text-zinc-600 opacity-60' : 'text-zinc-400 opacity-60'
+                      ? 'text-white/70 opacity-100'
+                      : 'text-white/40 opacity-60'
                   }`}>
                     {service.description}
                   </p>
@@ -180,7 +170,7 @@ const Services: React.FC = () => {
                     fill="none" 
                     stroke="currentColor" 
                     strokeWidth="2"
-                    className={theme === 'dark' ? 'text-white' : 'text-black'}
+                    className="text-amber-400"
                   >
                     <path d="M7 17L17 7M17 7H7M17 7V17"/>
                   </svg>
@@ -190,9 +180,7 @@ const Services: React.FC = () => {
           ))}
           
           {/* Bottom border */}
-          <div className={`service-line h-px ${
-            theme === 'dark' ? 'bg-white/10' : 'bg-black/10'
-          }`} />
+          <div className="service-line h-px bg-white/10" />
         </div>
       </div>
     </section>

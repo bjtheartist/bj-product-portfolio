@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { SITE_CONFIG, SOCIAL_LINKS } from '../constants';
 
 const Contact: React.FC = () => {
   const { theme } = useTheme();
@@ -18,12 +19,27 @@ const Contact: React.FC = () => {
     const ScrollTrigger = window.ScrollTrigger;
     
     if (gsap && ScrollTrigger) {
-      gsap.fromTo('.contact-content',
+      gsap.fromTo('.contact-title',
         { opacity: 0, y: 50 },
         {
           opacity: 1,
           y: 0,
           duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '#contact',
+            start: 'top 80%',
+          }
+        }
+      );
+
+      gsap.fromTo('.contact-content',
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.2,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: '#contact',
@@ -70,94 +86,123 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className={`py-24 md:py-32 lg:py-40 transition-colors duration-500 ${
-      theme === 'dark' ? 'bg-zinc-950' : 'bg-zinc-50'
-    }`}>
-      <div className="px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
-        <div className="contact-content grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-          {/* Left Column */}
-          <div className="lg:col-span-5">
-            <h2 
-              className={`text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8 ${
-                theme === 'dark' ? 'text-white' : 'text-black'
-              }`}
-              style={{ fontFamily: "'Syne', sans-serif" }}
-            >
-              Let's work<br />together
-            </h2>
+    <section id="contact" className="relative py-32 md:py-40 bg-black overflow-hidden">
+      {/* Background Accent */}
+      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-amber-400/5 to-transparent pointer-events-none" />
 
-            <p className={`text-base md:text-lg leading-relaxed mb-12 max-w-md ${
-              theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'
-            }`}>
-              Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your vision to life.
+      <div className="relative z-10 px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
+        {/* Section Header */}
+        <div className="mb-20">
+          <span className="text-xs tracking-[0.3em] uppercase text-amber-400 mb-4 block">
+            Get in Touch
+          </span>
+          <h2 
+            className="contact-title text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight"
+            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          >
+            Let's Work<br />Together
+          </h2>
+        </div>
+
+        <div className="contact-content grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+          {/* Left Column - Info */}
+          <div>
+            <p className="text-xl md:text-2xl text-white/80 leading-relaxed mb-12">
+              Have a project in mind? I'd love to hear about it. Let's discuss 
+              how we can bring your vision to life.
             </p>
 
             {/* Contact Info */}
-            <div className="space-y-6">
+            <div className="space-y-8 mb-12">
               <div>
-                <p className={`text-[10px] font-medium tracking-[0.2em] uppercase mb-2 ${
-                  theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
-                }`}>
+                <p className="text-xs tracking-[0.2em] uppercase text-white/40 mb-2">
                   Email
                 </p>
                 <a 
-                  href="mailto:hello@bjtheartist.com"
-                  className={`text-lg font-medium hover:opacity-70 transition-opacity ${
-                    theme === 'dark' ? 'text-white' : 'text-black'
-                  }`}
+                  href={`mailto:${SITE_CONFIG.email}`}
+                  className="text-xl md:text-2xl font-bold text-white hover:text-amber-400 transition-colors"
+                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                 >
-                  hello@bjtheartist.com
+                  {SITE_CONFIG.email}
                 </a>
               </div>
               <div>
-                <p className={`text-[10px] font-medium tracking-[0.2em] uppercase mb-2 ${
-                  theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
-                }`}>
+                <p className="text-xs tracking-[0.2em] uppercase text-white/40 mb-2">
                   Location
                 </p>
-                <p className={`text-lg font-medium ${
-                  theme === 'dark' ? 'text-white' : 'text-black'
-                }`}>
-                  Chicago, Illinois
+                <p 
+                  className="text-xl md:text-2xl font-bold text-white"
+                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                >
+                  {SITE_CONFIG.location}
                 </p>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div>
+              <p className="text-xs tracking-[0.2em] uppercase text-white/40 mb-4">
+                Follow
+              </p>
+              <div className="flex gap-6">
+                <a 
+                  href={SOCIAL_LINKS.instagram} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
+                >
+                  Instagram
+                </a>
+                <a 
+                  href={SOCIAL_LINKS.linkedin} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
+                >
+                  LinkedIn
+                </a>
+                <a 
+                  href={SOCIAL_LINKS.github} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-sm tracking-[0.1em] uppercase text-white/60 hover:text-amber-400 transition-colors"
+                >
+                  GitHub
+                </a>
               </div>
             </div>
           </div>
 
           {/* Right Column - Form */}
-          <div className="lg:col-span-7">
+          <div className="contact-content">
             {status === 'success' ? (
-              <div className={`py-16 text-center ${
-                theme === 'dark' ? 'text-white' : 'text-black'
-              }`}>
-                <p className="text-2xl font-medium mb-4">Thank you for reaching out.</p>
-                <p className={`text-base ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+              <div className="py-16 text-center">
+                <p className="text-3xl font-black text-white mb-4" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                  Thank You
+                </p>
+                <p className="text-base text-white/60 mb-8">
                   I'll get back to you within 24 hours.
                 </p>
                 <button
                   onClick={() => setStatus('idle')}
-                  className={`mt-8 text-sm font-medium hover:opacity-70 transition-opacity ${
-                    theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'
-                  }`}
+                  className="text-xs tracking-[0.2em] uppercase text-amber-400 hover:text-amber-300 transition-colors"
                 >
-                  Send another message
+                  [Send Another Message]
                 </button>
               </div>
             ) : status === 'error' ? (
-              <div className={`py-16 text-center ${
-                theme === 'dark' ? 'text-white' : 'text-black'
-              }`}>
-                <p className="text-2xl font-medium mb-4 text-red-500">Oops, something went wrong.</p>
-                <p className={`text-base ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+              <div className="py-16 text-center">
+                <p className="text-3xl font-black text-red-500 mb-4" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                  Oops
+                </p>
+                <p className="text-base text-white/60 mb-8">
                   {errorMessage}
                 </p>
                 <button
                   onClick={() => setStatus('idle')}
-                  className={`mt-8 text-sm font-medium hover:opacity-70 transition-opacity ${
-                    theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'
-                  }`}
+                  className="text-xs tracking-[0.2em] uppercase text-amber-400 hover:text-amber-300 transition-colors"
                 >
-                  Try again
+                  [Try Again]
                 </button>
               </div>
             ) : (
@@ -166,9 +211,7 @@ const Contact: React.FC = () => {
                   <div>
                     <label 
                       htmlFor="name"
-                      className={`block text-[10px] font-medium tracking-[0.2em] uppercase mb-3 ${
-                        theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
-                      }`}
+                      className="block text-xs tracking-[0.2em] uppercase text-white/40 mb-3"
                     >
                       Name
                     </label>
@@ -180,19 +223,13 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       required
                       placeholder="Your name"
-                      className={`w-full px-0 py-4 bg-transparent border-0 border-b text-base focus:outline-none focus:ring-0 transition-colors ${
-                        theme === 'dark' 
-                          ? 'border-white/10 text-white placeholder-zinc-600 focus:border-white/30' 
-                          : 'border-black/10 text-black placeholder-zinc-400 focus:border-black/30'
-                      }`}
+                      className="w-full px-0 py-4 bg-transparent border-0 border-b border-white/20 text-white text-base placeholder-white/30 focus:outline-none focus:border-amber-400 transition-colors"
                     />
                   </div>
                   <div>
                     <label 
                       htmlFor="email"
-                      className={`block text-[10px] font-medium tracking-[0.2em] uppercase mb-3 ${
-                        theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
-                      }`}
+                      className="block text-xs tracking-[0.2em] uppercase text-white/40 mb-3"
                     >
                       Email
                     </label>
@@ -204,11 +241,7 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       required
                       placeholder="your@email.com"
-                      className={`w-full px-0 py-4 bg-transparent border-0 border-b text-base focus:outline-none focus:ring-0 transition-colors ${
-                        theme === 'dark' 
-                          ? 'border-white/10 text-white placeholder-zinc-600 focus:border-white/30' 
-                          : 'border-black/10 text-black placeholder-zinc-400 focus:border-black/30'
-                      }`}
+                      className="w-full px-0 py-4 bg-transparent border-0 border-b border-white/20 text-white text-base placeholder-white/30 focus:outline-none focus:border-amber-400 transition-colors"
                     />
                   </div>
                 </div>
@@ -216,9 +249,7 @@ const Contact: React.FC = () => {
                 <div>
                   <label 
                     htmlFor="message"
-                    className={`block text-[10px] font-medium tracking-[0.2em] uppercase mb-3 ${
-                      theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
-                    }`}
+                    className="block text-xs tracking-[0.2em] uppercase text-white/40 mb-3"
                   >
                     Message
                   </label>
@@ -230,29 +261,29 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     placeholder="Tell me about your project..."
-                    className={`w-full px-0 py-4 bg-transparent border-0 border-b text-base focus:outline-none focus:ring-0 resize-none transition-colors ${
-                      theme === 'dark' 
-                        ? 'border-white/10 text-white placeholder-zinc-600 focus:border-white/30' 
-                        : 'border-black/10 text-black placeholder-zinc-400 focus:border-black/30'
-                    }`}
+                    className="w-full px-0 py-4 bg-transparent border-0 border-b border-white/20 text-white text-base placeholder-white/30 focus:outline-none focus:border-amber-400 resize-none transition-colors"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className={`group inline-flex items-center gap-3 text-sm font-medium tracking-wide transition-all duration-300 ${
-                    status === 'sending' ? 'opacity-50' : ''
-                  } ${
-                    theme === 'dark'
-                      ? 'text-white hover:text-zinc-300'
-                      : 'text-black hover:text-zinc-600'
+                  className={`group inline-flex items-center gap-4 px-8 py-4 bg-amber-400 text-black text-sm font-bold tracking-[0.1em] uppercase transition-all duration-300 hover:bg-amber-300 ${
+                    status === 'sending' ? 'opacity-50 cursor-not-allowed' : ''
                   }`}
                 >
-                  <span className={`w-12 h-px transition-all duration-300 group-hover:w-16 ${
-                    theme === 'dark' ? 'bg-white' : 'bg-black'
-                  }`} />
                   {status === 'sending' ? 'Sending...' : 'Send Message'}
+                  <svg 
+                    width="16" 
+                    height="16" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2"
+                    className="transition-transform group-hover:translate-x-1"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
                 </button>
               </form>
             )}

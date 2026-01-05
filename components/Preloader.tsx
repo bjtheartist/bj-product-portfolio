@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
+import { SITE_CONFIG } from '../constants';
 
 const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
@@ -11,7 +12,7 @@ const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
     const gsap = window.gsap;
     
     // Simulate loading progress
-    const duration = 2.5; // Total loading time in seconds
+    const duration = 2.5;
     const startTime = Date.now();
     
     const updateProgress = () => {
@@ -22,7 +23,6 @@ const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
       if (newProgress < 100) {
         requestAnimationFrame(updateProgress);
       } else {
-        // Start exit animation
         setTimeout(() => {
           setIsExiting(true);
           
@@ -33,22 +33,17 @@ const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
               }
             });
             
-            tl.to('.preloader-text', {
-              y: -100,
+            tl.to('.preloader-content', {
+              y: -50,
               opacity: 0,
               duration: 0.6,
               ease: 'power3.inOut'
             })
-            .to('.preloader-line', {
-              scaleX: 0,
-              duration: 0.4,
-              ease: 'power3.inOut'
-            }, '-=0.3')
             .to('.preloader-container', {
               yPercent: -100,
               duration: 0.8,
               ease: 'power4.inOut'
-            }, '-=0.2');
+            }, '-=0.3');
           } else {
             setTimeout(onComplete, 800);
           }
@@ -64,87 +59,85 @@ const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
     const gsap = window.gsap;
     if (!gsap) return;
 
-    // Entrance animation
-    gsap.fromTo('.preloader-name span', 
-      { y: 100, opacity: 0 },
-      { 
-        y: 0, 
-        opacity: 1, 
-        duration: 0.8, 
-        stagger: 0.05,
-        ease: 'power3.out',
-        delay: 0.2
-      }
+    // Entrance animations
+    gsap.fromTo('.preloader-logo', 
+      { scale: 0.8, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2 }
     );
     
     gsap.fromTo('.preloader-tagline',
-      { opacity: 0 },
-      { opacity: 1, duration: 0.6, delay: 0.8 }
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, delay: 0.6 }
     );
     
     gsap.fromTo('.preloader-progress',
       { opacity: 0 },
-      { opacity: 1, duration: 0.4, delay: 1 }
-    );
-    
-    gsap.fromTo('.preloader-line',
-      { scaleX: 0 },
-      { scaleX: 1, duration: 0.6, delay: 0.6, ease: 'power2.out' }
+      { opacity: 1, duration: 0.4, delay: 0.8 }
     );
   }, []);
 
-  const nameLetters = 'BILLY NDIZEYE'.split('');
+  // Animated number display
+  const digits = progress.toString().padStart(3, '0').split('');
 
   return (
-    <div 
-      className={`preloader-container fixed inset-0 z-[200] flex flex-col items-center justify-center ${
-        theme === 'dark' ? 'bg-black' : 'bg-white'
-      }`}
-    >
-      <div className="preloader-text flex flex-col items-center">
-        {/* Name */}
-        <h1 className="preloader-name overflow-hidden mb-4">
-          <span className="flex">
-            {nameLetters.map((letter, i) => (
-              <span 
-                key={i} 
-                className={`inline-block text-[8vw] md:text-[5vw] font-black tracking-tight ${
-                  letter === ' ' ? 'w-[2vw]' : ''
-                } ${theme === 'dark' ? 'text-white' : 'text-black'}`}
-                style={{ fontFamily: "'Syne', sans-serif" }}
-              >
-                {letter === ' ' ? '\u00A0' : letter}
-              </span>
-            ))}
+    <div className="preloader-container fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black">
+      <div className="preloader-content flex flex-col items-center">
+        {/* Logo */}
+        <div className="preloader-logo mb-8">
+          <span 
+            className="text-[25vw] md:text-[18vw] lg:text-[15vw] font-black text-amber-400 leading-none"
+            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          >
+            TV
           </span>
-        </h1>
+        </div>
         
-        {/* Line */}
-        <div 
-          className={`preloader-line w-24 h-px mb-6 origin-left ${
-            theme === 'dark' ? 'bg-white/30' : 'bg-black/30'
-          }`}
-        />
-        
-        {/* Tagline - no label */}
-        <p className={`preloader-tagline text-[10px] md:text-xs font-medium tracking-[0.3em] uppercase mb-8 ${
-          theme === 'dark' ? 'text-white/50' : 'text-black/50'
-        }`}>
-          Chicago, IL
+        {/* Tagline */}
+        <p className="preloader-tagline text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/50 mb-12">
+          [{SITE_CONFIG.tagline}]
         </p>
         
-        {/* Progress */}
-        <div className="preloader-progress flex items-center gap-4">
-          <span className={`text-[10px] font-mono tracking-wider ${
-            theme === 'dark' ? 'text-white/30' : 'text-black/30'
-          }`}>
+        {/* Progress Display - Animated Counter Style */}
+        <div className="preloader-progress flex items-center gap-2">
+          <span className="text-[10px] font-mono tracking-wider text-white/30 mr-4">
             LOADING
           </span>
-          <span className={`text-sm font-mono tabular-nums ${
-            theme === 'dark' ? 'text-white' : 'text-black'
-          }`}>
-            {progress.toString().padStart(3, '0')}
-          </span>
+          
+          {/* Animated Digits */}
+          <div className="flex">
+            {digits.map((digit, index) => (
+              <div 
+                key={index} 
+                className="relative w-6 h-8 overflow-hidden"
+              >
+                <div 
+                  className="absolute inset-0 flex flex-col items-center transition-transform duration-100"
+                  style={{ 
+                    transform: `translateY(-${parseInt(digit) * 10}%)`,
+                  }}
+                >
+                  {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                    <span 
+                      key={num}
+                      className="text-xl font-mono text-white h-8 flex items-center justify-center"
+                    >
+                      {num}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <span className="text-xl font-mono text-amber-400 ml-1">%</span>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="mt-8 w-48 h-px bg-white/10">
+          <div 
+            className="h-full bg-amber-400 transition-all duration-100"
+            style={{ width: `${progress}%` }}
+          />
         </div>
       </div>
     </div>
