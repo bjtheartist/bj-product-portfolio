@@ -67,13 +67,13 @@ const Navbar: React.FC = () => {
               className="relative z-[60]"
             >
               <img 
-                src="/temsvision-logo.png" 
+                src="/temsvision-logo-transparent.png" 
                 alt="TemsVision"
                 className="w-10 md:w-12 h-auto"
                 style={{ 
                   filter: isMenuOpen 
                     ? 'none' 
-                    : 'invert(1) brightness(2)'
+                    : 'invert(1) brightness(1.5)'
                 }}
               />
             </a>

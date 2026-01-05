@@ -19,11 +19,11 @@ const Footer: React.FC = () => {
           {/* Logo */}
           <div className="flex items-center gap-3 sm:gap-4">
             <img 
-              src="/temsvision-logo.png" 
+              src="/temsvision-logo-transparent.png" 
               alt="TemsVision"
               className="w-8 sm:w-10 h-auto"
               style={{ 
-                filter: 'invert(1) brightness(2)'
+                filter: 'invert(1) brightness(1.5)'
               }}
             />
             <span 
