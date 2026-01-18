@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="theme-color" content="#FAF9F6" />
+    <meta name="color-scheme" content="light" />
+    
+    <title>TemsVision | Photographer, Creative Director & Visual Storyteller</title>
+    <meta name="description" content="TemsVision - Professional photography by Temilade Amire Quadri. Portraits, Sports, Weddings, and Events in Kalamazoo, Michigan. My Vision, Your Story." />
+    <link rel="canonical" href="https://temsvision.com" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Performance hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    
+    <!-- Fonts - Bebas Neue for bold headlines, Inter for body text -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="TemsVision | Photographer, Creative Director & Visual Storyteller" />
+    <meta property="og:description" content="Professional photography by Temilade Amire Quadri. Capturing your vision, one frame at a time." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://temsvision.com" />
+    <meta property="og:image" content="https://temsvision.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="TemsVision Photography" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TemsVision | Photographer, Creative Director & Visual Storyteller" />
+    <meta name="twitter:description" content="Professional photography by Temilade Amire Quadri. Capturing your vision, one frame at a time." />
+    <meta name="twitter:image" content="https://temsvision.com/og-image.jpg" />
+
+    <style>
+      /* 
+        BASE STYLES
+        These are the foundational styles for the neobrutalist design.
+        
+        WHAT IS CSS?
+        CSS (Cascading Style Sheets) is like the paint and decorations for your website.
+        HTML is the structure (walls, floors), CSS is the style (colors, fonts, spacing).
+      */
+      
+      * {
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        /* The warm cream background - signature of this design */
+        background-color: #FAF9F6;
+        color: #1A1A1A;
+      }
+
+      /* Smooth scrolling when clicking navigation links */
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      /* Accessibility: Reduce motion for users who prefer it */
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      /* Selection color - what happens when you highlight text */
+      ::selection {
+        background: #3b82f6;
+        color: #FAF9F6;
+      }
+
+      /* Focus styles for accessibility */
+      :focus-visible {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+      }
+      
+      /* Safe area insets for phones with notches */
+      body {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+
+      /* Custom scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: #FAF9F6;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: #1A1A1A;
+        border-radius: 4px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: #3b82f6;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+      THE ROOT ELEMENT
+      This is where React will inject your entire website.
+      Think of it as an empty picture frame that React fills with your content.
+    -->
+    <div id="root"></div>
+    
+    <!-- 
+      THE SCRIPT
+      This loads your React application.
+      The "module" type tells the browser this is modern JavaScript.
+    -->
+    <script type="module" src="/index.neobrutalist.tsx"></script>
+  </body>
+</html>
