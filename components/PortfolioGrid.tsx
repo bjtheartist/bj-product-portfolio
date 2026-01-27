@@ -31,6 +31,7 @@ interface Project {
   title: string;
   skills: string[];
   description: string;
+  sector: string;
   problem: string;
   tools: ProjectTool[];
   effectiveness: ProjectEffectiveness;
@@ -48,6 +49,7 @@ const PROJECTS: Project[] = [
     title: 'ChiStartupHub',
     skills: ['Full-Stack', 'Supabase', 'React', 'Next.js'],
     description: 'The launchpad for Chicago founders',
+    sector: 'Startup Ecosystem',
     problem: 'Chicago founders struggled to navigate the fragmented startup ecosystem. Information about investors, co-working spaces, and founder communities was scattered across dozens of websites, making it difficult for new entrepreneurs to find the resources they needed.',
     tools: [
       { name: 'Supabase', reason: 'Backend-as-a-service for PostgreSQL database, real-time subscriptions, and built-in authentication.' },
@@ -68,6 +70,7 @@ const PROJECTS: Project[] = [
     title: 'CommuniData',
     skills: ['Data Viz', 'Django', 'React', 'Redis'],
     description: 'Chicago neighborhood intelligence platform',
+    sector: 'Civic Tech',
     problem: 'Chicago\'s open data portal contains valuable civic information, but it\'s inaccessible to average residents. Raw datasets require technical expertise to interpret, leaving community members unable to leverage data for neighborhood advocacy.',
     tools: [
       { name: 'Django', reason: 'Python-based backend for robust ORM, admin interface, and data processing capabilities.' },
@@ -88,6 +91,7 @@ const PROJECTS: Project[] = [
     title: 'Makarios',
     skills: ['Mobile App', 'React Native', 'Firebase', 'Expo'],
     description: 'Faith-based mobile devotional app',
+    sector: 'Faith & Community',
     problem: 'Faith communities needed a mobile-first devotional experience that felt personal and accessible. Existing apps were either too cluttered with features or lacked the warmth needed for daily spiritual practice.',
     tools: [
       { name: 'React Native', reason: 'Cross-platform mobile development for iOS and Android from a single codebase.' },
@@ -107,7 +111,8 @@ const PROJECTS: Project[] = [
     id: 'kivara-flow',
     title: 'Kivara Flow',
     skills: ['Product Design', 'Convex', 'React', 'TypeScript'],
-    description: 'Design and development workflow tool',
+    description: 'Project management application',
+    sector: 'Project Management',
     problem: 'Creative teams waste significant time context-switching between design tools, project management apps, and development environments. The lack of a unified workflow creates friction that slows down the concept-to-code pipeline.',
     tools: [
       { name: 'Convex', reason: 'Real-time backend database for reactive data sync—essential for collaborative workflows.' },
@@ -127,7 +132,8 @@ const PROJECTS: Project[] = [
     id: 'temsvision',
     title: 'TemsVision',
     skills: ['Web Design', 'Sanity CMS', 'React', 'Vite'],
-    description: 'Photography portfolio with neobrutalist aesthetic',
+    description: 'Creative photography portfolio',
+    sector: 'Creative Portfolio',
     problem: 'Photographers often struggle with portfolio websites that either look generic or require expensive subscriptions. TemsVision needed a distinctive online presence that would stand out while making it easy for clients to book sessions.',
     tools: [
       { name: 'Sanity CMS', reason: 'Headless CMS enabling the photographer to manage galleries and add photos without code.' },
@@ -149,6 +155,7 @@ const PROJECTS: Project[] = [
     title: 'Sahara Tax Pro',
     skills: ['Full-Stack', 'Next.js', 'React', 'FinTech'],
     description: 'Boutique tax preparation platform',
+    sector: 'FinTech',
     problem: 'Small tax preparation businesses struggle to compete with large firms like H&R Block and TurboTax. They needed a professional online presence that conveys trust while making it easy for clients to book consultations.',
     tools: [
       { name: 'Next.js', reason: 'SEO optimization crucial for local business discovery, plus fast page loads that build trust.' },
@@ -178,13 +185,38 @@ const SkillTag: React.FC<{ skill: string }> = memo(({ skill }) => (
 SkillTag.displayName = 'SkillTag';
 
 // ============================================
-// EFFECTIVENESS BADGE COMPONENT
+// SECTOR BADGE COMPONENT
 // ============================================
-const EffectivenessBadge: React.FC<{ status: 'effective' | 'partially-effective' | 'in-progress' }> = memo(({ status }) => {
+const SectorBadge: React.FC<{ sector: string }> = memo(({ sector }) => {
+  // Color mapping for different sectors
+  const sectorColors: Record<string, string> = {
+    'Startup Ecosystem': 'bg-emerald-600',
+    'Civic Tech': 'bg-blue-600',
+    'Faith & Community': 'bg-purple-600',
+    'Project Management': 'bg-orange-600',
+    'Creative Portfolio': 'bg-pink-600',
+    'FinTech': 'bg-green-600',
+  };
+  
+  const color = sectorColors[sector] || 'bg-gray-600';
+  
+  return (
+    <span className={`inline-flex items-center gap-1 px-2 py-1 text-[10px] uppercase tracking-wider ${color} text-white font-bold rounded`}>
+      <span>{sector}</span>
+    </span>
+  );
+});
+
+SectorBadge.displayName = 'SectorBadge';
+
+// ============================================
+// STATUS BADGE COMPONENT (for modal only)
+// ============================================
+const StatusBadge: React.FC<{ status: 'effective' | 'partially-effective' | 'in-progress' }> = memo(({ status }) => {
   const config = {
-    'effective': { label: 'Effective', color: 'bg-green-500', icon: '✓' },
-    'partially-effective': { label: 'Partial', color: 'bg-yellow-500', icon: '~' },
-    'in-progress': { label: 'In Progress', color: 'bg-blue-500', icon: '◐' }
+    'effective': { label: 'Shipped', color: 'bg-green-500', icon: '✓' },
+    'partially-effective': { label: 'Beta', color: 'bg-yellow-500', icon: '~' },
+    'in-progress': { label: 'Building', color: 'bg-blue-500', icon: '◐' }
   };
   
   const { label, color, icon } = config[status];
@@ -197,7 +229,7 @@ const EffectivenessBadge: React.FC<{ status: 'effective' | 'partially-effective'
   );
 });
 
-EffectivenessBadge.displayName = 'EffectivenessBadge';
+StatusBadge.displayName = 'StatusBadge';
 
 // ============================================
 // PROJECT MODAL COMPONENT - 3 SWIPEABLE SCREENS
@@ -365,7 +397,7 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
             {/* Screen 3: Results */}
             <div className="w-full flex-shrink-0 p-6 sm:p-8 md:p-10 min-h-[400px]">
               <div className="flex items-center gap-3 mb-6">
-                <EffectivenessBadge status={project.effectiveness.status} />
+                <StatusBadge status={project.effectiveness.status} />
                 <h3 className="text-xl sm:text-2xl font-black text-[#1A1A1A]" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                   Results & Impact
                 </h3>
@@ -493,9 +525,9 @@ const ProjectCard: React.FC<ProjectCardProps> = memo(({ project, index, isInView
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/95 via-[#1A1A1A]/50 to-transparent" />
 
-        {/* Effectiveness Badge */}
+        {/* Sector Badge */}
         <div className="absolute top-3 right-3">
-          <EffectivenessBadge status={project.effectiveness.status} />
+          <SectorBadge sector={project.sector} />
         </div>
 
         {/* Content */}
