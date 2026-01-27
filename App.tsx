@@ -83,13 +83,6 @@ const AppNeobrutalist: React.FC = () => {
           background-color: #FAF9F6;
         }
 
-        /* White cursor on dark backgrounds */
-        .bg-\\[\\#1A1A1A\\],
-        [style*="background-color: rgb(26, 26, 26)"],
-        [style*="background: rgb(26, 26, 26)"] {
-          cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%23FFFFFF' d='M0 0l8 20 3-8 8-3z'/%3E%3C/svg%3E") 0 0, auto;
-        }
-
         /* Selection color */
         ::selection {
           background: #3b82f6;
