@@ -175,7 +175,7 @@ const Hero: React.FC = () => {
       {/* Background Image Container */}
       <div ref={bgImageRef} className="absolute inset-0 z-0">
         <img
-          src="https://picsum.photos/seed/hero/1920/1080"
+          src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=1080&fit=crop"
           alt="Urban Background"
           className="w-full h-full object-cover brightness-[0.45] contrast-[1.05] transition-all duration-1000"
         />
