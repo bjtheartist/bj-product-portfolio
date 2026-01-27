@@ -46,63 +46,6 @@ const SectionLoader: React.FC = () => {
 };
 
 // ============================================
-// CUSTOM CURSOR COMPONENT
-// ============================================
-/**
- * WHAT THIS DOES:
- * Creates a custom cursor like Lorenzo's site - a soft blue circle
- * that follows your mouse with a slight delay.
- * 
- * This adds a playful, interactive feel to the site.
- */
-const CustomCursor: React.FC = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      setIsVisible(true);
-    };
-
-    const handleMouseLeave = () => {
-      setIsVisible(false);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, []);
-
-  // Don't show custom cursor on touch devices
-  if (typeof window !== 'undefined' && 'ontouchstart' in window) {
-    return null;
-  }
-
-  return (
-    <div
-      className={`fixed pointer-events-none z-[100] transition-opacity duration-300 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
-      style={{
-        left: position.x - 15,
-        top: position.y - 15,
-        width: 30,
-        height: 30,
-        backgroundColor: 'rgba(59, 130, 246, 0.3)',
-        borderRadius: '50%',
-        transform: 'translate(0, 0)',
-        transition: 'left 0.1s ease-out, top 0.1s ease-out',
-      }}
-    />
-  );
-};
-
-// ============================================
 // MAIN APP COMPONENT
 // ============================================
 const AppNeobrutalist: React.FC = () => {
@@ -134,18 +77,19 @@ const AppNeobrutalist: React.FC = () => {
       <style>{`
         html {
           scroll-behavior: smooth;
-          cursor: none;
         }
-        
+
         body {
           background-color: #FAF9F6;
-          cursor: none;
         }
-        
-        a, button {
-          cursor: none;
+
+        /* White cursor on dark backgrounds */
+        .bg-\\[\\#1A1A1A\\],
+        [style*="background-color: rgb(26, 26, 26)"],
+        [style*="background: rgb(26, 26, 26)"] {
+          cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%23FFFFFF' d='M0 0l8 20 3-8 8-3z'/%3E%3C/svg%3E") 0 0, auto;
         }
-        
+
         /* Selection color */
         ::selection {
           background: #3b82f6;
@@ -171,10 +115,7 @@ const AppNeobrutalist: React.FC = () => {
         }
       `}</style>
 
-      {/* Custom Cursor */}
-      <CustomCursor />
-
-      {/* 
+      {/*
         MAIN CONTENT
         The structure is:
         1. Navigation (always visible at top)
