@@ -77,10 +77,16 @@ const AppNeobrutalist: React.FC = () => {
       <style>{`
         html {
           scroll-behavior: smooth;
+          cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23dc2626' stroke='%23FFFFFF' stroke-width='1.5' d='M1 1l12 28 4-12 12-4z'/%3E%3C/svg%3E") 0 0, auto;
         }
 
         body {
           background-color: #FAF9F6;
+          cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23dc2626' stroke='%23FFFFFF' stroke-width='1.5' d='M1 1l12 28 4-12 12-4z'/%3E%3C/svg%3E") 0 0, auto;
+        }
+
+        a, button, [role="button"] {
+          cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23dc2626' stroke='%23FFFFFF' stroke-width='1.5' d='M1 1l12 28 4-12 12-4z'/%3E%3C/svg%3E") 0 0, pointer;
         }
 
         /* Selection color */
