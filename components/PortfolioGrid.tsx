@@ -46,103 +46,105 @@ const PROJECTS: Project[] = [
   {
     id: 'chistartuphub',
     title: 'ChiStartupHub',
-    skills: ['Full-Stack', 'React', 'Civic Tech', 'Directory'],
+    skills: ['Full-Stack', 'Supabase', 'React', 'Next.js'],
     description: 'The launchpad for Chicago founders',
     problem: 'Chicago founders struggled to navigate the fragmented startup ecosystem. Information about investors, co-working spaces, and founder communities was scattered across dozens of websites, making it difficult for new entrepreneurs to find the resources they needed.',
     tools: [
+      { name: 'Supabase', reason: 'Backend-as-a-service for PostgreSQL database, real-time subscriptions, and built-in authentication.' },
       { name: 'React', reason: 'Component-based architecture for reusable directory listings and search functionality.' },
-      { name: 'TypeScript', reason: 'Type safety to prevent runtime errors as the directory scaled.' },
-      { name: 'Tailwind CSS', reason: 'Rapid prototyping without custom CSS.' },
-      { name: 'Vercel', reason: 'Seamless deployment with automatic previews.' }
+      { name: 'Next.js', reason: 'Server-side rendering for SEO optimization and API routes for backend logic.' },
+      { name: 'Node.js', reason: 'Server-side operations and API integrations with external data sources.' }
     ],
     effectiveness: {
       status: 'effective',
       description: 'Successfully consolidated Chicago\'s startup ecosystem into a single, searchable platform.',
       metrics: ['90+ investors', '18+ co-working spaces', '22+ communities']
     },
-    image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&h=600&fit=crop',
+    image: '/projects/chistartuphub.png',
     size: 'large',
     liveUrl: 'https://www.chistartuphub.com'
   },
   {
     id: 'communidata',
     title: 'CommuniData',
-    skills: ['Data Viz', 'Full-Stack', 'React', 'Python'],
+    skills: ['Data Viz', 'Django', 'React', 'Redis'],
     description: 'Chicago neighborhood intelligence platform',
     problem: 'Chicago\'s open data portal contains valuable civic information, but it\'s inaccessible to average residents. Raw datasets require technical expertise to interpret, leaving community members unable to leverage data for neighborhood advocacy.',
     tools: [
-      { name: 'React', reason: 'Interactive foundation for dynamic data visualizations.' },
-      { name: 'Python', reason: 'Data processing pipelines to clean and transform civic datasets.' },
-      { name: 'D3.js', reason: 'Custom interactive visualizations beyond standard charts.' },
-      { name: 'Mapbox', reason: 'High-performance mapping for geographic data patterns.' }
+      { name: 'Django', reason: 'Python-based backend for robust ORM, admin interface, and data processing.' },
+      { name: 'Vite', reason: 'Modern build tool for fast development and optimized production builds.' },
+      { name: 'Redis', reason: 'In-memory caching for frequently accessed datasets and improved response times.' },
+      { name: 'Celery', reason: 'Distributed task queue for background data processing and syncing.' }
     ],
     effectiveness: {
       status: 'in-progress',
       description: 'Currently in development. The Trust Layer concept addresses a key gap in civic tech.',
-      metrics: ['Map explorer built', 'Report wizard prototyped', 'Trust Layer validated']
+      metrics: ['Map explorer built', 'Report wizard prototyped', '6,263 data points synced']
     },
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
+    image: '/projects/communidata.png',
     size: 'small',
     githubUrl: 'https://github.com/Dunosis/CommuniData'
   },
   {
     id: 'makarios',
     title: 'Makarios',
-    skills: ['Web Design', 'Frontend', 'Ministry', 'Community'],
+    skills: ['Web Design', 'Firebase', 'Sanity CMS', 'React'],
     description: 'Faith-based community platform',
     problem: 'Faith communities needed a digital space that felt warm and inviting rather than corporate. Existing church websites often felt outdated or overly complex, creating barriers to connection for newcomers.',
     tools: [
+      { name: 'Firebase', reason: 'Real-time database, authentication, and hosting for community features.' },
+      { name: 'Sanity CMS', reason: 'Headless CMS for non-technical staff to update sermons and events.' },
       { name: 'React', reason: 'Smooth, app-like experience that feels modern and welcoming.' },
-      { name: 'Tailwind CSS', reason: 'Rapid iteration to achieve warm, purposeful aesthetic.' },
-      { name: 'Framer Motion', reason: 'Subtle animations creating peace and intentionality.' }
+      { name: 'Tailwind CSS', reason: 'Rapid iteration to achieve warm, purposeful aesthetic.' }
     ],
     effectiveness: {
       status: 'effective',
       description: 'Successfully bridges traditional faith values with modern digital expectations.',
-      metrics: ['Clean design', 'Mobile-first', 'Positive feedback']
+      metrics: ['Clean design', 'Mobile-first', 'Content-managed']
     },
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
+    image: '/projects/makarios.png',
     size: 'small',
     githubUrl: 'https://github.com/bjtheartist/Makarios'
   },
   {
     id: 'kivara-flow',
     title: 'Kivara Flow',
-    skills: ['Product Design', 'TypeScript', 'Workflow', 'SaaS'],
+    skills: ['Product Design', 'Convex', 'React', 'TypeScript'],
     description: 'Design and development workflow tool',
     problem: 'Creative teams waste significant time context-switching between design tools, project management apps, and development environments. The lack of a unified workflow creates friction that slows down the concept-to-code pipeline.',
     tools: [
-      { name: 'TypeScript', reason: 'Essential for building a reliable tool developers will trust.' },
+      { name: 'Convex', reason: 'Real-time backend database for reactive data sync in collaborative workflows.' },
       { name: 'React', reason: 'Flexibility for complex, interactive interface with real-time updates.' },
-      { name: 'Zustand', reason: 'Lightweight state management for complex workflow states.' }
+      { name: 'TypeScript', reason: 'Essential for building a reliable tool developers will trust.' },
+      { name: 'Tailwind CSS', reason: 'Rapid UI development with consistent styling across panels.' }
     ],
     effectiveness: {
       status: 'in-progress',
       description: 'In active development. Core concept addresses real pain point of unifying workflows.',
-      metrics: ['Workflow engine built', 'Architecture designed', 'Testing planned']
+      metrics: ['Workflow engine built', 'Project tracking live', 'Client portal integrated']
     },
-    image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=600&fit=crop',
+    image: '/projects/kivara-flow.png',
     size: 'large',
     githubUrl: 'https://github.com/bjtheartist/kivara-flow'
   },
   {
     id: 'temsvision',
     title: 'TemsVision',
-    skills: ['Web Design', 'React', 'Photography', 'Vite'],
+    skills: ['Web Design', 'Sanity CMS', 'React', 'Vite'],
     description: 'Photography portfolio with neobrutalist aesthetic',
     problem: 'Photographers often struggle with portfolio websites that either look generic or require expensive subscriptions. TemsVision needed a distinctive online presence that would stand out while making it easy for clients to book sessions.',
     tools: [
+      { name: 'Sanity CMS', reason: 'Headless CMS for photographer to manage galleries without touching code.' },
       { name: 'React', reason: 'Smooth gallery interactions and lazy loading for high-res images.' },
       { name: 'Vite', reason: 'Fast development builds and optimized production bundles.' },
-      { name: 'Tailwind CSS', reason: 'Neobrutalist aesthetic with bold typography.' },
       { name: 'GSAP', reason: 'Premium scroll-based animations elevating above templates.' }
     ],
     effectiveness: {
       status: 'effective',
       description: 'Successfully differentiates from template-based portfolios with memorable brand impression.',
-      metrics: ['Live & deployed', 'Distinctive identity', 'Booking integrated', 'Fast loads']
+      metrics: ['Live & deployed', 'Distinctive identity', 'Content-managed', 'Fast loads']
     },
-    image: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=800&h=600&fit=crop',
+    image: '/projects/temsvision.png',
     size: 'small',
     liveUrl: 'https://temsvision-website.vercel.app/',
     githubUrl: 'https://github.com/bjtheartist/temsvision-website'
@@ -150,7 +152,7 @@ const PROJECTS: Project[] = [
   {
     id: 'sahara-tax-pro',
     title: 'Sahara Tax Pro',
-    skills: ['Full-Stack', 'Next.js', 'FinTech', 'Business'],
+    skills: ['Full-Stack', 'Next.js', 'React', 'FinTech'],
     description: 'Boutique tax preparation platform',
     problem: 'Small tax preparation businesses struggle to compete with large firms like H&R Block and TurboTax. They needed a professional online presence that conveys trust while making it easy for clients to book consultations.',
     tools: [
@@ -164,7 +166,7 @@ const PROJECTS: Project[] = [
       description: 'Successfully positions boutique firm to compete with larger competitors.',
       metrics: ['Live & serving clients', 'IRS compliant', '24h response', 'Professional brand']
     },
-    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=600&fit=crop',
+    image: '/projects/sahara-tax-pro.png',
     size: 'small',
     liveUrl: 'https://saharataxpro.com/'
   }
