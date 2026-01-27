@@ -1,144 +1,267 @@
-import React, { useEffect, useState, useMemo, memo } from 'react';
-import { SITE_CONFIG } from '../constants';
-import { useTheme } from '../context/ThemeContext';
+import React, { useEffect, useState, memo } from 'react';
 
 interface PreloaderProps {
   onComplete: () => void;
 }
 
-// Memoized digit component for performance
-const Digit = memo<{ value: number }>(({ value }) => (
-  <span 
-    className="inline-block w-8 text-center tabular-nums"
-    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-  >
-    {value}
-  </span>
-));
-
-Digit.displayName = 'Digit';
-
+/**
+ * Preloader Component - Lorenzo Dal Dosso Inspired
+ *
+ * Premium morphing animation sequence:
+ * 1. Thin horizontal LINE appears in center
+ * 2. Line EXPANDS vertically into a perfect SQUARE
+ * 3. Square SHRINKS into a progress bar at center
+ * 4. Progress bar fills with loading animation
+ * 5. Staggered entrance reveals page content
+ */
 const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
-  const { isDark } = useTheme();
+  const [phase, setPhase] = useState<'line' | 'expand' | 'shrink' | 'loading' | 'reveal' | 'done'>('line');
   const [progress, setProgress] = useState(0);
-  const [isExiting, setIsExiting] = useState(false);
 
-  // Smooth eased progress animation using requestAnimationFrame
+  // Phase transitions
   useEffect(() => {
-    const duration = 2000;
-    const startTime = performance.now();
-    let animationId: number;
-    
-    const easeOutQuart = (t: number): number => 1 - Math.pow(1 - t, 4);
-    
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const linearProgress = Math.min(elapsed / duration, 1);
-      const easedProgress = easeOutQuart(linearProgress) * 100;
-      
-      setProgress(easedProgress);
-      
-      if (linearProgress < 1) {
-        animationId = requestAnimationFrame(animate);
-      }
-    };
-    
-    animationId = requestAnimationFrame(animate);
-    
-    return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
-    };
+    const timers: NodeJS.Timeout[] = [];
+
+    // Phase 1: Show line, then expand to square
+    timers.push(setTimeout(() => setPhase('expand'), 400));
+
+    // Phase 2: After expanding, shrink to progress bar
+    timers.push(setTimeout(() => setPhase('shrink'), 1200));
+
+    // Phase 3: Start loading animation
+    timers.push(setTimeout(() => setPhase('loading'), 1800));
+
+    return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
-  // Handle completion
+  // Animate the loading progress
   useEffect(() => {
-    if (progress >= 99.9) {
-      const exitTimer = setTimeout(() => {
-        setIsExiting(true);
-        setTimeout(onComplete, 400);
-      }, 150);
-      
-      return () => clearTimeout(exitTimer);
+    if (phase === 'loading') {
+      const duration = 1500;
+      const startTime = performance.now();
+      let animationId: number;
+
+      const easeOutQuart = (t: number): number => 1 - Math.pow(1 - t, 4);
+
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const linearProgress = Math.min(elapsed / duration, 1);
+        const easedProgress = easeOutQuart(linearProgress) * 100;
+
+        setProgress(easedProgress);
+
+        if (linearProgress < 1) {
+          animationId = requestAnimationFrame(animate);
+        } else {
+          setTimeout(() => setPhase('reveal'), 300);
+        }
+      };
+
+      animationId = requestAnimationFrame(animate);
+
+      return () => {
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+      };
     }
-  }, [progress, onComplete]);
+  }, [phase]);
 
-  // Calculate display value
-  const displayValue = Math.min(Math.round(progress), 100);
+  // Complete and exit
+  useEffect(() => {
+    if (phase === 'reveal') {
+      const timer = setTimeout(() => {
+        setPhase('done');
+        onComplete();
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [phase, onComplete]);
 
-  // Memoize the formatted digits
-  const formattedDigits = useMemo(() => {
-    const str = displayValue.toString().padStart(3, '0');
-    return str.split('').map(Number);
-  }, [displayValue]);
+  if (phase === 'done') return null;
+
+  // Calculate dimensions based on phase
+  const getShapeStyles = () => {
+    switch (phase) {
+      case 'line':
+        return {
+          width: '120px',
+          height: '2px',
+          borderRadius: '1px',
+        };
+      case 'expand':
+        return {
+          width: '200px',
+          height: '200px',
+          borderRadius: '0px',
+        };
+      case 'shrink':
+      case 'loading':
+        return {
+          width: '280px',
+          height: '4px',
+          borderRadius: '2px',
+        };
+      default:
+        return {
+          width: '280px',
+          height: '4px',
+          borderRadius: '2px',
+        };
+    }
+  };
 
   return (
-    <div 
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center transition-all duration-500 ${
-        isExiting ? 'opacity-0 scale-105' : 'opacity-100 scale-100'
-      } ${isDark ? 'bg-black' : 'bg-white'}`}
-    >
-      {/* Logo - Using actual TemsVision logo image */}
-      <div 
-        className={`mb-4 transition-all duration-500 ${
-          isExiting ? 'scale-110 opacity-0' : 'scale-100 opacity-100'
+    <>
+      <style>{`
+        @keyframes slideUp {
+          0% {
+            transform: translateY(0);
+          }
+          100% {
+            transform: translateY(-100%);
+          }
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 0.4;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+
+        .morphing-shape {
+          transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        .reveal-animation {
+          animation: slideUp 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+      `}</style>
+
+      {/* Full screen overlay */}
+      <div
+        className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#1A1A1A] ${
+          phase === 'reveal' ? 'reveal-animation' : ''
         }`}
       >
-        <img 
-          src="/temsvision-logo.png" 
-          alt="TemsVision Logo"
-          className="w-32 h-auto object-contain"
-          style={{ 
-            filter: isDark ? 'invert(1) brightness(2)' : 'none'
-          }}
-        />
-      </div>
+        {/* Morphing shape container */}
+        <div className="relative flex flex-col items-center justify-center">
+          {/* The morphing element */}
+          <div
+            className="morphing-shape bg-[#dc2626] overflow-hidden"
+            style={getShapeStyles()}
+          >
+            {/* Progress fill (only visible in loading phase) */}
+            {(phase === 'shrink' || phase === 'loading') && (
+              <div
+                className="h-full bg-white transition-all duration-75 ease-linear"
+                style={{
+                  width: `${progress}%`,
+                  opacity: phase === 'loading' ? 1 : 0,
+                }}
+              />
+            )}
+          </div>
 
-      {/* Tagline */}
-      <p className={`text-[10px] tracking-[0.2em] uppercase mb-8 ${
-        isDark ? 'text-white/40' : 'text-black/40'
-      }`}>
-        [{SITE_CONFIG.tagline}]
-      </p>
+          {/* Content that appears during expand phase */}
+          {phase === 'expand' && (
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{
+                animation: 'fadeInUp 0.4s ease-out forwards',
+              }}
+            >
+              <span
+                className="text-white text-4xl font-black"
+                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              >
+                ◆
+              </span>
+            </div>
+          )}
 
-      {/* Counter Display - Simple and smooth */}
-      <div className="flex items-baseline justify-center">
-        <div 
-          className={`text-5xl md:text-6xl font-light tracking-tight ${
-            isDark ? 'text-white' : 'text-black'
-          }`}
-          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-        >
-          {formattedDigits.map((digit, index) => (
-            <Digit key={index} value={digit} />
-          ))}
+          {/* Loading text and percentage */}
+          {(phase === 'shrink' || phase === 'loading') && (
+            <div
+              className="mt-8 flex flex-col items-center gap-4"
+              style={{
+                animation: 'fadeInUp 0.4s ease-out forwards',
+                animationDelay: '0.2s',
+                opacity: 0,
+              }}
+            >
+              {/* Percentage */}
+              <div className="flex items-baseline gap-1">
+                <span
+                  className="text-4xl font-light text-white tabular-nums"
+                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                >
+                  {Math.round(progress).toString().padStart(3, '0')}
+                </span>
+                <span
+                  className="text-2xl text-white/50"
+                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                >
+                  %
+                </span>
+              </div>
+
+              {/* Loading text */}
+              <p
+                className="text-[10px] tracking-[0.3em] uppercase text-white/40"
+                style={{ animation: 'pulse 1.5s ease-in-out infinite' }}
+              >
+                Loading Experience
+              </p>
+            </div>
+          )}
+
+          {/* Name that appears below during loading */}
+          {phase === 'loading' && progress > 50 && (
+            <div
+              className="absolute -bottom-32 left-1/2 -translate-x-1/2"
+              style={{
+                animation: 'fadeInUp 0.6s ease-out forwards',
+              }}
+            >
+              <h1
+                className="text-2xl md:text-3xl font-black text-white/20 tracking-tight whitespace-nowrap"
+                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              >
+                BILLY◆NDIZEYE
+              </h1>
+            </div>
+          )}
         </div>
-        <span 
-          className="text-3xl md:text-4xl font-light text-blue-500 ml-1"
-          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-        >
-          %
-        </span>
-      </div>
 
-      {/* Progress bar */}
-      <div className={`mt-8 w-48 h-0.5 overflow-hidden rounded-full ${
-        isDark ? 'bg-white/10' : 'bg-black/10'
-      }`}>
-        <div 
-          className="h-full bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 rounded-full transition-all duration-75 ease-linear"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
+        {/* Corner branding */}
+        <div className="absolute bottom-8 left-8">
+          <p className="text-[10px] tracking-[0.2em] uppercase text-white/20">
+            Product Designer & Builder
+          </p>
+        </div>
 
-      {/* Loading text */}
-      <p className={`mt-6 text-[10px] tracking-[0.3em] uppercase ${
-        isDark ? 'text-white/30' : 'text-black/30'
-      }`}>
-        Loading
-      </p>
-    </div>
+        <div className="absolute bottom-8 right-8">
+          <p className="text-[10px] tracking-[0.2em] uppercase text-white/20">
+            Chicago, IL
+          </p>
+        </div>
+      </div>
+    </>
   );
 };
 

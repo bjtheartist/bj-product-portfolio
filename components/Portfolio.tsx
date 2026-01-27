@@ -47,10 +47,6 @@ const Portfolio: React.FC = () => {
     }`}>
       {/* Section Header */}
       <div className="px-4 sm:px-6 md:px-12 lg:px-24 mb-12 sm:mb-16">
-        <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-          <span className="text-blue-500 text-xs font-mono">01</span>
-          <div className="w-8 sm:w-12 h-px bg-blue-500/50" />
-        </div>
         <h2 
           className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black ${
             isDark ? 'text-white' : 'text-black'
@@ -110,20 +106,6 @@ const Portfolio: React.FC = () => {
                     ? `bg-gradient-to-t from-black via-black/60 to-transparent ${isHovered ? 'opacity-60' : 'opacity-70'}`
                     : `bg-gradient-to-t from-white via-white/60 to-transparent ${isHovered ? 'opacity-50' : 'opacity-60'}`
                 }`} />
-
-                {/* Large category number */}
-                <div className="absolute top-3 left-4 sm:top-4 sm:left-6 md:top-6 md:left-8">
-                  <span 
-                    className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black transition-all duration-500 ${
-                      isDark 
-                        ? isHovered ? 'text-white/30' : 'text-white/10'
-                        : isHovered ? 'text-black/30' : 'text-black/10'
-                    }`}
-                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                </div>
 
                 {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">

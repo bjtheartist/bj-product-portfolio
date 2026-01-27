@@ -20,17 +20,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 // CONFIGURATION
 // ============================================
 const SITE_CONFIG = {
-  name: 'TemsVision',
-  tagline: 'PHOTOGRAPHER, CREATIVE DIRECTOR & VISUAL STORYTELLER',
-  location: 'Kalamazoo, Michigan',
-  email: 'hello@temsvision.com',
-  instagram: '@TEMS.VISION',
+  name: 'Billy Ndizeye',
+  tagline: 'PRODUCT DESIGNER & BUILDER',
+  location: 'Chicago, Illinois',
+  email: 'hello@billytheartist.com',
 };
 
 const SOCIAL_LINKS = {
-  instagram: 'https://www.instagram.com/temsvision/',
-  facebook: 'https://www.facebook.com/temsvision',
-  linkedin: 'https://www.linkedin.com/in/temilade-quadri-bbb980a8/',
+  linkedin: 'https://linkedin.com/in/bjtheartist',
+  github: 'https://github.com/bjtheartist',
+  instagram: 'https://instagram.com/bjtheartist',
 };
 
 // ============================================
@@ -125,7 +124,7 @@ const NavbarNeobrutalist: React.FC = () => {
                 className="text-xl font-black text-[#1A1A1A]"
                 style={{ fontFamily: "'Bebas Neue', sans-serif" }}
               >
-                TEMS<span className="text-[#3b82f6]">◆</span>VISION
+                BILLY<span className="text-[#3b82f6]">◆</span>NDIZEYE
               </span>
             </div>
 
@@ -237,26 +236,6 @@ const NavbarNeobrutalist: React.FC = () => {
           >
             {/* Social Links */}
             <div className="flex flex-wrap gap-6">
-              {SOCIAL_LINKS.instagram && (
-                <a
-                  href={SOCIAL_LINKS.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs tracking-[0.15em] uppercase text-[#FAF9F6]/60 hover:text-[#3b82f6] transition-colors duration-200"
-                >
-                  Instagram
-                </a>
-              )}
-              {SOCIAL_LINKS.facebook && (
-                <a
-                  href={SOCIAL_LINKS.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs tracking-[0.15em] uppercase text-[#FAF9F6]/60 hover:text-[#3b82f6] transition-colors duration-200"
-                >
-                  Facebook
-                </a>
-              )}
               {SOCIAL_LINKS.linkedin && (
                 <a
                   href={SOCIAL_LINKS.linkedin}
@@ -265,6 +244,26 @@ const NavbarNeobrutalist: React.FC = () => {
                   className="text-xs tracking-[0.15em] uppercase text-[#FAF9F6]/60 hover:text-[#3b82f6] transition-colors duration-200"
                 >
                   LinkedIn
+                </a>
+              )}
+              {SOCIAL_LINKS.github && (
+                <a
+                  href={SOCIAL_LINKS.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs tracking-[0.15em] uppercase text-[#FAF9F6]/60 hover:text-[#3b82f6] transition-colors duration-200"
+                >
+                  GitHub
+                </a>
+              )}
+              {SOCIAL_LINKS.instagram && (
+                <a
+                  href={SOCIAL_LINKS.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs tracking-[0.15em] uppercase text-[#FAF9F6]/60 hover:text-[#3b82f6] transition-colors duration-200"
+                >
+                  Instagram
                 </a>
               )}
             </div>

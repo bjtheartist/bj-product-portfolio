@@ -1,256 +1,176 @@
-import React, { useState, useCallback, memo } from 'react';
-import { SITE_CONFIG, SOCIAL_LINKS } from '../constants';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
 const Contact: React.FC = () => {
-  const { isDark } = useTheme();
+  const { theme } = useTheme();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    sessionType: '',
     message: ''
   });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const sessionTypes = [
-    'Birthday',
-    'Graduation',
-    'Group Session',
-    'Family',
-    'Boudoir',
-    'Wedding',
-    'Engagement',
-    'Portrait',
-    'Other'
-  ];
+  useEffect(() => {
+    // @ts-ignore
+    const gsap = window.gsap;
+    // @ts-ignore
+    const ScrollTrigger = window.ScrollTrigger;
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
+    if (gsap && ScrollTrigger) {
+      gsap.fromTo('.contact-content',
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '#contact',
+            start: 'top 70%',
+          }
+        }
+      );
+    }
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
     setErrorMessage('');
 
     try {
-      // Using Formsubmit.co - free, no signup required
-      const response = await fetch('https://formsubmit.co/ajax/hello@temsvision.com', {
+      const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          sessionType: formData.sessionType || 'Not specified',
-          message: formData.message,
-          _subject: `New Photography Inquiry from ${formData.name}`,
-        }),
+        body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error('Failed to send message');
+        throw new Error(data.error || 'Failed to send message');
       }
 
       setStatus('success');
-      setFormData({ name: '', email: '', sessionType: '', message: '' });
+      setFormData({ name: '', email: '', message: '' });
     } catch (err) {
       setStatus('error');
       setErrorMessage(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
     }
-  }, [formData]);
+  };
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
     }));
-  }, []);
-
-  const inputClasses = `w-full px-0 py-3 sm:py-4 bg-transparent border-0 border-b text-sm sm:text-base focus:outline-none transition-colors ${
-    isDark 
-      ? 'border-white/20 text-white placeholder-white/30 focus:border-blue-400' 
-      : 'border-black/20 text-black placeholder-black/30 focus:border-blue-600'
-  }`;
+  };
 
   return (
-    <section id="contact" className={`relative py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden ${
-      isDark ? 'bg-black' : 'bg-white'
+    <section id="contact" className={`py-24 md:py-32 lg:py-40 transition-colors duration-500 ${
+      theme === 'dark' ? 'bg-zinc-950' : 'bg-zinc-50'
     }`}>
-      {/* Background Accent */}
-      <div className={`absolute bottom-0 left-0 w-full h-1/2 pointer-events-none ${
-        isDark 
-          ? 'bg-gradient-to-t from-blue-500/5 to-transparent' 
-          : 'bg-gradient-to-t from-blue-100/50 to-transparent'
-      }`} />
+      <div className="px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
+        <div className="contact-content grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+          {/* Left Column */}
+          <div className="lg:col-span-5">
+            <h2
+              className={`text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8 ${
+                theme === 'dark' ? 'text-white' : 'text-black'
+              }`}
+              style={{ fontFamily: "'Syne', sans-serif" }}
+            >
+              Let's work<br />together
+            </h2>
 
-      <div className="relative z-10 px-4 sm:px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
-        {/* Section Header */}
-        <div className="mb-12 sm:mb-16 md:mb-20">
-          <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-            <span className="text-blue-500 text-xs font-mono">04</span>
-            <div className="w-8 sm:w-12 h-px bg-blue-500/50" />
-          </div>
-          <h2 
-            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight ${
-              isDark ? 'text-white' : 'text-black'
-            }`}
-            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-          >
-            Let's Start<br className="hidden sm:block" />Your Journey
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
-          {/* Left Column - Info */}
-          <div>
-            <p className={`text-lg sm:text-xl md:text-2xl leading-relaxed mb-8 sm:mb-12 ${
-              isDark ? 'text-white/80' : 'text-black/80'
+            <p className={`text-base md:text-lg leading-relaxed mb-12 max-w-md ${
+              theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'
             }`}>
-              Your story deserves to be told with intention and artistry. 
-              Let's collaborate and transform your vision into unforgettable imagery.
+              Have a project in mind? I'd love to hear about it. Let's discuss how we can bring your vision to life.
             </p>
 
             {/* Contact Info */}
-            <div className="space-y-6 sm:space-y-8 mb-8 sm:mb-12">
+            <div className="space-y-6">
               <div>
-                <p className={`text-xs tracking-[0.2em] uppercase mb-2 ${
-                  isDark ? 'text-white/40' : 'text-black/40'
+                <p className={`text-[10px] font-medium tracking-[0.2em] uppercase mb-2 ${
+                  theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
                 }`}>
-                  Instagram
+                  Email
                 </p>
-                <a 
-                  href={SOCIAL_LINKS.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`text-lg sm:text-xl md:text-2xl font-bold transition-colors ${
-                    isDark ? 'text-white hover:text-blue-400' : 'text-black hover:text-blue-600'
+                <a
+                  href="mailto:hello@bjtheartist.com"
+                  className={`text-lg font-medium hover:opacity-70 transition-opacity ${
+                    theme === 'dark' ? 'text-white' : 'text-black'
                   }`}
-                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                 >
-                  {SITE_CONFIG.instagram}
+                  hello@bjtheartist.com
                 </a>
               </div>
               <div>
-                <p className={`text-xs tracking-[0.2em] uppercase mb-2 ${
-                  isDark ? 'text-white/40' : 'text-black/40'
+                <p className={`text-[10px] font-medium tracking-[0.2em] uppercase mb-2 ${
+                  theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
                 }`}>
                   Location
                 </p>
-                <p 
-                  className={`text-lg sm:text-xl md:text-2xl font-bold ${
-                    isDark ? 'text-white' : 'text-black'
-                  }`}
-                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                >
-                  {SITE_CONFIG.location}
+                <p className={`text-lg font-medium ${
+                  theme === 'dark' ? 'text-white' : 'text-black'
+                }`}>
+                  Chicago, Illinois
                 </p>
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div>
-              <p className={`text-xs tracking-[0.2em] uppercase mb-3 sm:mb-4 ${
-                isDark ? 'text-white/40' : 'text-black/40'
-              }`}>
-                Follow
-              </p>
-              <div className="flex flex-wrap gap-4 sm:gap-6">
-                {SOCIAL_LINKS.instagram && (
-                  <a 
-                    href={SOCIAL_LINKS.instagram} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={`text-xs sm:text-sm tracking-[0.1em] uppercase transition-colors ${
-                      isDark ? 'text-white/60 hover:text-blue-400' : 'text-black/60 hover:text-blue-600'
-                    }`}
-                  >
-                    Instagram
-                  </a>
-                )}
-                {SOCIAL_LINKS.facebook && (
-                  <a 
-                    href={SOCIAL_LINKS.facebook} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={`text-xs sm:text-sm tracking-[0.1em] uppercase transition-colors ${
-                      isDark ? 'text-white/60 hover:text-blue-400' : 'text-black/60 hover:text-blue-600'
-                    }`}
-                  >
-                    Facebook
-                  </a>
-                )}
-                {SOCIAL_LINKS.linkedin && (
-                  <a 
-                    href={SOCIAL_LINKS.linkedin} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={`text-xs sm:text-sm tracking-[0.1em] uppercase transition-colors ${
-                      isDark ? 'text-white/60 hover:text-blue-400' : 'text-black/60 hover:text-blue-600'
-                    }`}
-                  >
-                    LinkedIn
-                  </a>
-                )}
-                {SOCIAL_LINKS.pinterest && (
-                  <a 
-                    href={SOCIAL_LINKS.pinterest} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={`text-xs sm:text-sm tracking-[0.1em] uppercase transition-colors ${
-                      isDark ? 'text-white/60 hover:text-blue-400' : 'text-black/60 hover:text-blue-600'
-                    }`}
-                  >
-                    Pinterest
-                  </a>
-                )}
               </div>
             </div>
           </div>
 
           {/* Right Column - Form */}
-          <div>
+          <div className="lg:col-span-7">
             {status === 'success' ? (
-              <div className="py-12 sm:py-16 text-center">
-                <p className={`text-2xl sm:text-3xl font-black mb-4 ${isDark ? 'text-white' : 'text-black'}`} 
-                   style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                  Thank You
-                </p>
-                <p className={`text-sm sm:text-base mb-6 sm:mb-8 ${isDark ? 'text-white/60' : 'text-black/60'}`}>
-                  I'll get back to you within 24 hours to discuss your session.
+              <div className={`py-16 text-center ${
+                theme === 'dark' ? 'text-white' : 'text-black'
+              }`}>
+                <p className="text-2xl font-medium mb-4">Thank you for reaching out.</p>
+                <p className={`text-base ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
+                  I'll get back to you within 24 hours.
                 </p>
                 <button
                   onClick={() => setStatus('idle')}
-                  className="text-xs tracking-[0.2em] uppercase text-blue-500 hover:text-blue-400 transition-colors"
+                  className={`mt-8 text-sm font-medium hover:opacity-70 transition-opacity ${
+                    theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'
+                  }`}
                 >
-                  [Send Another Message]
+                  Send another message
                 </button>
               </div>
             ) : status === 'error' ? (
-              <div className="py-12 sm:py-16 text-center">
-                <p className="text-2xl sm:text-3xl font-black text-red-500 mb-4" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                  Oops
-                </p>
-                <p className={`text-sm sm:text-base mb-6 sm:mb-8 ${isDark ? 'text-white/60' : 'text-black/60'}`}>
+              <div className={`py-16 text-center ${
+                theme === 'dark' ? 'text-white' : 'text-black'
+              }`}>
+                <p className="text-2xl font-medium mb-4 text-red-500">Oops, something went wrong.</p>
+                <p className={`text-base ${theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'}`}>
                   {errorMessage}
                 </p>
                 <button
                   onClick={() => setStatus('idle')}
-                  className="text-xs tracking-[0.2em] uppercase text-blue-500 hover:text-blue-400 transition-colors"
+                  className={`mt-8 text-sm font-medium hover:opacity-70 transition-opacity ${
+                    theme === 'dark' ? 'text-zinc-400' : 'text-zinc-600'
+                  }`}
                 >
-                  [Try Again]
+                  Try again
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
-                    <label 
+                    <label
                       htmlFor="name"
-                      className={`block text-xs tracking-[0.2em] uppercase mb-2 sm:mb-3 ${
-                        isDark ? 'text-white/40' : 'text-black/40'
+                      className={`block text-[10px] font-medium tracking-[0.2em] uppercase mb-3 ${
+                        theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
                       }`}
                     >
-                      Your Name *
+                      Name
                     </label>
                     <input
                       type="text"
@@ -260,17 +180,21 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       required
                       placeholder="Your name"
-                      className={inputClasses}
+                      className={`w-full px-0 py-4 bg-transparent border-0 border-b text-base focus:outline-none focus:ring-0 transition-colors ${
+                        theme === 'dark'
+                          ? 'border-white/10 text-white placeholder-zinc-600 focus:border-white/30'
+                          : 'border-black/10 text-black placeholder-zinc-400 focus:border-black/30'
+                      }`}
                     />
                   </div>
                   <div>
-                    <label 
+                    <label
                       htmlFor="email"
-                      className={`block text-xs tracking-[0.2em] uppercase mb-2 sm:mb-3 ${
-                        isDark ? 'text-white/40' : 'text-black/40'
+                      className={`block text-[10px] font-medium tracking-[0.2em] uppercase mb-3 ${
+                        theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
                       }`}
                     >
-                      Email Address *
+                      Email
                     </label>
                     <input
                       type="email"
@@ -280,48 +204,23 @@ const Contact: React.FC = () => {
                       onChange={handleChange}
                       required
                       placeholder="your@email.com"
-                      className={inputClasses}
+                      className={`w-full px-0 py-4 bg-transparent border-0 border-b text-base focus:outline-none focus:ring-0 transition-colors ${
+                        theme === 'dark'
+                          ? 'border-white/10 text-white placeholder-zinc-600 focus:border-white/30'
+                          : 'border-black/10 text-black placeholder-zinc-400 focus:border-black/30'
+                      }`}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label 
-                    htmlFor="sessionType"
-                    className={`block text-xs tracking-[0.2em] uppercase mb-2 sm:mb-3 ${
-                      isDark ? 'text-white/40' : 'text-black/40'
-                    }`}
-                  >
-                    What type of session are you looking for?
-                  </label>
-                  <select
-                    id="sessionType"
-                    name="sessionType"
-                    value={formData.sessionType}
-                    onChange={handleChange}
-                    className={`${inputClasses} appearance-none cursor-pointer`}
-                    style={{ 
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='${isDark ? '%23ffffff40' : '%2300000040'}'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, 
-                      backgroundRepeat: 'no-repeat', 
-                      backgroundPosition: 'right center', 
-                      backgroundSize: '20px' 
-                    }}
-                  >
-                    <option value="" className={isDark ? 'bg-black' : 'bg-white'}>Select an option</option>
-                    {sessionTypes.map((type) => (
-                      <option key={type} value={type} className={isDark ? 'bg-black' : 'bg-white'}>{type}</option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div>
-                  <label 
+                  <label
                     htmlFor="message"
-                    className={`block text-xs tracking-[0.2em] uppercase mb-2 sm:mb-3 ${
-                      isDark ? 'text-white/40' : 'text-black/40'
+                    className={`block text-[10px] font-medium tracking-[0.2em] uppercase mb-3 ${
+                      theme === 'dark' ? 'text-zinc-500' : 'text-zinc-400'
                     }`}
                   >
-                    Message *
+                    Message
                   </label>
                   <textarea
                     id="message"
@@ -330,32 +229,30 @@ const Contact: React.FC = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    placeholder="Tell me about your vision..."
-                    className={`${inputClasses} resize-none`}
+                    placeholder="Tell me about your project..."
+                    className={`w-full px-0 py-4 bg-transparent border-0 border-b text-base focus:outline-none focus:ring-0 resize-none transition-colors ${
+                      theme === 'dark'
+                        ? 'border-white/10 text-white placeholder-zinc-600 focus:border-white/30'
+                        : 'border-black/10 text-black placeholder-zinc-400 focus:border-black/30'
+                    }`}
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className={`group inline-flex items-center gap-3 sm:gap-4 px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-bold tracking-[0.1em] uppercase transition-all duration-300 rounded-lg ${
-                    status === 'sending' 
-                      ? 'bg-blue-500/50 cursor-not-allowed' 
-                      : 'bg-blue-500 hover:bg-blue-400'
-                  } text-white`}
+                  className={`group inline-flex items-center gap-3 text-sm font-medium tracking-wide transition-all duration-300 ${
+                    status === 'sending' ? 'opacity-50' : ''
+                  } ${
+                    theme === 'dark'
+                      ? 'text-white hover:text-zinc-300'
+                      : 'text-black hover:text-zinc-600'
+                  }`}
                 >
+                  <span className={`w-12 h-px transition-all duration-300 group-hover:w-16 ${
+                    theme === 'dark' ? 'bg-white' : 'bg-black'
+                  }`} />
                   {status === 'sending' ? 'Sending...' : 'Send Message'}
-                  <svg 
-                    width="16" 
-                    height="16" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2"
-                    className="transition-transform group-hover:translate-x-1"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
                 </button>
               </form>
             )}
@@ -366,4 +263,4 @@ const Contact: React.FC = () => {
   );
 };
 
-export default memo(Contact);
+export default Contact;

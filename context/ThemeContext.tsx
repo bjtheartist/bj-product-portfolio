@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 
-type Theme = 'dark' | 'light';
+type Theme = 'dark' | 'light' | 'color';
 
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
+  cycleTheme: () => void;
   isDark: boolean;
+  isColor: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -15,7 +17,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     // Initialize from localStorage or system preference (SSR safe)
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('temsvision-theme') as Theme;
-      if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light')) {
+      if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light' || savedTheme === 'color')) {
         return savedTheme;
       }
       // Check system preference
@@ -29,15 +31,20 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   useEffect(() => {
     // Update document class and save preference
     const root = document.documentElement;
-    root.classList.remove('dark', 'light');
+    root.classList.remove('dark', 'light', 'color');
     root.classList.add(theme);
-    
+
     // Update meta theme-color for mobile browsers
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
+      const themeColors: Record<Theme, string> = {
+        dark: '#000000',
+        light: '#ffffff',
+        color: '#1e40af', // blue-800
+      };
+      metaThemeColor.setAttribute('content', themeColors[theme]);
     }
-    
+
     localStorage.setItem('temsvision-theme', theme);
   }, [theme]);
 
@@ -60,10 +67,26 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   }, []);
 
+  const cycleTheme = useCallback(() => {
+    setTheme(prev => {
+      switch (prev) {
+        case 'dark':
+          return 'light';
+        case 'light':
+          return 'color';
+        case 'color':
+          return 'dark';
+        default:
+          return 'dark';
+      }
+    });
+  }, []);
+
   const isDark = theme === 'dark';
+  const isColor = theme === 'color';
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, isDark }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, cycleTheme, isDark, isColor }}>
       {children}
     </ThemeContext.Provider>
   );

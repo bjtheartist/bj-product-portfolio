@@ -1,39 +1,19 @@
 /**
  * HeroNeobrutalist.tsx
- * 
- * WHAT THIS FILE DOES:
- * This is the new hero section (the first thing visitors see) for your website.
- * It creates the Lorenzo-inspired neobrutalist design with:
- * - Your name displayed boldly
- * - Floating/bouncing decorative elements
- * - A scrolling marquee of your services
- * - Layered depth effect
- * 
- * REACT CONCEPT - "Components":
- * Think of this file as a recipe for one part of your website.
- * Just like a recipe tells you how to make a cake, this "component"
- * tells the browser how to display your hero section.
- * You can reuse components anywhere, like using the same recipe multiple times.
+ *
+ * Premium motion design inspired by Lorenzo Dal Dosso:
+ * - Square lerp-based snake cursor
+ * - Rotating text hover effects (GSAP-style)
+ * - Bouncing letter animation for name
+ * - Floating elements in RED theme
+ * - Scrolling marquee with hover effects
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 
 // ============================================
 // FLOATING ELEMENT COMPONENT
 // ============================================
-/**
- * WHAT THIS DOES:
- * Creates a single floating shape that bounces gently.
- * 
- * PROPS (inputs):
- * - shape: What shape to show (circle, diamond, square, ring)
- * - color: The color of the shape
- * - size: How big (in pixels)
- * - position: Where on screen (top, left as percentages)
- * - delay: When to start the animation (creates variety)
- * - duration: How long one bounce cycle takes
- * - layer: Which depth layer (1=back, 2=middle, 3=front)
- */
 interface FloatingElementProps {
   shape: 'circle' | 'diamond' | 'square' | 'ring' | 'star' | 'photo';
   color: string;
@@ -55,16 +35,12 @@ const FloatingElement: React.FC<FloatingElementProps> = ({
   layer,
   imageUrl,
 }) => {
-  // Calculate opacity and blur based on layer (creates depth)
-  // Back layer = more transparent and blurry
-  // Front layer = sharp and solid
   const layerStyles = {
     1: { opacity: 0.3, filter: 'blur(1px)', zIndex: 1 },
     2: { opacity: 0.6, filter: 'blur(0px)', zIndex: 5 },
     3: { opacity: 0.9, filter: 'blur(0px)', zIndex: 10 },
   };
 
-  // Render different shapes
   const renderShape = () => {
     switch (shape) {
       case 'circle':
@@ -150,7 +126,6 @@ const FloatingElement: React.FC<FloatingElementProps> = ({
         top: position.top,
         left: position.left,
         ...layerStyles[layer],
-        // This is the "bounce" animation
         animation: `float ${duration}s ease-in-out ${delay}s infinite`,
       }}
     >
@@ -160,31 +135,48 @@ const FloatingElement: React.FC<FloatingElementProps> = ({
 };
 
 // ============================================
-// MARQUEE COMPONENT
+// ROTATING TEXT COMPONENT - GSAP Style
 // ============================================
 /**
- * WHAT THIS DOES:
- * Creates the scrolling text band at the bottom showing your services.
- * The text continuously scrolls from right to left, creating an
- * infinite loop effect (like a news ticker).
+ * Text that rotates/flips on hover like GSAP animations
+ * Shows alternate text rotating in from above
  */
+interface RotatingTextProps {
+  text: string;
+  alternateText?: string;
+  className?: string;
+}
+
+const RotatingText: React.FC<RotatingTextProps> = ({ text, alternateText, className = '' }) => {
+  return (
+    <span className={`rotating-text-wrapper inline-block overflow-hidden ${className}`}>
+      <span className="rotating-text-inner block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">
+        <span className="block">{text}</span>
+        <span className="block absolute top-full left-0">{alternateText || text}</span>
+      </span>
+    </span>
+  );
+};
+
+// ============================================
+// MARQUEE COMPONENT WITH ROTATING HOVER
+// ============================================
 const Marquee: React.FC = () => {
-  // Your services/specialties to display
   const services = [
-    'Portraits',
-    'Sports',
-    'Maternity',
-    'Events',
-    'Weddings',
-    'Creative Direction',
-    'Visual Storytelling',
+    { text: 'Product Design', alt: 'Design Products' },
+    { text: 'Web Applications', alt: 'Build Apps' },
+    { text: 'Data Visualization', alt: 'Visualize Data' },
+    { text: 'Rapid Prototyping', alt: 'Prototype Fast' },
+    { text: 'UI/UX Design', alt: 'Design Interfaces' },
+    { text: 'No-Code → Code', alt: 'Ship Faster' },
+    { text: 'Civic Tech', alt: 'Tech for Good' },
   ];
 
-  // We duplicate the list to create seamless looping
-  const marqueeContent = [...services, ...services, ...services];
+  // Only 2x duplication for seamless 50% loop
+  const marqueeContent = [...services, ...services];
 
   return (
-    <div className="w-full overflow-hidden border-t-2 border-b-2 border-[#1A1A1A] bg-[#FAF9F6] py-4">
+    <div className="w-full overflow-hidden border-b-2 border-[#1A1A1A] bg-[#FFF8E7] py-4">
       <div
         className="flex whitespace-nowrap"
         style={{
@@ -194,11 +186,11 @@ const Marquee: React.FC = () => {
         {marqueeContent.map((service, index) => (
           <span
             key={index}
-            className="text-4xl md:text-6xl lg:text-7xl font-black mx-8 text-[#1A1A1A]"
+            className="group text-4xl md:text-6xl lg:text-7xl font-black mx-8 text-[#1A1A1A] cursor-default"
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
-            {service}
-            <span className="mx-8 text-[#3b82f6]">◆</span>
+            <RotatingText text={service.text} alternateText={service.alt} />
+            <span className="mx-8 text-[#dc2626] transition-transform duration-300 group-hover:rotate-180 inline-block">◆</span>
           </span>
         ))}
       </div>
@@ -207,86 +199,267 @@ const Marquee: React.FC = () => {
 };
 
 // ============================================
-// PROGRESS INDICATOR COMPONENT
+// PROGRESS SECTION - Full-width bordered band
+// ============================================
+const ProgressSection: React.FC = () => {
+  return (
+    <div className="w-full border-t-2 border-b-2 border-[#1A1A1A] bg-[#FFF8E7] py-12 md:py-16 lg:py-20">
+      <div className="relative w-full px-6 md:px-12 lg:px-16">
+        {/* 01 on far left */}
+        <span
+          className="absolute left-4 md:left-8 lg:left-12 top-1/2 -translate-y-1/2 text-6xl md:text-8xl lg:text-[10rem] font-black text-[#1A1A1A] leading-none"
+          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+        >
+          01
+        </span>
+
+        {/* 04 on far right */}
+        <span
+          className="absolute right-4 md:right-8 lg:right-12 top-1/2 -translate-y-1/2 text-6xl md:text-8xl lg:text-[10rem] font-black text-[#1A1A1A] leading-none"
+          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+        >
+          04
+        </span>
+
+        {/* Center content */}
+        <div className="max-w-2xl mx-auto flex flex-col items-center">
+          {/* Description text above progress bar */}
+          <p className="text-sm md:text-base text-[#1A1A1A] text-center mb-6">
+            Hello. I'm a Product Designer. I solve Problems. Yes I'm a Builder.
+          </p>
+
+          {/* Progress bar */}
+          <div className="w-full max-w-xl flex items-center mb-4">
+            <div className="h-2 bg-[#1A1A1A] w-1/3" />
+            <div className="h-2 bg-[#E5E5E5] flex-1" />
+          </div>
+
+          {/* Scroll To Discover - spread across */}
+          <div className="w-full max-w-xl flex justify-between text-xs md:text-sm tracking-[0.15em] uppercase text-[#6B7280]">
+            <span>Scroll</span>
+            <span>To</span>
+            <span>Discover</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ============================================
+// SQUARE SNAKE CURSOR - True Snake Game Trail
 // ============================================
 /**
- * WHAT THIS DOES:
- * Shows the "01 ——— 04" style progress bar like Lorenzo's site.
- * It indicates how many sections are on the page and where you are.
+ * Square cursor with true snake-game trailing effect
+ * Multiple squares follow each other with decreasing size/opacity
  */
-const ProgressIndicator: React.FC = () => {
+const TRAIL_LENGTH = 8; // Number of trailing squares
+
+const SnakeCursor: React.FC = () => {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const mousePos = useRef({ x: 0, y: 0 });
+  const cursorPos = useRef({ x: 0, y: 0 });
+  // Trail history - stores positions for each trailing segment
+  const trailPositions = useRef<Array<{ x: number; y: number }>>(
+    Array(TRAIL_LENGTH).fill({ x: 0, y: 0 })
+  );
+  const [trailState, setTrailState] = useState<Array<{ x: number; y: number }>>(
+    Array(TRAIL_LENGTH).fill({ x: 0, y: 0 })
+  );
+  const [isHovering, setIsHovering] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const animationRef = useRef<number | null>(null);
+
+  // Linear interpolation function
+  const lerp = (start: number, end: number, factor: number) => {
+    return start + (end - start) * factor;
+  };
+
+  const animate = useCallback(() => {
+    // Cursor follows mouse with faster lerp
+    cursorPos.current.x = lerp(cursorPos.current.x, mousePos.current.x, 0.25);
+    cursorPos.current.y = lerp(cursorPos.current.y, mousePos.current.y, 0.25);
+
+    // Each trail segment follows the one before it with decreasing lerp factor
+    const newTrailPositions = trailPositions.current.map((pos, i) => {
+      const target = i === 0 ? cursorPos.current : trailPositions.current[i - 1];
+      const lerpFactor = 0.15 - (i * 0.01); // Decreasing follow speed for later segments
+      return {
+        x: lerp(pos.x, target.x, Math.max(lerpFactor, 0.05)),
+        y: lerp(pos.y, target.y, Math.max(lerpFactor, 0.05)),
+      };
+    });
+    trailPositions.current = newTrailPositions;
+
+    // Update cursor position
+    if (cursorRef.current) {
+      cursorRef.current.style.transform = `translate(${cursorPos.current.x}px, ${cursorPos.current.y}px)`;
+    }
+
+    // Update trail state for React render
+    setTrailState([...newTrailPositions]);
+
+    animationRef.current = requestAnimationFrame(animate);
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mousePos.current = { x: e.clientX, y: e.clientY };
+      if (!isVisible) setIsVisible(true);
+    };
+
+    const handleMouseEnter = () => setIsVisible(true);
+    const handleMouseLeave = () => setIsVisible(false);
+
+    // Detect hovering over interactive elements
+    const handleElementHover = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const isInteractive = target.closest('a, button, [role="button"], input, textarea, select, .cursor-pointer');
+      setIsHovering(!!isInteractive);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleElementHover);
+    document.body.addEventListener('mouseenter', handleMouseEnter);
+    document.body.addEventListener('mouseleave', handleMouseLeave);
+
+    // Start animation loop
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousemove', handleElementHover);
+      document.body.removeEventListener('mouseenter', handleMouseEnter);
+      document.body.removeEventListener('mouseleave', handleMouseLeave);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [animate, isVisible]);
+
+  if (!isVisible) return null;
+
   return (
-    <div className="flex items-center justify-center gap-4 md:gap-8">
-      <span className="text-4xl md:text-6xl font-black text-[#1A1A1A]" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-        01
-      </span>
-      <div className="flex items-center w-32 md:w-64 lg:w-96">
-        <div className="h-1 bg-[#1A1A1A] w-1/4" />
-        <div className="h-1 bg-[#E5E5E5] flex-1" />
+    <>
+      {/* Trailing snake segments - rendered first so they appear behind */}
+      {trailState.map((pos, i) => {
+        const size = 36 - (i * 3); // Decreasing size: 36, 33, 30, 27...
+        const opacity = 0.8 - (i * 0.08); // Decreasing opacity
+        const rotation = isHovering ? 45 : (i * 2); // Slight rotation offset
+
+        return (
+          <div
+            key={i}
+            className="fixed top-0 left-0 pointer-events-none mix-blend-difference"
+            style={{
+              zIndex: 9990 - i,
+              transform: `translate(${pos.x}px, ${pos.y}px)`,
+              marginLeft: -(size / 2),
+              marginTop: -(size / 2),
+            }}
+          >
+            <div
+              className={`border-2 border-white transition-colors duration-300 ${
+                isHovering ? 'bg-[#dc2626]/20' : 'bg-transparent'
+              }`}
+              style={{
+                width: size,
+                height: size,
+                opacity: opacity,
+                transform: `rotate(${rotation}deg)`,
+              }}
+            />
+          </div>
+        );
+      })}
+
+      {/* Main cursor - small square at front */}
+      <div
+        ref={cursorRef}
+        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+        style={{
+          marginLeft: -5,
+          marginTop: -5,
+        }}
+      >
+        <div
+          className={`bg-white transition-transform duration-200 ${
+            isHovering ? 'scale-150 rotate-45' : 'scale-100 rotate-0'
+          }`}
+          style={{
+            width: 10,
+            height: 10,
+          }}
+        />
       </div>
-      <span className="text-4xl md:text-6xl font-black text-[#1A1A1A]" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-        04
-      </span>
-    </div>
+    </>
+  );
+};
+
+// ============================================
+// BOUNCING LETTER COMPONENT WITH ROTATE HOVER
+// ============================================
+interface BouncingLetterProps {
+  letter: string;
+  delay: number;
+  isSpecial?: boolean;
+}
+
+const BouncingLetter: React.FC<BouncingLetterProps> = ({ letter, delay, isSpecial }) => {
+  return (
+    <span
+      className={`inline-block transition-all duration-300 hover:-translate-y-3 hover:rotate-12 ${
+        isSpecial ? 'text-[#dc2626] mx-2 hover:rotate-180' : 'hover:text-[#dc2626]'
+      }`}
+      style={{
+        animation: `bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${delay}s both`,
+      }}
+    >
+      {letter}
+    </span>
   );
 };
 
 // ============================================
 // MAIN HERO COMPONENT
 // ============================================
-/**
- * WHAT THIS DOES:
- * This is the main hero section that combines everything:
- * - The floating elements in the background
- * - Your name prominently displayed
- * - The tagline
- * - The progress indicator
- * - The scrolling marquee
- * 
- * REACT CONCEPT - "State":
- * useState lets us remember things that can change.
- * Here, we track if the page has loaded so we can
- * trigger entrance animations.
- */
 const HeroNeobrutalist: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
 
-  // This runs once when the component first appears
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  // Configuration for floating elements
-  // Each object defines one floating shape
+  // Configuration for floating elements with RED COLORS
   const floatingElements: FloatingElementProps[] = [
-    // Back layer elements (large, faded)
-    { shape: 'circle', color: '#3b82f6', size: 120, position: { top: '10%', left: '5%' }, delay: 0, duration: 6, layer: 1 },
-    { shape: 'diamond', color: '#22d3ee', size: 80, position: { top: '60%', left: '85%' }, delay: 1, duration: 7, layer: 1 },
-    { shape: 'ring', color: '#3b82f6', size: 150, position: { top: '70%', left: '10%' }, delay: 0.5, duration: 8, layer: 1 },
-    
-    // Middle layer elements
-    { shape: 'square', color: '#FAF9F6', size: 60, position: { top: '20%', left: '80%' }, delay: 0.3, duration: 5, layer: 2 },
-    { shape: 'star', color: '#3b82f6', size: 40, position: { top: '75%', left: '70%' }, delay: 0.8, duration: 4, layer: 2 },
-    { shape: 'circle', color: '#22d3ee', size: 30, position: { top: '30%', left: '15%' }, delay: 1.2, duration: 5, layer: 2 },
-    
-    // Front layer elements (small, sharp)
+    // Back layer elements (large, faded) - deep reds and crimsons
+    { shape: 'circle', color: '#dc2626', size: 120, position: { top: '10%', left: '5%' }, delay: 0, duration: 6, layer: 1 },
+    { shape: 'diamond', color: '#ef4444', size: 80, position: { top: '60%', left: '85%' }, delay: 1, duration: 7, layer: 1 },
+    { shape: 'ring', color: '#b91c1c', size: 150, position: { top: '70%', left: '10%' }, delay: 0.5, duration: 8, layer: 1 },
+
+    // Middle layer elements - various reds
+    { shape: 'square', color: '#fecaca', size: 60, position: { top: '20%', left: '80%' }, delay: 0.3, duration: 5, layer: 2 },
+    { shape: 'star', color: '#dc2626', size: 40, position: { top: '75%', left: '70%' }, delay: 0.8, duration: 4, layer: 2 },
+    { shape: 'circle', color: '#f87171', size: 30, position: { top: '30%', left: '15%' }, delay: 1.2, duration: 5, layer: 2 },
+
+    // Front layer elements (small, sharp) - bright red accents
     { shape: 'diamond', color: '#1A1A1A', size: 20, position: { top: '15%', left: '70%' }, delay: 0.2, duration: 3, layer: 3 },
-    { shape: 'circle', color: '#3b82f6', size: 15, position: { top: '50%', left: '90%' }, delay: 0.6, duration: 4, layer: 3 },
-    { shape: 'star', color: '#22d3ee', size: 25, position: { top: '80%', left: '25%' }, delay: 1, duration: 3.5, layer: 3 },
-    
-    // Photo elements (your work samples)
-    { shape: 'photo', color: '', size: 100, position: { top: '25%', left: '75%' }, delay: 0.4, duration: 6, layer: 2, imageUrl: '/gallery/portrait-1.jpg' },
-    { shape: 'photo', color: '', size: 80, position: { top: '55%', left: '8%' }, delay: 0.9, duration: 5, layer: 2, imageUrl: '/gallery/sports-1.jpg' },
+    { shape: 'circle', color: '#ef4444', size: 15, position: { top: '50%', left: '90%' }, delay: 0.6, duration: 4, layer: 3 },
+    { shape: 'star', color: '#dc2626', size: 25, position: { top: '80%', left: '25%' }, delay: 1, duration: 3.5, layer: 3 },
+
+    // Additional decorative elements - red palette
+    { shape: 'ring', color: '#f87171', size: 60, position: { top: '25%', left: '75%' }, delay: 0.4, duration: 6, layer: 2 },
+    { shape: 'square', color: '#b91c1c', size: 40, position: { top: '55%', left: '8%' }, delay: 0.9, duration: 5, layer: 2 },
   ];
+
+  // Name letters for bouncing animation
+  const firstName = 'BILLY';
+  const lastName = 'NDIZEYE';
 
   return (
     <>
-      {/* 
-        CSS KEYFRAMES
-        These define the animations. Think of keyframes as choreography:
-        "At 0% of the dance, be here. At 50%, be there. At 100%, be back."
-      */}
       <style>{`
         @keyframes float {
           0%, 100% {
@@ -296,16 +469,16 @@ const HeroNeobrutalist: React.FC = () => {
             transform: translateY(-20px) rotate(3deg);
           }
         }
-        
+
         @keyframes marquee {
           0% {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-33.33%);
+            transform: translateX(-50%);
           }
         }
-        
+
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -316,13 +489,65 @@ const HeroNeobrutalist: React.FC = () => {
             transform: translateY(0);
           }
         }
-        
+
+        @keyframes bounceIn {
+          0% {
+            opacity: 0;
+            transform: translateY(-100px) scale(0.3);
+          }
+          50% {
+            transform: translateY(20px) scale(1.05);
+          }
+          70% {
+            transform: translateY(-10px) scale(0.95);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
         .animate-fade-in-up {
           animation: fadeInUp 0.8s ease-out forwards;
         }
+
+        .grid-background {
+          background-image:
+            linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+          background-size: 40px 40px;
+        }
+
+        /* Rotating text styles */
+        .rotating-text-wrapper {
+          perspective: 1000px;
+        }
+
+        .rotating-text-inner {
+          transform-style: preserve-3d;
+        }
+
+        .group:hover .rotating-text-inner {
+          transform: translateY(-100%) rotateX(90deg);
+        }
+
+        /* Hide default cursor when custom cursor is active */
+        body {
+          cursor: none;
+        }
+
+        a, button, [role="button"], input, textarea, select, .cursor-pointer {
+          cursor: none;
+        }
       `}</style>
 
-      <section className="relative min-h-screen w-full flex flex-col bg-[#FAF9F6] overflow-hidden">
+      {/* Square Snake Cursor */}
+      <SnakeCursor />
+
+      <section ref={heroRef} className="relative min-h-screen w-full flex flex-col bg-[#FFF8E7] overflow-hidden">
+        {/* GRID BACKGROUND */}
+        <div className="absolute inset-0 grid-background pointer-events-none" />
+
         {/* FLOATING ELEMENTS LAYER */}
         <div className="absolute inset-0 pointer-events-none">
           {floatingElements.map((element, index) => (
@@ -330,81 +555,54 @@ const HeroNeobrutalist: React.FC = () => {
           ))}
         </div>
 
-        {/* MAIN CONTENT */}
-        <div className="relative z-20 flex-1 flex flex-col justify-center items-center px-4 sm:px-6 pt-24 pb-8">
-          {/* Small intro text */}
+        {/* NAME SECTION - Upper area */}
+        <div className="relative z-20 flex-1 flex flex-col justify-center items-center px-4 sm:px-6 pt-16 md:pt-20 pb-8">
+          {/* YOUR NAME - Bouncing Letters Animation with Rotate Hover */}
           <div
-            className={`mb-4 transition-all duration-700 ${
-              isVisible ? 'opacity-100 animate-fade-in-up' : 'opacity-0'
+            className={`text-center ${
+              isVisible ? 'opacity-100' : 'opacity-0'
             }`}
-            style={{ animationDelay: '0.1s' }}
           >
-            <span className="text-sm md:text-base tracking-[0.3em] uppercase text-[#6B7280]">
-              Photographer & Creative Director
-            </span>
-          </div>
-
-          {/* YOUR NAME - The main focal point */}
-          <div
-            className={`text-center mb-6 transition-all duration-700 ${
-              isVisible ? 'opacity-100 animate-fade-in-up' : 'opacity-0'
-            }`}
-            style={{ animationDelay: '0.3s' }}
-          >
-            {/* 
-              TYPOGRAPHY TRICK:
-              We use a custom font and make the "O" letters into diamonds
-              to create that Lorenzo-style branding
-            */}
             <h1
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#1A1A1A] tracking-tight"
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-[11rem] xl:text-[13rem] font-black text-[#1A1A1A] tracking-tight cursor-default leading-none"
               style={{ fontFamily: "'Bebas Neue', sans-serif" }}
             >
-              {/* First name with diamond O */}
               <span className="block">
-                TEMS
-                <span className="inline-block mx-1 text-[#3b82f6]">◆</span>
-                VISI
-                <span className="inline-block mx-1 text-[#3b82f6]">◆</span>
-                N
+                {/* First name letters */}
+                {firstName.split('').map((letter, index) => (
+                  <BouncingLetter
+                    key={`first-${index}`}
+                    letter={letter}
+                    delay={0.3 + index * 0.05}
+                  />
+                ))}
+                {/* Diamond separator */}
+                <BouncingLetter
+                  letter="◆"
+                  delay={0.3 + firstName.length * 0.05}
+                  isSpecial
+                />
+                {/* Last name letters */}
+                {lastName.split('').map((letter, index) => (
+                  <BouncingLetter
+                    key={`last-${index}`}
+                    letter={letter}
+                    delay={0.3 + (firstName.length + 1) * 0.05 + index * 0.05}
+                  />
+                ))}
               </span>
             </h1>
           </div>
+        </div>
 
-          {/* Tagline */}
-          <div
-            className={`mb-12 transition-all duration-700 ${
-              isVisible ? 'opacity-100 animate-fade-in-up' : 'opacity-0'
-            }`}
-            style={{ animationDelay: '0.5s' }}
-          >
-            <p className="text-lg md:text-xl text-[#6B7280] max-w-md text-center">
-              My Vision, Your Story. Capturing moments that matter in Kalamazoo, Michigan.
-            </p>
-          </div>
-
-          {/* Progress Indicator */}
-          <div
-            className={`mb-8 transition-all duration-700 ${
-              isVisible ? 'opacity-100 animate-fade-in-up' : 'opacity-0'
-            }`}
-            style={{ animationDelay: '0.7s' }}
-          >
-            <ProgressIndicator />
-          </div>
-
-          {/* Scroll indicator */}
-          <div
-            className={`flex flex-col items-center gap-2 transition-all duration-700 ${
-              isVisible ? 'opacity-100 animate-fade-in-up' : 'opacity-0'
-            }`}
-            style={{ animationDelay: '0.9s' }}
-          >
-            <span className="text-xs tracking-[0.2em] uppercase text-[#6B7280]">
-              Scroll to Discover
-            </span>
-            <div className="w-px h-12 bg-gradient-to-b from-[#1A1A1A] to-transparent" />
-          </div>
+        {/* PROGRESS SECTION - Full-width bordered band */}
+        <div
+          className={`transition-all duration-700 ${
+            isVisible ? 'opacity-100 animate-fade-in-up' : 'opacity-0'
+          }`}
+          style={{ animationDelay: '0.7s' }}
+        >
+          <ProgressSection />
         </div>
 
         {/* MARQUEE SECTION */}

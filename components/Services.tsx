@@ -17,10 +17,6 @@ const Services: React.FC = () => {
       <div className="px-4 sm:px-6 md:px-12 lg:px-24 max-w-[1800px] mx-auto">
         {/* Header */}
         <div className="mb-12 sm:mb-16 md:mb-20">
-          <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-            <span className="text-blue-500 text-xs font-mono">03</span>
-            <div className="w-8 sm:w-12 h-px bg-blue-500/50" />
-          </div>
           <h2 
             className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight ${
               isDark ? 'text-white' : 'text-black'
@@ -63,19 +59,8 @@ const Services: React.FC = () => {
               <div className={`h-px ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
               
               <div className="py-6 sm:py-8 md:py-10 grid grid-cols-12 gap-2 sm:gap-4 items-start">
-                {/* Number */}
-                <div className="col-span-2 sm:col-span-1">
-                  <span className={`text-xs sm:text-sm font-mono transition-all duration-500 ${
-                    activeService === service.id
-                      ? 'text-blue-500'
-                      : isDark ? 'text-white/30' : 'text-black/30'
-                  }`}>
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                </div>
-
                 {/* Title */}
-                <div className="col-span-10 sm:col-span-4">
+                <div className="col-span-12 sm:col-span-5">
                   <h3 
                     className={`text-xl sm:text-2xl md:text-3xl font-black tracking-tight transition-all duration-500 ${
                       activeService === service.id

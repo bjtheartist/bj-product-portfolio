@@ -15,17 +15,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-// ============================================
-// DESIGN SWITCH - Change this to toggle designs!
-// ============================================
-const USE_NEOBRUTALIST_DESIGN = true; // Set to 'false' for original design
-
-// Import both designs
+// Import the main App (neobrutalist with ThemeProvider)
 import App from './App';
-import AppNeobrutalist from './AppNeobrutalist';
-
-// Choose which design to render
-const SelectedApp = USE_NEOBRUTALIST_DESIGN ? AppNeobrutalist : App;
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -35,6 +26,6 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <SelectedApp />
+    <App />
   </React.StrictMode>
 );

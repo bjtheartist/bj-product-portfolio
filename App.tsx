@@ -1,97 +1,224 @@
+/**
+ * AppNeobrutalist.tsx
+ * 
+ * WHAT THIS FILE DOES:
+ * This is the main "container" for your entire website.
+ * Think of it as the frame that holds all the other pieces together.
+ * 
+ * REACT CONCEPT - "App Component":
+ * In React, there's usually one main component that contains everything else.
+ * It's like the trunk of a tree, and all other components are branches.
+ * 
+ * HOW TO USE THIS:
+ * To switch to the neobrutalist design, you would:
+ * 1. Rename your current App.tsx to App.backup.tsx
+ * 2. Rename this file to App.tsx
+ * OR
+ * Import this component where you want to use it
+ */
+
 import React, { useEffect, useState, useCallback, Suspense, lazy } from 'react';
-import { ThemeProvider, useTheme } from './context/ThemeContext';
-import Preloader from './components/Preloader';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import ThemeToggle from './components/ThemeToggle';
+import { ThemeProvider } from './context/ThemeContext';
+import NavbarNeobrutalist from './components/NavbarNeobrutalist';
+import HeroNeobrutalist from './components/HeroNeobrutalist';
 
 // Lazy load below-the-fold components for better performance
-const Portfolio = lazy(() => import('./components/Portfolio'));
-const Services = lazy(() => import('./components/Services'));
-const About = lazy(() => import('./components/About'));
-const Contact = lazy(() => import('./components/Contact'));
+// "Lazy loading" means we only load these when needed, making the initial page faster
+const BioSection = lazy(() => import('./components/BioSection'));
+const PortfolioGrid = lazy(() => import('./components/PortfolioGrid'));
+const SkillsSection = lazy(() => import('./components/SkillsSection'));
+const ContactSection = lazy(() => import('./components/ContactSection'));
 const Footer = lazy(() => import('./components/Footer'));
 
-// Loading fallback component
+// ============================================
+// LOADING COMPONENT
+// ============================================
+/**
+ * This shows while other sections are loading.
+ * It's a simple spinner that matches our new aesthetic.
+ */
 const SectionLoader: React.FC = () => {
-  const { isDark } = useTheme();
   return (
-    <div className={`py-32 flex items-center justify-center ${
-      isDark ? 'bg-black' : 'bg-white'
-    }`}>
-      <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+    <div className="py-32 flex items-center justify-center bg-[#FAF9F6]">
+      <div className="w-8 h-8 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin" />
     </div>
   );
 };
 
-const AppContent: React.FC = () => {
-  const { isDark } = useTheme();
+// ============================================
+// CUSTOM CURSOR COMPONENT
+// ============================================
+/**
+ * WHAT THIS DOES:
+ * Creates a custom cursor like Lorenzo's site - a soft blue circle
+ * that follows your mouse with a slight delay.
+ * 
+ * This adds a playful, interactive feel to the site.
+ */
+const CustomCursor: React.FC = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+      setIsVisible(true);
+    };
+
+    const handleMouseLeave = () => {
+      setIsVisible(false);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  // Don't show custom cursor on touch devices
+  if (typeof window !== 'undefined' && 'ontouchstart' in window) {
+    return null;
+  }
+
+  return (
+    <div
+      className={`fixed pointer-events-none z-[100] transition-opacity duration-300 ${
+        isVisible ? 'opacity-100' : 'opacity-0'
+      }`}
+      style={{
+        left: position.x - 15,
+        top: position.y - 15,
+        width: 30,
+        height: 30,
+        backgroundColor: 'rgba(59, 130, 246, 0.3)',
+        borderRadius: '50%',
+        transform: 'translate(0, 0)',
+        transition: 'left 0.1s ease-out, top 0.1s ease-out',
+      }}
+    />
+  );
+};
+
+// ============================================
+// MAIN APP COMPONENT
+// ============================================
+const AppNeobrutalist: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
 
+  // Simulate a brief loading state for smooth entrance
   useEffect(() => {
-    // Prevent scrolling during preloader
-    if (isLoading) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isLoading]);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (!isLoading) {
-      // Small delay before showing content for smooth transition
       const timer = setTimeout(() => setShowContent(true), 50);
       return () => clearTimeout(timer);
     }
   }, [isLoading]);
 
-  const handlePreloaderComplete = useCallback(() => {
-    setIsLoading(false);
-  }, []);
-
   return (
     <>
-      {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
-      
-      <main 
-        className={`relative min-h-screen overflow-x-hidden transition-all duration-300 ease-out ${
-          isDark 
-            ? 'bg-black text-white selection:bg-blue-500 selection:text-white' 
-            : 'bg-white text-black selection:bg-blue-500 selection:text-white'
-        } ${showContent ? 'opacity-100' : 'opacity-0'}`}
-      >
-        <Navbar />
+      {/* 
+        GLOBAL STYLES
+        These styles apply to the entire page.
+        We're setting the warm cream background and hiding the default cursor.
+      */}
+      <style>{`
+        html {
+          scroll-behavior: smooth;
+          cursor: none;
+        }
+        
+        body {
+          background-color: #FAF9F6;
+          cursor: none;
+        }
+        
+        a, button {
+          cursor: none;
+        }
+        
+        /* Selection color */
+        ::selection {
+          background: #3b82f6;
+          color: #FAF9F6;
+        }
+        
+        /* Smooth scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+          background: #FAF9F6;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+          background: #1A1A1A;
+          border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+          background: #3b82f6;
+        }
+      `}</style>
 
+      {/* Custom Cursor */}
+      <CustomCursor />
+
+      {/* 
+        MAIN CONTENT
+        The structure is:
+        1. Navigation (always visible at top)
+        2. Hero section (first thing you see)
+        3. Other sections (loaded as needed)
+      */}
+      <main
+        className={`relative min-h-screen overflow-x-hidden bg-[#FAF9F6] text-[#1A1A1A] transition-opacity duration-500 ${
+          showContent ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        {/* Navigation */}
+        <NavbarNeobrutalist />
+
+        {/* Content Sections */}
         <div className="relative z-10">
-          <Hero />
-          
+          {/* Hero - The neobrutalist hero with floating shapes */}
+          <HeroNeobrutalist />
+
+          {/* Bio Section - "What I Do" statement */}
           <Suspense fallback={<SectionLoader />}>
-            <Portfolio />
+            <BioSection />
           </Suspense>
-          
+
+          {/* Portfolio Section - Offset Bento Grid with flip cards */}
           <Suspense fallback={<SectionLoader />}>
-            <Services />
+            <PortfolioGrid />
           </Suspense>
-          
+
+          {/* Skills Section - Layered categories (Design/Build/Ship) */}
           <Suspense fallback={<SectionLoader />}>
-            <About />
+            <SkillsSection />
           </Suspense>
-          
+
+          {/* Contact Section - "Let's Work Together" with links */}
           <Suspense fallback={<SectionLoader />}>
-            <Contact />
+            <ContactSection />
           </Suspense>
-          
+
+          {/* Footer - Minimal neobrutalist footer */}
           <Suspense fallback={<SectionLoader />}>
             <Footer />
           </Suspense>
         </div>
-
-        {/* Fixed Theme Toggle Button */}
-        <ThemeToggle variant="fixed" />
       </main>
     </>
   );
@@ -100,7 +227,7 @@ const AppContent: React.FC = () => {
 const App: React.FC = () => {
   return (
     <ThemeProvider>
-      <AppContent />
+      <AppNeobrutalist />
     </ThemeProvider>
   );
 };
