@@ -1,3 +1,14 @@
+export interface ProjectTool {
+  name: string;
+  reason: string;
+}
+
+export interface ProjectEffectiveness {
+  status: 'effective' | 'partially-effective' | 'in-progress';
+  description: string;
+  metrics?: string[];
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -5,10 +16,10 @@ export interface Project {
   imageUrl: string;
   description: string;
   tags?: string[];
-  // Enhanced fields for detailed project context
+  // Case Study Details
   problem?: string;
-  solution?: string;
-  tools?: string[];
+  tools?: ProjectTool[];
+  effectiveness?: ProjectEffectiveness;
   liveUrl?: string;
   githubUrl?: string;
   year?: string;
