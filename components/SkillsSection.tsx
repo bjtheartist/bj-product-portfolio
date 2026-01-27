@@ -28,40 +28,55 @@ interface SkillCategory {
 }
 
 // ============================================
-// SKILL DATA
+// SKILL DATA - Updated with actual tech stack
 // ============================================
 const SKILL_CATEGORIES: SkillCategory[] = [
   {
-    id: 'design',
-    title: 'DESIGN',
+    id: 'frontend',
+    title: 'FRONTEND',
     number: '01',
+    skills: [
+      { name: 'React', description: 'My go-to for building interactive UIs' },
+      { name: 'Next.js', description: 'SSR, routing, and API routes' },
+      { name: 'TypeScript', description: 'Type safety for reliable code' },
+      { name: 'Tailwind CSS', description: 'Rapid, consistent styling' },
+      { name: 'Vite', description: 'Fast builds and hot module replacement' },
+      { name: 'GSAP', description: 'Premium scroll-based animations' },
+    ],
+  },
+  {
+    id: 'backend',
+    title: 'BACKEND',
+    number: '02',
+    skills: [
+      { name: 'Node.js', description: 'Server-side JavaScript runtime' },
+      { name: 'Django', description: 'Python framework for robust backends' },
+      { name: 'Supabase', description: 'PostgreSQL + Auth + Real-time' },
+      { name: 'Firebase', description: 'Real-time database and hosting' },
+      { name: 'Convex', description: 'Reactive backend for real-time apps' },
+      { name: 'Redis & Celery', description: 'Caching and task queues' },
+    ],
+  },
+  {
+    id: 'cms',
+    title: 'CMS & DATA',
+    number: '03',
+    skills: [
+      { name: 'Sanity CMS', description: 'Headless CMS for content management' },
+      { name: 'PostgreSQL', description: 'Relational database design' },
+      { name: 'Data Visualization', description: 'D3.js, Mapbox, charts' },
+      { name: 'REST APIs', description: 'Design and integration' },
+    ],
+  },
+  {
+    id: 'product',
+    title: 'PRODUCT',
+    number: '04',
     skills: [
       { name: 'Product Design', description: 'End-to-end product thinking' },
       { name: 'UX Research', description: 'User insights that drive decisions' },
-      { name: 'Design Systems', description: 'Scalable, consistent interfaces' },
       { name: 'Prototyping', description: 'Ideas made tangible, fast' },
-    ],
-  },
-  {
-    id: 'build',
-    title: 'BUILD',
-    number: '02',
-    skills: [
-      { name: 'Frontend', description: 'React, TypeScript, Next.js' },
-      { name: 'Backend', description: 'Node.js, Python, APIs' },
-      { name: 'Databases', description: 'PostgreSQL, Supabase' },
-      { name: 'Integrations', description: 'APIs, webhooks, third-party services' },
-    ],
-  },
-  {
-    id: 'ship',
-    title: 'SHIP',
-    number: '03',
-    skills: [
-      { name: 'Product Strategy', description: 'Vision to roadmap to reality' },
-      { name: 'Project Management', description: 'On time, on scope, on point' },
-      { name: 'Analytics & Metrics', description: 'Data-driven iteration' },
-      { name: 'User Testing', description: 'Real feedback, real improvements' },
+      { name: 'Figma', description: 'Design and collaboration' },
     ],
   },
 ];
@@ -216,7 +231,7 @@ const Category: React.FC<CategoryProps> = ({ category, isExpanded, onToggle }) =
 // MAIN SKILLS SECTION COMPONENT
 // ============================================
 const SkillsSection: React.FC = () => {
-  const [expandedCategory, setExpandedCategory] = useState<string | null>('design');
+  const [expandedCategory, setExpandedCategory] = useState<string | null>('frontend');
   const [isInView, setIsInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -275,7 +290,7 @@ const SkillsSection: React.FC = () => {
 
           <div>
             <span className="text-xs md:text-sm tracking-[0.2em] uppercase text-[#1A1A1A]/50 block mb-2">
-              Capabilities
+              Tech Stack
             </span>
             <h2
               className="text-5xl md:text-7xl lg:text-8xl font-black text-[#1A1A1A] tracking-tight"
@@ -292,7 +307,7 @@ const SkillsSection: React.FC = () => {
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          From concept to code to launch. I bring products to life across the full stack.
+          React is my go-to. I build full-stack products with modern tools—from Supabase to Sanity, Django to Convex.
         </p>
       </div>
 
@@ -321,7 +336,7 @@ const SkillsSection: React.FC = () => {
       <div className="relative z-10 px-6 md:px-12 py-8 md:py-12 border-t-2 border-[#1A1A1A]">
         <div className="flex items-center justify-between">
           <span className="text-xs tracking-[0.2em] uppercase text-[#1A1A1A]/30">
-            Design + Build + Ship
+            Frontend + Backend + Product
           </span>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 bg-[#dc2626]" />
