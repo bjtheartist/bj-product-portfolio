@@ -86,22 +86,22 @@ const PROJECTS: Project[] = [
   {
     id: 'makarios',
     title: 'Makarios',
-    skills: ['Web Design', 'Firebase', 'Sanity CMS', 'React'],
-    description: 'Faith-based community platform',
-    problem: 'Faith communities needed a digital space that felt warm and inviting rather than corporate. Existing church websites often felt outdated or overly complex, creating barriers to connection for newcomers.',
+    skills: ['Mobile App', 'React Native', 'Firebase', 'Expo'],
+    description: 'Faith-based mobile devotional app',
+    problem: 'Faith communities needed a mobile-first devotional experience that felt personal and accessible. Existing apps were either too cluttered with features or lacked the warmth needed for daily spiritual practice.',
     tools: [
-      { name: 'Firebase', reason: 'Real-time database, authentication, and hosting for community features like event RSVPs.' },
-      { name: 'Sanity CMS', reason: 'Headless CMS enabling non-technical ministry staff to update sermons and events.' },
-      { name: 'React', reason: 'Smooth, app-like experience that feels modern and welcoming to all demographics.' },
-      { name: 'Tailwind CSS', reason: 'Rapid iteration to achieve the warm, purposeful aesthetic the community needed.' }
+      { name: 'React Native', reason: 'Cross-platform mobile development for iOS and Android from a single codebase.' },
+      { name: 'Expo', reason: 'Streamlined mobile development workflow with easy testing and deployment.' },
+      { name: 'Firebase', reason: 'Real-time database for daily devotionals, push notifications, and user authentication.' },
+      { name: 'Sanity CMS', reason: 'Headless CMS enabling ministry staff to publish devotional content without code.' }
     ],
     effectiveness: {
       status: 'effective',
-      description: 'Successfully bridges traditional faith community values with modern digital expectations. The clean design removes barriers while maintaining warmth.',
-      metrics: ['Content-managed by staff', 'Mobile-first design', 'Positive community feedback']
+      description: 'Successfully delivers daily devotional content in a clean, distraction-free mobile experience. The app bridges traditional faith practices with modern mobile habits.',
+      metrics: ['iOS & Android apps', 'Daily push notifications', 'Content-managed devotionals']
     },
     image: '/projects/makarios.png',
-    githubUrl: 'https://github.com/bjtheartist/Makarios'
+    githubUrl: 'https://github.com/bjtheartist/makarios-mobile'
   },
   {
     id: 'kivara-flow',

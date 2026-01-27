@@ -2,11 +2,11 @@
  * HeroNeobrutalist.tsx
  *
  * Premium motion design inspired by Lorenzo Dal Dosso:
- * - Square lerp-based snake cursor
- * - Rotating text hover effects (GSAP-style)
+ * - Square lerp-based snake cursor with proper trailing
+ * - Scroll-based carousel (01→04) for services
  * - Bouncing letter animation for name
  * - Floating elements in RED theme
- * - Scrolling marquee with hover effects
+ * - Red diamond in header for consistency
  */
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
@@ -135,44 +135,20 @@ const FloatingElement: React.FC<FloatingElementProps> = ({
 };
 
 // ============================================
-// ROTATING TEXT COMPONENT - GSAP Style
-// ============================================
-/**
- * Text that rotates/flips on hover like GSAP animations
- * Shows alternate text rotating in from above
- */
-interface RotatingTextProps {
-  text: string;
-  alternateText?: string;
-  className?: string;
-}
-
-const RotatingText: React.FC<RotatingTextProps> = ({ text, alternateText, className = '' }) => {
-  return (
-    <span className={`rotating-text-wrapper inline-block overflow-hidden ${className}`}>
-      <span className="rotating-text-inner block transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">
-        <span className="block">{text}</span>
-        <span className="block absolute top-full left-0">{alternateText || text}</span>
-      </span>
-    </span>
-  );
-};
-
-// ============================================
-// MARQUEE COMPONENT WITH ROTATING HOVER
+// MARQUEE COMPONENT - Static text, no hover effects
 // ============================================
 const Marquee: React.FC = () => {
   const services = [
-    { text: 'Product Design', alt: 'Design Products' },
-    { text: 'Web Applications', alt: 'Build Apps' },
-    { text: 'Data Visualization', alt: 'Visualize Data' },
-    { text: 'Rapid Prototyping', alt: 'Prototype Fast' },
-    { text: 'UI/UX Design', alt: 'Design Interfaces' },
-    { text: 'No-Code → Code', alt: 'Ship Faster' },
-    { text: 'Civic Tech', alt: 'Tech for Good' },
+    'Product Design',
+    'Web Applications',
+    'Data Visualization',
+    'Rapid Prototyping',
+    'UI/UX Design',
+    'Mobile Apps',
+    'Civic Tech',
   ];
 
-  // Only 2x duplication for seamless 50% loop
+  // 2x duplication for seamless loop
   const marqueeContent = [...services, ...services];
 
   return (
@@ -180,17 +156,17 @@ const Marquee: React.FC = () => {
       <div
         className="flex whitespace-nowrap"
         style={{
-          animation: 'marquee 20s linear infinite',
+          animation: 'marquee 25s linear infinite',
         }}
       >
         {marqueeContent.map((service, index) => (
           <span
             key={index}
-            className="group text-4xl md:text-6xl lg:text-7xl font-black mx-8 text-[#1A1A1A] cursor-default"
+            className="text-4xl md:text-6xl lg:text-7xl font-black mx-8 text-[#1A1A1A] cursor-default"
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
-            <RotatingText text={service.text} alternateText={service.alt} />
-            <span className="mx-8 text-[#dc2626] transition-transform duration-300 group-hover:rotate-180 inline-block">◆</span>
+            {service}
+            <span className="mx-8 text-[#dc2626]">◆</span>
           </span>
         ))}
       </div>
@@ -199,23 +175,65 @@ const Marquee: React.FC = () => {
 };
 
 // ============================================
-// PROGRESS SECTION - Full-width bordered band
+// SCROLL-BASED PROGRESS SECTION
+// 01 → 04 toggles between services on scroll
 // ============================================
 const ProgressSection: React.FC = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  
+  const services = [
+    { num: '01', label: 'Data Visualization' },
+    { num: '02', label: 'Rapid Prototyping' },
+    { num: '03', label: 'UI/UX Design' },
+    { num: '04', label: 'Web & Mobile Apps' },
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      
+      const rect = sectionRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate scroll progress through the section
+      // When section enters viewport from bottom to when it leaves from top
+      const sectionTop = rect.top;
+      const sectionHeight = rect.height;
+      
+      // Progress from 0 to 1 as section scrolls through viewport
+      const progress = Math.max(0, Math.min(1, 
+        (viewportHeight - sectionTop) / (viewportHeight + sectionHeight)
+      ));
+      
+      // Map progress to index (0-3)
+      const newIndex = Math.min(3, Math.floor(progress * 4));
+      setCurrentIndex(newIndex);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="w-full border-t-2 border-b-2 border-[#1A1A1A] bg-[#FFF8E7] py-12 md:py-16 lg:py-20">
+    <div 
+      ref={sectionRef}
+      className="w-full border-t-2 border-b-2 border-[#1A1A1A] bg-[#FFF8E7] py-12 md:py-16 lg:py-20"
+    >
       <div className="relative w-full px-6 md:px-12 lg:px-16">
-        {/* 01 on far left */}
+        {/* Current number on far left */}
         <span
-          className="absolute left-4 md:left-8 lg:left-12 top-1/2 -translate-y-1/2 text-6xl md:text-8xl lg:text-[10rem] font-black text-[#1A1A1A] leading-none"
+          className="absolute left-4 md:left-8 lg:left-12 top-1/2 -translate-y-1/2 text-6xl md:text-8xl lg:text-[10rem] font-black text-[#1A1A1A] leading-none transition-all duration-500"
           style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
-          01
+          {services[currentIndex].num}
         </span>
 
-        {/* 04 on far right */}
+        {/* Total on far right */}
         <span
-          className="absolute right-4 md:right-8 lg:right-12 top-1/2 -translate-y-1/2 text-6xl md:text-8xl lg:text-[10rem] font-black text-[#1A1A1A] leading-none"
+          className="absolute right-4 md:right-8 lg:right-12 top-1/2 -translate-y-1/2 text-6xl md:text-8xl lg:text-[10rem] font-black text-[#1A1A1A]/20 leading-none"
           style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
           04
@@ -223,18 +241,27 @@ const ProgressSection: React.FC = () => {
 
         {/* Center content */}
         <div className="max-w-2xl mx-auto flex flex-col items-center">
-          {/* Description text above progress bar */}
-          <p className="text-sm md:text-base text-[#1A1A1A] text-center mb-6">
-            Hello. I'm a Product Designer. I solve Problems. Yes I'm a Builder.
+          {/* Current service label */}
+          <p 
+            className="text-lg md:text-xl lg:text-2xl font-bold text-[#1A1A1A] text-center mb-6 transition-all duration-300"
+            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          >
+            {services[currentIndex].label}
           </p>
 
           {/* Progress bar */}
-          <div className="w-full max-w-xl flex items-center mb-4">
-            <div className="h-2 bg-[#1A1A1A] w-1/3" />
-            <div className="h-2 bg-[#E5E5E5] flex-1" />
+          <div className="w-full max-w-xl flex items-center mb-4 gap-1">
+            {services.map((_, i) => (
+              <div 
+                key={i}
+                className={`h-2 flex-1 transition-all duration-300 ${
+                  i <= currentIndex ? 'bg-[#1A1A1A]' : 'bg-[#E5E5E5]'
+                }`}
+              />
+            ))}
           </div>
 
-          {/* Scroll To Discover - spread across */}
+          {/* Scroll indicator */}
           <div className="w-full max-w-xl flex justify-between text-xs md:text-sm tracking-[0.15em] uppercase text-[#6B7280]">
             <span>Scroll</span>
             <span>To</span>
@@ -247,28 +274,24 @@ const ProgressSection: React.FC = () => {
 };
 
 // ============================================
-// SQUARE SNAKE CURSOR - True Snake Game Trail
+// SQUARE SNAKE CURSOR - Proper Snake Trail
 // ============================================
-/**
- * Square cursor with true snake-game trailing effect
- * Multiple squares follow each other with decreasing size/opacity
- */
-const TRAIL_LENGTH = 8; // Number of trailing squares
+const TRAIL_LENGTH = 12; // Number of trailing squares
+const TRAIL_SPACING = 4; // Frames between each segment position update
 
 const SnakeCursor: React.FC = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const mousePos = useRef({ x: 0, y: 0 });
   const cursorPos = useRef({ x: 0, y: 0 });
-  // Trail history - stores positions for each trailing segment
-  const trailPositions = useRef<Array<{ x: number; y: number }>>(
-    Array(TRAIL_LENGTH).fill({ x: 0, y: 0 })
-  );
+  // Store position history for true snake-like following
+  const positionHistory = useRef<Array<{ x: number; y: number }>>([]);
   const [trailState, setTrailState] = useState<Array<{ x: number; y: number }>>(
     Array(TRAIL_LENGTH).fill({ x: 0, y: 0 })
   );
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const animationRef = useRef<number | null>(null);
+  const frameCount = useRef(0);
 
   // Linear interpolation function
   const lerp = (start: number, end: number, factor: number) => {
@@ -276,28 +299,35 @@ const SnakeCursor: React.FC = () => {
   };
 
   const animate = useCallback(() => {
-    // Cursor follows mouse with faster lerp
-    cursorPos.current.x = lerp(cursorPos.current.x, mousePos.current.x, 0.25);
-    cursorPos.current.y = lerp(cursorPos.current.y, mousePos.current.y, 0.25);
+    frameCount.current++;
+    
+    // Cursor follows mouse with lerp
+    cursorPos.current.x = lerp(cursorPos.current.x, mousePos.current.x, 0.2);
+    cursorPos.current.y = lerp(cursorPos.current.y, mousePos.current.y, 0.2);
 
-    // Each trail segment follows the one before it with decreasing lerp factor
-    const newTrailPositions = trailPositions.current.map((pos, i) => {
-      const target = i === 0 ? cursorPos.current : trailPositions.current[i - 1];
-      const lerpFactor = 0.15 - (i * 0.01); // Decreasing follow speed for later segments
-      return {
-        x: lerp(pos.x, target.x, Math.max(lerpFactor, 0.05)),
-        y: lerp(pos.y, target.y, Math.max(lerpFactor, 0.05)),
-      };
-    });
-    trailPositions.current = newTrailPositions;
+    // Add current position to history
+    positionHistory.current.unshift({ ...cursorPos.current });
+    
+    // Keep history limited
+    if (positionHistory.current.length > TRAIL_LENGTH * TRAIL_SPACING + 10) {
+      positionHistory.current.pop();
+    }
 
     // Update cursor position
     if (cursorRef.current) {
       cursorRef.current.style.transform = `translate(${cursorPos.current.x}px, ${cursorPos.current.y}px)`;
     }
 
-    // Update trail state for React render
-    setTrailState([...newTrailPositions]);
+    // Update trail positions from history - each segment follows a previous position
+    const newTrailState = Array(TRAIL_LENGTH).fill(null).map((_, i) => {
+      const historyIndex = (i + 1) * TRAIL_SPACING;
+      if (positionHistory.current[historyIndex]) {
+        return positionHistory.current[historyIndex];
+      }
+      return positionHistory.current[positionHistory.current.length - 1] || { x: 0, y: 0 };
+    });
+    
+    setTrailState(newTrailState);
 
     animationRef.current = requestAnimationFrame(animate);
   }, []);
@@ -311,7 +341,6 @@ const SnakeCursor: React.FC = () => {
     const handleMouseEnter = () => setIsVisible(true);
     const handleMouseLeave = () => setIsVisible(false);
 
-    // Detect hovering over interactive elements
     const handleElementHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const isInteractive = target.closest('a, button, [role="button"], input, textarea, select, .cursor-pointer');
@@ -343,14 +372,13 @@ const SnakeCursor: React.FC = () => {
     <>
       {/* Trailing snake segments - rendered first so they appear behind */}
       {trailState.map((pos, i) => {
-        const size = 36 - (i * 3); // Decreasing size: 36, 33, 30, 27...
-        const opacity = 0.8 - (i * 0.08); // Decreasing opacity
-        const rotation = isHovering ? 45 : (i * 2); // Slight rotation offset
+        const size = 12; // Fixed size for all segments like snake game
+        const opacity = 1 - (i * 0.06); // Slight fade
 
         return (
           <div
             key={i}
-            className="fixed top-0 left-0 pointer-events-none mix-blend-difference"
+            className="fixed top-0 left-0 pointer-events-none"
             style={{
               zIndex: 9990 - i,
               transform: `translate(${pos.x}px, ${pos.y}px)`,
@@ -359,14 +387,11 @@ const SnakeCursor: React.FC = () => {
             }}
           >
             <div
-              className={`border-2 border-white transition-colors duration-300 ${
-                isHovering ? 'bg-[#dc2626]/20' : 'bg-transparent'
-              }`}
+              className="bg-[#1A1A1A]"
               style={{
                 width: size,
                 height: size,
-                opacity: opacity,
-                transform: `rotate(${rotation}deg)`,
+                opacity: Math.max(opacity, 0.3),
               }}
             />
           </div>
@@ -376,19 +401,19 @@ const SnakeCursor: React.FC = () => {
       {/* Main cursor - small square at front */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
-          marginLeft: -5,
-          marginTop: -5,
+          marginLeft: -6,
+          marginTop: -6,
         }}
       >
         <div
-          className={`bg-white transition-transform duration-200 ${
+          className={`bg-[#1A1A1A] transition-transform duration-200 ${
             isHovering ? 'scale-150 rotate-45' : 'scale-100 rotate-0'
           }`}
           style={{
-            width: 10,
-            height: 10,
+            width: 12,
+            height: 12,
           }}
         />
       </div>
@@ -397,7 +422,7 @@ const SnakeCursor: React.FC = () => {
 };
 
 // ============================================
-// BOUNCING LETTER COMPONENT WITH ROTATE HOVER
+// BOUNCING LETTER COMPONENT
 // ============================================
 interface BouncingLetterProps {
   letter: string;
@@ -518,19 +543,6 @@ const HeroNeobrutalist: React.FC = () => {
           background-size: 40px 40px;
         }
 
-        /* Rotating text styles */
-        .rotating-text-wrapper {
-          perspective: 1000px;
-        }
-
-        .rotating-text-inner {
-          transform-style: preserve-3d;
-        }
-
-        .group:hover .rotating-text-inner {
-          transform: translateY(-100%) rotateX(90deg);
-        }
-
         /* Hide default cursor when custom cursor is active */
         body {
           cursor: none;
@@ -576,7 +588,7 @@ const HeroNeobrutalist: React.FC = () => {
                     delay={0.3 + index * 0.05}
                   />
                 ))}
-                {/* Diamond separator */}
+                {/* Diamond separator - RED */}
                 <BouncingLetter
                   letter="◆"
                   delay={0.3 + firstName.length * 0.05}
@@ -595,7 +607,7 @@ const HeroNeobrutalist: React.FC = () => {
           </div>
         </div>
 
-        {/* PROGRESS SECTION - Full-width bordered band */}
+        {/* PROGRESS SECTION - Scroll-based carousel */}
         <div
           className={`transition-all duration-700 ${
             isVisible ? 'opacity-100 animate-fade-in-up' : 'opacity-0'

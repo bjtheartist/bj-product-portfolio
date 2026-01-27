@@ -124,7 +124,7 @@ const NavbarNeobrutalist: React.FC = () => {
                 className="text-xl font-black text-[#1A1A1A]"
                 style={{ fontFamily: "'Bebas Neue', sans-serif" }}
               >
-                BILLY<span className="text-[#3b82f6]">◆</span>NDIZEYE
+                BILLY<span className="text-[#dc2626]">◆</span>NDIZEYE
               </span>
             </div>
 

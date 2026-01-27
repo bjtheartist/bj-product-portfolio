@@ -344,9 +344,9 @@ const ContactSection: React.FC = () => {
                 transitionDelay: '200ms',
               }}
             >
-              LET'S BUILD
+              LET'S WORK
               <br />
-              <span className="text-[#dc2626]">SOMETHING</span>
+              <span className="text-[#dc2626]">TOGETHER</span>
             </h2>
 
             {/* Subtext */}
@@ -358,8 +358,7 @@ const ContactSection: React.FC = () => {
               }`}
               style={{ transitionDelay: '300ms' }}
             >
-              Have a project in mind? I'd love to hear about it.
-              Let's discuss how we can bring your vision to life.
+              Interested in collaborating? Feel free to reach out.
             </p>
 
             {/* Divider */}

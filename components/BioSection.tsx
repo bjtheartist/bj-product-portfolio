@@ -169,7 +169,7 @@ const BioSection: React.FC = () => {
 
             {/* Quick stats/info */}
             <div className="mt-10 pt-6 border-t border-[#1A1A1A]/10">
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+              <div className="grid grid-cols-2 gap-6">
                 <div>
                   <span className="text-xs uppercase tracking-wider text-[#1A1A1A]/40 block mb-1">
                     Focus
@@ -179,14 +179,6 @@ const BioSection: React.FC = () => {
                   </span>
                 </div>
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-[#1A1A1A]/40 block mb-1">
-                    Approach
-                  </span>
-                  <span className="text-sm font-medium text-[#1A1A1A]">
-                    Design + Build + Ship
-                  </span>
-                </div>
-                <div className="col-span-2 sm:col-span-1">
                   <span className="text-xs uppercase tracking-wider text-[#1A1A1A]/40 block mb-1">
                     Available
                   </span>
