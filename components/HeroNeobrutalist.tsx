@@ -139,13 +139,13 @@ const FloatingElement: React.FC<FloatingElementProps> = ({
 // ============================================
 const Marquee: React.FC = () => {
   const services = [
-    'Product Design',
-    'Web Applications',
-    'Data Visualization',
-    'Rapid Prototyping',
-    'UI/UX Design',
-    'Mobile Apps',
-    'Civic Tech',
+    'Website Builds',
+    'Content Strategy',
+    'SEO',
+    'Social Media Strategy',
+    'Launch Sprints',
+    'Site Rebuilds',
+    'Brand Design',
   ];
 
   // 2x duplication for seamless loop
@@ -162,11 +162,11 @@ const Marquee: React.FC = () => {
         {marqueeContent.map((service, index) => (
           <span
             key={index}
-            className="text-4xl md:text-6xl lg:text-7xl font-black mx-8 text-[#1A1A1A] cursor-default"
+            className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-black mx-4 sm:mx-8 text-[#1A1A1A] cursor-default"
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             {service}
-            <span className="mx-8 text-[#dc2626]">◆</span>
+            <span className="mx-4 sm:mx-8 text-[#dc2626]">◆</span>
           </span>
         ))}
       </div>
@@ -177,8 +177,8 @@ const Marquee: React.FC = () => {
 // ============================================
 // SQUARE SNAKE CURSOR - Just trail, no floating circle
 // ============================================
-const TRAIL_LENGTH = 12;
-const TRAIL_SPACING = 4;
+const TRAIL_LENGTH = 8;
+const TRAIL_SPACING = 6;
 
 const SnakeCursor: React.FC = () => {
   const mousePos = useRef({ x: 0, y: 0 });
@@ -188,20 +188,46 @@ const SnakeCursor: React.FC = () => {
     Array(TRAIL_LENGTH).fill({ x: 0, y: 0 })
   );
   const [isVisible, setIsVisible] = useState(false);
+  const [onDark, setOnDark] = useState(false);
   const animationRef = useRef<number | null>(null);
+  const darkCheckRef = useRef<number>(0);
 
   const lerp = (start: number, end: number, factor: number) => {
     return start + (end - start) * factor;
   };
 
+  const checkIfOnDark = useCallback((x: number, y: number) => {
+    const el = document.elementFromPoint(x, y);
+    if (!el) return false;
+    let current: Element | null = el;
+    while (current && current !== document.body) {
+      const bg = getComputedStyle(current).backgroundColor;
+      if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+        const match = bg.match(/\d+/g);
+        if (match) {
+          const [r, g, b] = match.map(Number);
+          return (r * 0.299 + g * 0.587 + b * 0.114) < 80;
+        }
+      }
+      current = current.parentElement;
+    }
+    return false;
+  }, []);
+
   const animate = useCallback(() => {
-    cursorPos.current.x = lerp(cursorPos.current.x, mousePos.current.x, 0.2);
-    cursorPos.current.y = lerp(cursorPos.current.y, mousePos.current.y, 0.2);
+    cursorPos.current.x = lerp(cursorPos.current.x, mousePos.current.x, 0.1);
+    cursorPos.current.y = lerp(cursorPos.current.y, mousePos.current.y, 0.1);
 
     positionHistory.current.unshift({ ...cursorPos.current });
-    
+
     if (positionHistory.current.length > TRAIL_LENGTH * TRAIL_SPACING + 10) {
       positionHistory.current.pop();
+    }
+
+    // Check background color every 6 frames (~100ms at 60fps)
+    darkCheckRef.current++;
+    if (darkCheckRef.current % 6 === 0) {
+      setOnDark(checkIfOnDark(mousePos.current.x, mousePos.current.y));
     }
 
     const newTrailState = Array(TRAIL_LENGTH).fill(null).map((_, i) => {
@@ -211,10 +237,10 @@ const SnakeCursor: React.FC = () => {
       }
       return positionHistory.current[positionHistory.current.length - 1] || { x: 0, y: 0 };
     });
-    
+
     setTrailState(newTrailState);
     animationRef.current = requestAnimationFrame(animate);
-  }, []);
+  }, [checkIfOnDark]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -243,11 +269,13 @@ const SnakeCursor: React.FC = () => {
 
   if (!isVisible) return null;
 
+  const cursorColor = onDark ? '#FAF9F6' : '#1A1A1A';
+
   return (
     <>
       {/* Snake trail - just squares, no floating circle */}
       {trailState.map((pos, i) => {
-        const size = 10;
+        const size = 16;
         const opacity = 1 - (i * 0.07);
 
         return (
@@ -262,11 +290,12 @@ const SnakeCursor: React.FC = () => {
             }}
           >
             <div
-              className="bg-[#1A1A1A]"
               style={{
                 width: size,
                 height: size,
                 opacity: Math.max(opacity, 0.2),
+                backgroundColor: cursorColor,
+                transition: 'background-color 0.2s ease',
               }}
             />
           </div>
@@ -326,9 +355,6 @@ const HeroNeobrutalist: React.FC = () => {
     { shape: 'ring', color: '#f87171', size: 60, position: { top: '25%', left: '75%' }, delay: 0.4, duration: 6, layer: 2 },
     { shape: 'square', color: '#b91c1c', size: 40, position: { top: '55%', left: '8%' }, delay: 0.9, duration: 5, layer: 2 },
   ];
-
-  const firstName = 'BILLY';
-  const lastName = 'NDIZEYE';
 
   return (
     <>
@@ -403,7 +429,7 @@ const HeroNeobrutalist: React.FC = () => {
       {/* Square Snake Cursor */}
       <SnakeCursor />
 
-      <section ref={heroRef} className="relative min-h-screen w-full flex flex-col bg-[#FFF8E7] overflow-hidden">
+      <section ref={heroRef} className="relative min-h-[100dvh] w-full flex flex-col bg-[#FFF8E7] overflow-hidden">
         {/* GRID BACKGROUND */}
         <div className="absolute inset-0 grid-background pointer-events-none" />
 
@@ -414,40 +440,107 @@ const HeroNeobrutalist: React.FC = () => {
           ))}
         </div>
 
-        {/* NAME SECTION - Upper area */}
-        <div className="relative z-20 flex-1 flex flex-col justify-center items-center px-4 sm:px-6 pt-16 md:pt-20 pb-8">
-          {/* YOUR NAME - Bouncing Letters Animation with Rotate Hover */}
+        {/* HEADLINE SECTION */}
+        <div className="relative z-20 flex-1 flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 pt-20 sm:pt-24 md:pt-28 pb-4 sm:pb-8">
           <div
-            className={`text-center ${
+            className={`max-w-4xl ${
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}
           >
+            {/* Business Headline */}
             <h1
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-[11rem] xl:text-[13rem] font-black text-[#1A1A1A] tracking-tight cursor-default leading-none"
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-[#1A1A1A] tracking-tight cursor-default leading-[0.95] mb-4 sm:mb-6"
               style={{ fontFamily: "'Bebas Neue', sans-serif" }}
             >
               <span className="block">
-                {firstName.split('').map((letter, index) => (
+                {'We build the'.split('').map((letter, index) => (
                   <BouncingLetter
-                    key={`first-${index}`}
-                    letter={letter}
-                    delay={0.3 + index * 0.05}
+                    key={`line1-${index}`}
+                    letter={letter === ' ' ? '\u00A0' : letter}
+                    delay={0.3 + index * 0.02}
                   />
                 ))}
-                <BouncingLetter
-                  letter="◆"
-                  delay={0.3 + firstName.length * 0.05}
-                  isSpecial
-                />
-                {lastName.split('').map((letter, index) => (
+              </span>
+              <span className="block">
+                {'digital presence'.split('').map((letter, index) => (
                   <BouncingLetter
-                    key={`last-${index}`}
-                    letter={letter}
-                    delay={0.3 + (firstName.length + 1) * 0.05 + index * 0.05}
+                    key={`line2-${index}`}
+                    letter={letter === ' ' ? '\u00A0' : letter}
+                    delay={0.7 + index * 0.02}
+                  />
+                ))}
+              </span>
+              <span className="block text-[#dc2626]">
+                {'your business deserves.'.split('').map((letter, index) => (
+                  <BouncingLetter
+                    key={`line3-${index}`}
+                    letter={letter === ' ' ? '\u00A0' : letter}
+                    delay={1.0 + index * 0.02}
                   />
                 ))}
               </span>
             </h1>
+
+            {/* Subtext */}
+            <p
+              className={`text-sm sm:text-base md:text-lg lg:text-xl text-[#1A1A1A]/70 max-w-2xl mb-6 sm:mb-10 transition-all duration-700 ${
+                isVisible ? 'opacity-100 animate-fade-in-up' : 'opacity-0'
+              }`}
+              style={{ animationDelay: '1.5s' }}
+            >
+              <strong className="text-[#1A1A1A]">No templates. No bloat.</strong> We partner with business owners to build websites,
+              apps, and digital strategies that win trust and turn visitors into loyal customers. Just your brand, built hand-in-hand.
+            </p>
+
+            {/* Two CTAs */}
+            <div
+              className={`flex flex-col sm:flex-row items-stretch sm:items-start gap-3 sm:gap-4 mb-8 sm:mb-12 transition-all duration-700 ${
+                isVisible ? 'opacity-100 animate-fade-in-up' : 'opacity-0'
+              }`}
+              style={{ animationDelay: '1.8s' }}
+            >
+              <a
+                href="#get-started"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('get-started')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#dc2626] text-[#FAF9F6] text-base sm:text-lg md:text-xl font-bold tracking-wide border-2 border-[#1A1A1A] shadow-[6px_6px_0px_#1A1A1A] hover:shadow-[2px_2px_0px_#1A1A1A] hover:translate-x-1 hover:translate-y-1 transition-all duration-200 w-full sm:w-auto justify-center"
+                style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: '0.1em' }}
+              >
+                Build Your Foundation
+              </a>
+              <a
+                href="#diagnostic"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('diagnostic')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-[#1A1A1A] text-base sm:text-lg md:text-xl font-bold tracking-wide border-2 border-[#1A1A1A] shadow-[6px_6px_0px_#1A1A1A] hover:shadow-[2px_2px_0px_#1A1A1A] hover:translate-x-1 hover:translate-y-1 hover:bg-[#1A1A1A] hover:text-[#FAF9F6] transition-all duration-200 w-full sm:w-auto justify-center"
+                style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: '0.1em' }}
+              >
+                Get a Free Site Diagnostic
+              </a>
+            </div>
+
+            {/* Stats Strip */}
+            <div
+              className={`flex flex-wrap items-center gap-4 sm:gap-6 md:gap-10 transition-all duration-700 ${
+                isVisible ? 'opacity-100 animate-fade-in-up' : 'opacity-0'
+              }`}
+              style={{ animationDelay: '2.1s' }}
+            >
+              {[
+                'Data Over Guesswork',
+                'Zero-Bloat Performance',
+                'ROI Focused',
+              ].map((label) => (
+                <div key={label} className="flex items-center gap-2 text-[#1A1A1A]/80">
+                  <span className="w-2 h-2 bg-[#dc2626]" />
+                  <span className="text-sm md:text-base font-bold uppercase tracking-wider">{label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

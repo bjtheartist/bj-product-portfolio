@@ -69,7 +69,7 @@ const PROJECTS: Project[] = [
     id: 'communidata',
     title: 'CommuniData',
     skills: ['Data Viz', 'Django', 'React', 'Redis'],
-    description: 'Chicago neighborhood intelligence platform',
+    description: 'Turning raw city data into neighborhood power',
     sector: 'Civic Tech',
     problem: 'Chicago\'s open data portal contains valuable civic information, but it\'s inaccessible to average residents. Raw datasets require technical expertise to interpret, leaving community members unable to leverage data for neighborhood advocacy.',
     tools: [
@@ -90,7 +90,7 @@ const PROJECTS: Project[] = [
     id: 'makarios',
     title: 'Makarios',
     skills: ['Mobile App', 'React Native', 'Firebase', 'Expo'],
-    description: 'Faith-based mobile devotional app',
+    description: 'Making daily devotion feel personal again',
     sector: 'Faith & Community',
     problem: 'Faith communities needed a mobile-first devotional experience that felt personal and accessible. Existing apps were either too cluttered with features or lacked the warmth needed for daily spiritual practice.',
     tools: [
@@ -111,7 +111,7 @@ const PROJECTS: Project[] = [
     id: 'kivara-flow',
     title: 'Kivara Flow',
     skills: ['Product Design', 'Convex', 'React', 'TypeScript'],
-    description: 'Project management application',
+    description: 'One workspace from concept to code',
     sector: 'Project Management',
     problem: 'Creative teams waste significant time context-switching between design tools, project management apps, and development environments. The lack of a unified workflow creates friction that slows down the concept-to-code pipeline.',
     tools: [
@@ -132,7 +132,7 @@ const PROJECTS: Project[] = [
     id: 'temsvision',
     title: 'TemsVision',
     skills: ['Web Design', 'Sanity CMS', 'React', 'Vite'],
-    description: 'Creative photography portfolio',
+    description: 'Standing out beyond template portfolios',
     sector: 'Creative Portfolio',
     problem: 'Photographers often struggle with portfolio websites that either look generic or require expensive subscriptions. TemsVision needed a distinctive online presence that would stand out while making it easy for clients to book sessions.',
     tools: [
@@ -154,7 +154,7 @@ const PROJECTS: Project[] = [
     id: 'sahara-tax-pro',
     title: 'Sahara Tax Pro',
     skills: ['Full-Stack', 'Next.js', 'React', 'FinTech'],
-    description: 'Boutique tax preparation platform',
+    description: 'Giving boutique tax pros a big-firm presence',
     sector: 'FinTech',
     problem: 'Small tax preparation businesses struggle to compete with large firms like H&R Block and TurboTax. They needed a professional online presence that conveys trust while making it easy for clients to book consultations.',
     tools: [
@@ -605,7 +605,7 @@ const SectionHeader: React.FC = memo(() => {
       <div className="flex items-center gap-4 mb-4">
         <div className="w-12 h-px bg-[#dc2626]" />
         <span className="text-[#dc2626] text-xs sm:text-sm tracking-[0.3em] uppercase font-bold">
-          Selected Work
+          Portfolio
         </span>
       </div>
 
@@ -613,7 +613,7 @@ const SectionHeader: React.FC = memo(() => {
         className="text-4xl sm:text-5xl md:text-6xl font-black text-[#1A1A1A] leading-none mb-3"
         style={{ fontFamily: "'Bebas Neue', sans-serif" }}
       >
-        Projects
+        Real Results, Real Clients
       </h2>
 
       <p className="text-[#1A1A1A]/60 text-base sm:text-lg max-w-2xl">
@@ -663,7 +663,7 @@ const PortfolioGrid: React.FC = () => {
 
   return (
     <section
-      id="work"
+      id="portfolio"
       className="relative py-20 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8 lg:px-12 bg-[#FAF9F6]"
     >
       {/* Background Pattern */}

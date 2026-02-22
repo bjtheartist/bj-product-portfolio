@@ -1,6 +1,6 @@
-import { Project, Service } from './types';
+import { Project, Service, ServiceTier } from './types';
 
-// Color palette for product design portfolio
+// Color palette
 export const COLORS = {
   primary: {
     darkNavy: '#0a0a0a',
@@ -13,11 +13,11 @@ export const COLORS = {
 };
 
 export const SITE_CONFIG = {
-  name: 'BJTHEARTIST',
-  tagline: 'PRODUCT DESIGNER, FULL-STACK DEVELOPER & DATA VISUALIZER',
+  name: 'KIVARA STUDIOS',
+  tagline: 'MODERN WEBSITES FOR BUSINESSES WHO DON\'T HAVE MONTHS TO WAIT',
   location: 'Chicago, Illinois',
-  email: 'hello@bjtheartist.com',
-  instagram: '@bjtheartist',
+  email: 'hello@kivarastudios.dev',
+  instagram: '@kivarastudios',
   fullName: 'Billy Ndizeye',
 };
 
@@ -37,7 +37,7 @@ export const PROJECTS: Project[] = [
     description: 'The launchpad for Chicago founders. A comprehensive ecosystem directory featuring 90+ investors, 18+ co-working spaces, and 22+ founder communities.',
     tags: ['Full-Stack', 'React', 'Supabase', 'Next.js'],
     liveUrl: 'https://www.chistartuphub.com',
-    year: '2024',
+    year: '2025',
     problem: 'Chicago founders struggled to navigate the fragmented startup ecosystem. Information about investors, co-working spaces, and founder communities was scattered across dozens of websites, making it difficult for new entrepreneurs to find the resources they needed to launch and grow their ventures.',
     tools: [
       { name: 'Supabase', reason: 'Chosen as the backend-as-a-service for its PostgreSQL database, real-time subscriptions, and built-in authentication—enabling rapid development without managing infrastructure.' },
@@ -59,7 +59,7 @@ export const PROJECTS: Project[] = [
     description: 'A civic data platform transforming Chicago Data Portal information into actionable neighborhood insights with interactive maps and a Trust Layer.',
     tags: ['Data Viz', 'Django', 'React', 'Redis'],
     githubUrl: 'https://github.com/Dunosis/CommuniData',
-    year: '2024',
+    year: '2026',
     problem: 'Chicago\'s open data portal contains valuable civic information, but it\'s inaccessible to average residents. Raw datasets require technical expertise to interpret, leaving community members unable to leverage data for neighborhood advocacy and decision-making.',
     tools: [
       { name: 'Django', reason: 'Python-based backend framework chosen for its robust ORM, admin interface, and excellent data processing capabilities for handling large civic datasets.' },
@@ -82,7 +82,7 @@ export const PROJECTS: Project[] = [
     description: 'A faith-based community platform designed to help make disciples of all nations. Clean, purposeful design focused on connection and spiritual growth.',
     tags: ['Web Design', 'Firebase', 'Sanity CMS', 'React'],
     githubUrl: 'https://github.com/bjtheartist/Makarios',
-    year: '2024',
+    year: '2026',
     problem: 'Faith communities needed a digital space that felt warm and inviting rather than corporate. Existing church websites often felt outdated or overly complex, creating barriers to connection for newcomers seeking spiritual community.',
     tools: [
       { name: 'Firebase', reason: 'Chosen for its real-time database capabilities, authentication, and hosting—perfect for community features like event RSVPs and member directories.' },
@@ -91,31 +91,31 @@ export const PROJECTS: Project[] = [
       { name: 'Tailwind CSS', reason: 'Allowed rapid iteration on visual design to achieve the warm, purposeful aesthetic the community needed.' }
     ],
     effectiveness: {
-      status: 'effective',
-      description: 'Makarios successfully bridges the gap between traditional faith community values and modern digital expectations. The clean design removes barriers to entry while maintaining the warmth essential to ministry.',
-      metrics: ['Clean, accessible design', 'Mobile-first approach', 'Content managed by staff', 'Positive community feedback']
+      status: 'in-progress',
+      description: 'Makarios is currently in beta (pre-launch). The clean design removes barriers to entry while maintaining the warmth essential to ministry. Final testing and community onboarding are underway.',
+      metrics: ['Clean, accessible design', 'Mobile-first approach', 'Content managed by staff', 'Beta testing in progress']
     }
   },
   {
     id: '4',
-    title: 'Kivara Flow',
-    category: 'PRODUCT DESIGN',
-    imageUrl: '/projects/kivara-flow.png',
-    description: 'A design and development workflow tool built to streamline creative processes. From concept to code, helping teams ship products faster.',
-    tags: ['Product Design', 'Convex', 'React', 'TypeScript'],
-    githubUrl: 'https://github.com/bjtheartist/kivara-flow',
-    year: '2024',
-    problem: 'Creative teams waste significant time context-switching between design tools, project management apps, and development environments. The lack of a unified workflow creates friction that slows down the concept-to-code pipeline.',
+    title: 'Funke Roberts',
+    category: 'WEB DESIGN',
+    imageUrl: '/projects/funke-roberts.jpg',
+    description: 'Image consulting brand with a digital storefront. WordPress site featuring personal branding services, client stories, and an integrated e-commerce shop for skincare products.',
+    tags: ['WordPress', 'WooCommerce', 'Brand Design', 'E-Commerce'],
+    liveUrl: 'https://funkeroberts.com',
+    year: '2026',
+    problem: 'An image consultant with a powerful personal brand needed a digital presence that matched her authority. Her message—"Stop Being Invisible... Make Your Image Speak"—needed a site that felt premium, conveyed trust, and seamlessly integrated service bookings with product sales.',
     tools: [
-      { name: 'Convex', reason: 'Real-time backend database chosen for its reactive data sync—essential for collaborative workflows where multiple team members need to see updates instantly.' },
-      { name: 'React', reason: 'Provided the flexibility to build a complex, interactive interface with multiple panels and real-time updates.' },
-      { name: 'TypeScript', reason: 'Essential for building a reliable tool that developers will trust. Type safety prevents bugs that could disrupt creative workflows.' },
-      { name: 'Tailwind CSS', reason: 'Enabled rapid UI development with consistent styling across the complex multi-panel interface.' }
+      { name: 'WordPress', reason: 'Chosen for its flexibility in combining content marketing, service pages, and e-commerce under one roof—giving the client full content ownership.' },
+      { name: 'WooCommerce', reason: 'Integrated digital store for skincare products, enabling direct-to-consumer sales alongside consulting services.' },
+      { name: 'Elementor', reason: 'Visual page builder that empowers the client to update content, testimonials, and product listings without developer involvement.' },
+      { name: 'Custom Branding', reason: 'Designed warm, authoritative visual identity with earthy tones that reflect the client\'s personal brand and target audience.' }
     ],
     effectiveness: {
-      status: 'in-progress',
-      description: 'Kivara Flow is in active development. The core concept of unifying design and development workflows addresses a real pain point, but the challenge lies in integrating with existing tools without adding complexity.',
-      metrics: ['Core workflow engine built', 'Project tracking system live', 'Client portal integrated', 'Tier-based pricing implemented']
+      status: 'effective',
+      description: 'Funke Roberts\' site successfully positions her as a premium image consultant. The integrated shop creates an additional revenue stream beyond 1-on-1 consulting, and the brand design conveys the authority her clients expect.',
+      metrics: ['Live and serving clients', 'Integrated e-commerce shop', 'Client stories showcase', 'WhatsApp booking integration']
     }
   },
   {
@@ -127,7 +127,7 @@ export const PROJECTS: Project[] = [
     tags: ['Web Design', 'Sanity CMS', 'React', 'Vite'],
     liveUrl: 'https://temsvision-website.vercel.app/',
     githubUrl: 'https://github.com/bjtheartist/temsvision-website',
-    year: '2024',
+    year: '2025',
     problem: 'Photographers often struggle with portfolio websites that either look generic or require expensive subscriptions. TemsVision needed a distinctive online presence that would stand out in a crowded market while making it easy for clients to book sessions.',
     tools: [
       { name: 'Sanity CMS', reason: 'Headless CMS enabling the photographer to manage galleries, add new photos, and update content without touching code.' },
@@ -149,7 +149,7 @@ export const PROJECTS: Project[] = [
     description: 'Boutique tax preparation platform offering personalized tax guidance with IRS compliant filing, 24h response time, and dedicated client support.',
     tags: ['Full-Stack', 'Next.js', 'React', 'FinTech'],
     liveUrl: 'https://saharataxpro.com/',
-    year: '2024',
+    year: '2025',
     problem: 'Small tax preparation businesses struggle to compete with large firms like H&R Block and TurboTax. They needed a professional online presence that conveys trust and expertise while making it easy for clients to book consultations and submit documents securely.',
     tools: [
       { name: 'Next.js', reason: 'Provided SEO optimization crucial for local business discovery, plus fast page loads that build trust with potential clients.' },
@@ -161,6 +161,50 @@ export const PROJECTS: Project[] = [
       status: 'effective',
       description: 'Sahara Tax Pro successfully positions a boutique tax firm to compete with larger competitors. The professional design builds trust, and the streamlined booking process converts website visitors into consultations.',
       metrics: ['Live and serving clients', 'IRS compliant workflows', '24h response time commitment', 'Professional brand presence']
+    }
+  },
+  {
+    id: '7',
+    title: 'Everett Home Agency',
+    category: 'WEB DESIGN',
+    imageUrl: '/projects/everett-home.png',
+    description: 'Premium senior care agency website with elegant design, service listings, careers page, and consultation booking for the Greater Lansing area.',
+    tags: ['Web Design', 'React', 'Vite', 'Radix UI'],
+    liveUrl: 'https://everetthomestaffing.com',
+    githubUrl: 'https://github.com/bjtheartist/https-github.com-base44dev-everretthomestaffing',
+    year: '2026',
+    problem: 'A senior home care agency in Greater Lansing needed a professional online presence that conveyed trust, warmth, and premium quality. They needed potential clients and families to feel confident in their caregivers before even picking up the phone.',
+    tools: [
+      { name: 'React', reason: 'Enabled a smooth, modern single-page experience that feels premium and trustworthy to families researching care options.' },
+      { name: 'Vite', reason: 'Fast build tooling for rapid development and optimized production bundles.' },
+      { name: 'Radix UI', reason: 'Accessible component library ensuring the site works for all users, including seniors and those with accessibility needs.' },
+      { name: 'Tailwind CSS', reason: 'Allowed rapid development of the warm, elegant design with navy and gold brand colors that convey professionalism.' }
+    ],
+    effectiveness: {
+      status: 'effective',
+      description: 'Everett Home Agency\'s site successfully positions them as a premium care provider. The warm, professional design builds immediate trust with families seeking care for loved ones.',
+      metrics: ['Live and serving clients', 'Consultation booking integrated', 'Careers page for recruitment', 'Mobile-responsive for families on the go']
+    }
+  },
+  {
+    id: '8',
+    title: 'Just AFC',
+    category: 'WEB DESIGN',
+    imageUrl: '/projects/justafc.png',
+    description: 'Premier adult foster care facility website in Lansing, MI. Warm, professional design with patient referral system, service listings, and tour scheduling.',
+    tags: ['Web Design', 'React', 'Healthcare', 'Brand Design'],
+    liveUrl: 'https://justafc.com',
+    year: '2025',
+    problem: 'A new adult foster care home needed a professional web presence that conveyed warmth, trust, and medical competence to families searching for care options for their loved ones in the Lansing area.',
+    tools: [
+      { name: 'React', reason: 'Modern frontend for a smooth, trustworthy user experience that families expect from a care provider.' },
+      { name: 'Tailwind CSS', reason: 'Rapid development of the clean, warm design with green brand accents that convey health and comfort.' },
+      { name: 'Vite', reason: 'Fast development builds and optimized production bundles for quick page loads.' }
+    ],
+    effectiveness: {
+      status: 'effective',
+      description: 'Just AFC\'s site positions them as a premier care provider in Lansing. The professional design with patient referral workflow and tour scheduling converts visitors into facility tours.',
+      metrics: ['Live and serving clients', 'Patient referral system', 'Tour scheduling integrated', 'Services clearly presented']
     }
   }
 ];
@@ -192,42 +236,60 @@ export const SERVICES: Service[] = [
   }
 ];
 
-export const SKILLS = [
-  'Product Design',
-  'UX/UI Design',
-  'React',
-  'TypeScript',
-  'Next.js',
-  'Node.js',
-  'Python',
-  'Django',
-  'Supabase',
-  'Firebase',
-  'Convex',
-  'Sanity CMS',
-  'Data Visualization',
-  'D3.js',
-  'Tailwind CSS',
-  'Figma',
-  'Full-Stack Development'
+export const SERVICE_TIERS: ServiceTier[] = [
+  {
+    id: 'launch-sprint',
+    name: 'Launch Sprint',
+    price: '$2,500',
+    timeline: '72 hours',
+    description: 'For businesses that need to get online fast. A clean, high-converting one-page site built in a weekend.',
+    features: [
+      'Custom one-page website',
+      'Mobile responsive',
+      'Contact form integration',
+      'Basic SEO setup',
+      'Deployed on Vercel',
+      '1 round of revisions',
+    ],
+  },
+  {
+    id: 'site-rebuild',
+    name: 'Site Rebuild',
+    price: '$5,000',
+    timeline: '2 weeks',
+    description: 'Your current site isn\'t converting. We rebuild it from scratch with speed, structure, and lead generation baked in.',
+    features: [
+      'Full multi-page website',
+      'Speed optimization (90+ Lighthouse)',
+      'Lead capture forms',
+      'CMS integration',
+      'Analytics setup',
+      'SEO optimization',
+      '2 rounds of revisions',
+    ],
+    highlighted: true,
+  },
+  {
+    id: 'growth-engine',
+    name: 'Growth Engine',
+    price: '$8,000+',
+    timeline: '4 weeks',
+    description: 'A full digital presence built to generate leads, rank on Google, and grow with your business.',
+    features: [
+      'Everything in Site Rebuild',
+      'Custom brand design',
+      'Blog/content system',
+      'Email automation setup',
+      'Monthly performance reports',
+      'Priority support (48h)',
+      '3 rounds of revisions',
+    ],
+  },
 ];
 
 export const SOCIAL_LINKS = {
   linkedin: 'https://www.linkedin.com/in/billy-ndizeye/',
   github: 'https://github.com/bjtheartist',
-  instagram: 'https://www.instagram.com/bjtheartist/',
-  twitter: 'https://twitter.com/bjtheartist',
-};
-
-export const ABOUT_BIO = {
-  intro: "I'm Billy Ndizeye, a product designer and full-stack developer based in Chicago.",
-  background: "I blend design thinking with technical expertise to create digital products that solve real problems. From civic tech platforms to business applications, I focus on building tools that make a difference.",
-  story: "BJTHEARTIST represents my approach to work—treating every project as a creative endeavor that deserves craft and intention. Whether designing interfaces or writing code, I bring an artist's eye for detail.",
-  philosophy: "Good design is invisible. The best products feel intuitive because someone cared enough to think through every interaction.",
-  approach: "I start with understanding the problem deeply, then iterate rapidly toward solutions that are both beautiful and functional. I believe in shipping early and refining based on real feedback.",
-  nameMeaning: {
-    bj: "Billy's initials",
-    theartist: "The craft and intention behind every project",
-    bjtheartist: "Where technical skill meets creative vision"
-  }
+  instagram: 'https://www.instagram.com/kivarastudios/',
+  twitter: 'https://twitter.com/kivarastudios',
 };

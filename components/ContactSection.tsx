@@ -134,6 +134,24 @@ const ResumeIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
+const CalendarIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    <line x1="3" y1="10" x2="21" y2="10" />
+  </svg>
+);
+
 const EmailIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
     className={className}
@@ -256,6 +274,11 @@ const ContactSection: React.FC = () => {
   // Social/Contact Links
   const links = [
     {
+      href: 'https://cal.com/billyndizeye',
+      icon: <CalendarIcon className="w-full h-full" />,
+      label: 'Schedule a Call',
+    },
+    {
       href: 'https://github.com/billynd',
       icon: <GitHubIcon className="w-full h-full" />,
       label: 'GitHub',
@@ -272,9 +295,9 @@ const ContactSection: React.FC = () => {
       isExternal: false,
     },
     {
-      href: 'mailto:hello@bjtheartist.com',
+      href: 'mailto:hello@kivarastudios.dev',
       icon: <EmailIcon className="w-full h-full" />,
-      label: 'hello@bjtheartist.com',
+      label: 'hello@kivarastudios.dev',
       isExternal: false,
     },
   ];

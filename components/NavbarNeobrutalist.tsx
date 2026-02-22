@@ -20,10 +20,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 // CONFIGURATION
 // ============================================
 const SITE_CONFIG = {
-  name: 'Billy Ndizeye',
-  tagline: 'PRODUCT DESIGNER & BUILDER',
+  name: 'Kivara Studios',
+  tagline: 'DESIGN, BUILD & SHIP',
   location: 'Chicago, Illinois',
-  email: 'hello@billytheartist.com',
+  email: 'hello@kivarastudios.dev',
 };
 
 const SOCIAL_LINKS = {
@@ -78,10 +78,11 @@ const NavbarNeobrutalist: React.FC = () => {
 
   // Menu items configuration
   const menuItems = [
-    { label: 'Work', id: 'portfolio' },
-    { label: 'Services', id: 'services' },
+    { label: 'What We Build', id: 'what-we-build' },
+    { label: 'Process', id: 'process' },
+    { label: 'Portfolio', id: 'portfolio' },
     { label: 'About', id: 'about' },
-    { label: 'Contact', id: 'contact' },
+    { label: 'Get Started', id: 'get-started' },
   ];
 
   return (
@@ -98,8 +99,8 @@ const NavbarNeobrutalist: React.FC = () => {
             : 'bg-transparent'
         }`}
       >
-        <div className="px-6 md:px-12 lg:px-24">
-          <div className="flex items-center justify-between h-20 md:h-24">
+        <div className="px-4 sm:px-6 md:px-12 lg:px-24">
+          <div className="flex items-center justify-between h-16 sm:h-20 md:h-24">
             {/* LEFT: Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -124,16 +125,16 @@ const NavbarNeobrutalist: React.FC = () => {
                 className="text-xl font-black text-[#1A1A1A]"
                 style={{ fontFamily: "'Bebas Neue', sans-serif" }}
               >
-                BILLY<span className="text-[#dc2626]">◆</span>NDIZEYE
+                KIVARA<span className="text-[#dc2626]">◆</span>STUDIOS
               </span>
             </div>
 
-            {/* RIGHT: Contact Button */}
+            {/* RIGHT: Get Started Button */}
             <a
-              href="#contact"
+              href="#get-started"
               onClick={(e) => {
                 e.preventDefault();
-                scrollToSection('contact');
+                scrollToSection('get-started');
               }}
               className={`relative z-[60] text-sm font-medium tracking-[0.15em] uppercase transition-colors duration-200 px-4 py-2 ${
                 isMenuOpen
@@ -141,7 +142,7 @@ const NavbarNeobrutalist: React.FC = () => {
                   : 'text-[#1A1A1A] hover:text-[#3b82f6]'
               }`}
             >
-              Contact
+              Get Started
             </a>
           </div>
         </div>
@@ -175,7 +176,7 @@ const NavbarNeobrutalist: React.FC = () => {
         </div>
 
         {/* Menu Content */}
-        <div className="relative z-10 h-full flex flex-col justify-center px-6 md:px-12 lg:px-24 pt-20">
+        <div className="relative z-10 h-full flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-24 pt-16 sm:pt-20">
           <nav className="max-w-4xl">
             {menuItems.map((item, index) => (
               <div
@@ -200,7 +201,7 @@ const NavbarNeobrutalist: React.FC = () => {
                   
                   {/* Menu item text */}
                   <span
-                    className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#FAF9F6] hover:text-[#3b82f6] transition-colors duration-200"
+                    className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#FAF9F6] hover:text-[#3b82f6] transition-colors duration-200"
                     style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                   >
                     {item.label}
@@ -227,7 +228,7 @@ const NavbarNeobrutalist: React.FC = () => {
 
           {/* Footer info in menu */}
           <div
-            className={`absolute bottom-8 md:bottom-12 left-6 md:left-12 lg:left-24 right-6 md:right-12 lg:right-24 flex flex-col md:flex-row justify-between gap-6 transition-all duration-500 ease-out ${
+            className={`absolute bottom-6 sm:bottom-8 md:bottom-12 left-4 sm:left-6 md:left-12 lg:left-24 right-4 sm:right-6 md:right-12 lg:right-24 flex flex-col md:flex-row justify-between gap-4 sm:gap-6 transition-all duration-500 ease-out ${
               isMenuOpen
                 ? 'translate-y-0 opacity-100'
                 : 'translate-y-8 opacity-0'

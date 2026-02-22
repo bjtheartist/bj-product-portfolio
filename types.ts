@@ -33,3 +33,32 @@ export interface Service {
   price?: string;
   features?: string[];
 }
+
+export interface ServiceTier {
+  id: string;
+  name: string;
+  price: string;
+  timeline: string;
+  description: string;
+  features: string[];
+  highlighted?: boolean;
+}
+
+export interface DiagnosticFormData {
+  type: 'diagnostic';
+  email: string;
+  url: string;
+}
+
+export interface IntakeFormData {
+  type: 'intake';
+  name: string;
+  email: string;
+  phone: string;
+  business: string;
+  industry: string;
+  url: string;
+  budget: string;
+  timeline: string;
+  message: string;
+}
