@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billy Ndizeye — Digital Business Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #FAF9F6;
+      --charcoal: #1A1A1A;
+      --red: #dc2626;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--charcoal);
+      padding: 40px 20px;
+    }
+
+    h1, h2, h3, .display { font-family: 'Bebas Neue', sans-serif; }
+
+    .card-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+    }
+
+    /* ===== FRONT OF CARD ===== */
+    .card {
+      width: 400px;
+      background: var(--cream);
+      border: 3px solid var(--charcoal);
+      box-shadow: 8px 8px 0 var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.02;
+      background-image: linear-gradient(var(--charcoal) 1px, transparent 1px), linear-gradient(90deg, var(--charcoal) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* Red top bar */
+    .card-top-bar {
+      height: 4px;
+      background: var(--red);
+    }
+
+    .card-body {
+      padding: 32px 28px 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Name + Title */
+    .card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--charcoal);
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+
+    .card-title {
+      font-size: 12px;
+      color: rgba(26,26,26,0.5);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .card-separator {
+      width: 40px;
+      height: 2px;
+      background: var(--red);
+      margin: 20px 0;
+    }
+
+    /* Contact rows */
+    .card-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-contact-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-contact-icon {
+      width: 28px;
+      height: 28px;
+      border: 1.5px solid var(--charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-contact-icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--charcoal);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .card-contact-text {
+      font-size: 13px;
+      color: var(--charcoal);
+      font-weight: 500;
+    }
+
+    .card-contact-text a {
+      color: var(--charcoal);
+      text-decoration: none;
+    }
+
+    .card-contact-text a:hover {
+      color: var(--red);
+    }
+
+    /* Studio name at bottom */
+    .card-studio {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1.5px solid rgba(26,26,26,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-studio-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      color: var(--charcoal);
+      letter-spacing: 3px;
+    }
+
+    .card-studio-tagline {
+      font-size: 9px;
+      color: rgba(26,26,26,0.35);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* ===== QR SECTION ===== */
+    .qr-section {
+      width: 400px;
+      background: var(--charcoal);
+      border: 3px solid rgba(250,249,246,0.15);
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .qr-code {
+      width: 140px;
+      height: 140px;
+      background: white;
+      padding: 8px;
+      flex-shrink: 0;
+    }
+
+    .qr-code img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .qr-text h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--cream);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .qr-text p {
+      font-size: 11px;
+      color: rgba(250,249,246,0.4);
+      line-height: 1.6;
+    }
+
+    .qr-text .url {
+      font-size: 12px;
+      color: var(--red);
+      font-weight: 600;
+      margin-top: 8px;
+      display: block;
+    }
+
+    /* ===== SOCIAL ROW ===== */
+    .social-row {
+      width: 400px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .social-link {
+      flex: 1;
+      background: transparent;
+      border: 2px solid rgba(250,249,246,0.1);
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(250,249,246,0.4);
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .social-link:hover {
+      border-color: var(--red);
+      color: var(--cream);
+      background: var(--red);
+    }
+
+    /* ===== SAVE BUTTON ===== */
+    .save-btn {
+      width: 400px;
+      background: var(--red);
+      border: none;
+      padding: 14px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: var(--cream);
+      cursor: pointer;
+      box-shadow: 4px 4px 0 rgba(250,249,246,0.1);
+      transition: all 0.2s;
+    }
+
+    .save-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 rgba(250,249,246,0.15);
+    }
+
+    @media print {
+      body { background: white; }
+      .save-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card-wrapper">
+
+  <!-- ===== BUSINESS CARD ===== -->
+  <div class="card">
+    <div class="card-top-bar"></div>
+    <div class="card-body">
+      <h1 class="card-name">BILLY NDIZEYE</h1>
+      <p class="card-title">Founder & Lead Developer</p>
+
+      <div class="card-separator"></div>
+
+      <div class="card-contact">
+        <div class="card-contact-row">
+          <div class="card-contact-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </div>
+          <span class="card-contact-text"><a href="mailto:billy@kivarastudios.dev">billy@kivarastudios.dev</a></span>
+        </div>
+
+        <div class="card-contact-row">
+          <div class="card-contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <span class="card-contact-text"><a href="tel:+16165895598">(616) 589-5598</a></span>
+        </div>
+
+        <div class="card-contact-row">
+          <div class="card-contact-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <span class="card-contact-text"><a href="https://kivarastudios.dev" target="_blank">kivarastudios.dev</a></span>
+        </div>
+
+        <div class="card-contact-row">
+          <div class="card-contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span class="card-contact-text">Chicago, Illinois</span>
+        </div>
+      </div>
+
+      <div class="card-studio">
+        <span class="card-studio-name">KIVARA STUDIOS</span>
+        <span class="card-studio-tagline">Independent Design & Engineering</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== QR CODE SECTION ===== -->
+  <div class="qr-section">
+    <div class="qr-code">
+      <img id="qrImg" alt="QR Code to Kivara Studios portfolio" />
+    </div>
+    <div class="qr-text">
+      <h3>SCAN TO VIEW PORTFOLIO</h3>
+      <p>Scan to see our work and book a conversation.</p>
+      <span class="url">kivarastudios.dev</span>
+    </div>
+  </div>
+
+  <!-- ===== SOCIAL LINKS ===== -->
+  <div class="social-row">
+    <a href="https://linkedin.com/in/billyndizeye" target="_blank" class="social-link">LinkedIn</a>
+    <a href="https://github.com/billyndizeye" target="_blank" class="social-link">GitHub</a>
+    <a href="mailto:billy@kivarastudios.dev" class="social-link">Email</a>
+  </div>
+
+  <!-- ===== SAVE CONTACT ===== -->
+  <button class="save-btn" onclick="downloadVCard()">SAVE CONTACT</button>
+
+</div>
+
+<!-- QR Code via API -->
+<script>
+  const portfolioUrl = 'https://kivarastudios.dev';
+  const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(portfolioUrl)}&color=1A1A1A&bgcolor=FFFFFF&margin=0`;
+  document.getElementById('qrImg').src = qrApiUrl;
+
+  // vCard download
+  function downloadVCard() {
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Billy Ndizeye
+N:Ndizeye;Billy;;;
+ORG:Kivara Studios
+TITLE:Founder & Lead Developer
+TEL;TYPE=CELL:+16165895598
+EMAIL;TYPE=INTERNET:billy@kivarastudios.dev
+URL:https://kivarastudios.dev
+ADR;TYPE=WORK:;;Chicago;IL;;;US
+NOTE:Kivara Studios - Independent Design & Engineering
+END:VCARD`;
+
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Billy-Ndizeye-Kivara-Studios.vcf';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+</script>
+</body>
+</html>
