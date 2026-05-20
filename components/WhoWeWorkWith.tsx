@@ -3,11 +3,11 @@
  *
  * Target audience section with 2x2 card grid.
  * Design tokens:
- * - Background: #FFF8E7 (warm cream)
- * - Text: #1A1A1A (charcoal)
- * - Accent: #dc2626 (red)
+ * - Background: #FAFAFA (warm cream)
+ * - Text: #1c1a17 (charcoal)
+ * - Accent: #1c1a17 (red)
  * - Font: Bebas Neue for headlines
- * - Cards: border-2 border-[#1A1A1A] with 4px 4px 0 #dc2626 shadow
+ * - Cards: border border-[#1c1a17] with 4px 4px 0 #1c1a17 shadow
  */
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -64,15 +64,15 @@ const WhoWeWorkWith: React.FC = () => {
     <section
       ref={sectionRef}
       id="who-we-work-with"
-      className="relative w-full bg-[#FFF8E7] py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden"
+      className="relative w-full bg-[#FAFAFA] py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden"
     >
       {/* Subtle grid background */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage: `
-            linear-gradient(#1A1A1A 1px, transparent 1px),
-            linear-gradient(90deg, #1A1A1A 1px, transparent 1px)
+            linear-gradient(#1c1a17 1px, transparent 1px),
+            linear-gradient(90deg, #1c1a17 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -83,9 +83,9 @@ const WhoWeWorkWith: React.FC = () => {
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage: `
-            repeating-radial-gradient(circle at 17% 32%, #1A1A1A 0px, transparent 1px, transparent 2px),
-            repeating-radial-gradient(circle at 62% 78%, #1A1A1A 0px, transparent 1px, transparent 3px),
-            repeating-radial-gradient(circle at 89% 14%, #1A1A1A 0px, transparent 1px, transparent 2px)
+            repeating-radial-gradient(circle at 17% 32%, #1c1a17 0px, transparent 1px, transparent 2px),
+            repeating-radial-gradient(circle at 62% 78%, #1c1a17 0px, transparent 1px, transparent 3px),
+            repeating-radial-gradient(circle at 89% 14%, #1c1a17 0px, transparent 1px, transparent 2px)
           `,
           backgroundSize: '7px 7px, 11px 11px, 9px 9px',
           animation: 'noiseShift 8s steps(5) infinite',
@@ -112,8 +112,8 @@ const WhoWeWorkWith: React.FC = () => {
         }}
       >
         <span
-          className="text-6xl lg:text-7xl font-black tracking-[0.25em] text-[#1A1A1A] opacity-[0.03]"
-          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          className="text-6xl lg:text-7xl font-black tracking-[0.25em] text-[#1c1a17] opacity-[0.03]"
+          style={{ fontFamily: "'Playfair Display', serif" }}
         >
           KIVARA
         </span>
@@ -121,7 +121,7 @@ const WhoWeWorkWith: React.FC = () => {
 
       {/* Red accent line - top */}
       <div
-        className={`absolute top-0 left-1/2 -translate-x-1/2 h-16 w-[2px] bg-[#dc2626] transition-all duration-1000 ease-out ${
+        className={`absolute top-0 left-1/2 -translate-x-1/2 h-16 w-[2px] bg-[#1c1a17] transition-all duration-1000 ease-out ${
           isVisible ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
         }`}
         style={{ transformOrigin: 'top' }}
@@ -134,21 +134,21 @@ const WhoWeWorkWith: React.FC = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <span className="text-[#dc2626] text-xs tracking-[0.3em] uppercase font-bold">
+          <span className="text-[#1c1a17] text-xs tracking-[0.3em] uppercase font-bold">
             Who We Work With
           </span>
-          <div className="flex-1 h-px bg-[#1A1A1A]/20" />
+          <div className="flex-1 h-px bg-[#1c1a17]/20" />
         </div>
 
         {/* Headline */}
         <h2
-          className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#1A1A1A] leading-[0.95] tracking-tight mb-10 sm:mb-16 transition-all duration-700 delay-100 ease-out ${
+          className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#1c1a17] leading-[0.95] tracking-tight mb-10 sm:mb-16 transition-all duration-700 delay-100 ease-out ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          style={{ fontFamily: "'Playfair Display', serif" }}
         >
           BUILT FOR OWNERS WHO ARE{' '}
-          <span className="text-[#dc2626]">READY TO GROW</span>
+          <span className="text-[#1c1a17]">READY TO GROW</span>
         </h2>
 
         {/* 2x2 Card Grid */}
@@ -164,22 +164,22 @@ const WhoWeWorkWith: React.FC = () => {
               style={{ transitionDelay: `${200 + index * 150}ms` }}
             >
               <div
-                className="bg-[#FFF8E7] border-2 border-[#1A1A1A] p-6 sm:p-8 lg:p-10 h-full"
-                style={{ boxShadow: '4px 4px 0 #dc2626' }}
+                className="bg-[#FAFAFA] border border-[#1c1a17] p-6 sm:p-8 lg:p-10 h-full"
+                style={{ boxShadow: '4px 4px 0 #1c1a17' }}
               >
                 {/* Card label */}
                 <h3
-                  className="text-2xl md:text-3xl font-black text-[#1A1A1A] tracking-tight mb-4"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                  className="text-2xl md:text-3xl font-black text-[#1c1a17] tracking-tight mb-4"
+                  style={{ fontFamily: "'Playfair Display', serif" }}
                 >
                   {card.label}
                 </h3>
 
                 {/* Separator */}
-                <div className="w-10 h-[2px] bg-[#dc2626] mb-4" />
+                <div className="w-10 h-[2px] bg-[#1c1a17] mb-4" />
 
                 {/* Card description */}
-                <p className="text-base md:text-lg text-[#1A1A1A]/70 leading-relaxed">
+                <p className="text-base md:text-lg text-[#1c1a17]/70 leading-relaxed">
                   {card.description}
                 </p>
               </div>
@@ -190,7 +190,7 @@ const WhoWeWorkWith: React.FC = () => {
 
       {/* Red accent line - bottom */}
       <div
-        className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-16 w-[2px] bg-[#dc2626] transition-all duration-1000 ease-out delay-500 ${
+        className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-16 w-[2px] bg-[#1c1a17] transition-all duration-1000 ease-out delay-500 ${
           isVisible ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
         }`}
         style={{ transformOrigin: 'bottom' }}

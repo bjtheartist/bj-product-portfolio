@@ -126,7 +126,7 @@ const Navbar: React.FC = () => {
             : 'opacity-0 pointer-events-none'
         }`}
         style={{
-          background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 40%, #1e3a5f 100%)'
+          background: 'linear-gradient(135deg, #dc2626 0%, #1d4ed8 40%, #1e3a5f 100%)'
         }}
       >
         {/* Menu Content */}

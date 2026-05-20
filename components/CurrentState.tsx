@@ -3,11 +3,11 @@
  *
  * Pain points section - dark background variant.
  * Design tokens:
- * - Background: #1A1A1A (charcoal)
- * - Text: #FAF9F6 (cream)
+ * - Background: #0A0A0A (charcoal)
+ * - Text: #FFFFFF (cream)
  * - Accent: #dc2626 (red)
  * - Font: Bebas Neue for headlines
- * - Cards: border-2 border-[#1A1A1A] with 4px 4px 0 #dc2626 shadow
+ * - Cards: border-2 border-[#0A0A0A] with 4px 4px 0 #dc2626 shadow
  */
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -64,15 +64,15 @@ const CurrentState: React.FC = () => {
     <section
       ref={sectionRef}
       id="current-state"
-      className="relative w-full bg-[#1A1A1A] py-24 md:py-32 lg:py-40 overflow-hidden"
+      className="relative w-full bg-[#0A0A0A] py-24 md:py-32 lg:py-40 overflow-hidden"
     >
       {/* Subtle grid background */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage: `
-            linear-gradient(#FAF9F6 1px, transparent 1px),
-            linear-gradient(90deg, #FAF9F6 1px, transparent 1px)
+            linear-gradient(#FFFFFF 1px, transparent 1px),
+            linear-gradient(90deg, #FFFFFF 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -88,12 +88,12 @@ const CurrentState: React.FC = () => {
           <span className="text-[#dc2626] text-xs tracking-[0.3em] uppercase font-bold">
             The Current State
           </span>
-          <div className="flex-1 h-px bg-[#FAF9F6]/20" />
+          <div className="flex-1 h-px bg-[#FFFFFF]/20" />
         </div>
 
         {/* Headline */}
         <h2
-          className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#FAF9F6] leading-[0.95] tracking-tight mb-16 transition-all duration-700 delay-150 ease-out ${
+          className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#FFFFFF] leading-[0.95] tracking-tight mb-16 transition-all duration-700 delay-150 ease-out ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
           style={{ fontFamily: "'Bebas Neue', sans-serif" }}
@@ -106,7 +106,7 @@ const CurrentState: React.FC = () => {
           {PAIN_POINTS.map((point, index) => (
             <div
               key={point.title}
-              className={`relative border-2 border-[#FAF9F6]/10 bg-[#FAF9F6]/5 p-6 md:p-8 transition-all duration-700 ease-out ${
+              className={`relative border-2 border-[#FFFFFF]/10 bg-[#FFFFFF]/5 p-6 md:p-8 transition-all duration-700 ease-out ${
                 isVisible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-8'
@@ -117,12 +117,12 @@ const CurrentState: React.FC = () => {
               }}
             >
               <h3
-                className="text-xl md:text-2xl font-black text-[#FAF9F6] mb-3"
+                className="text-xl md:text-2xl font-black text-[#FFFFFF] mb-3"
                 style={{ fontFamily: "'Bebas Neue', sans-serif" }}
               >
                 {point.title}
               </h3>
-              <p className="text-sm md:text-base text-[#FAF9F6]/70 leading-relaxed">
+              <p className="text-sm md:text-base text-[#FFFFFF]/70 leading-relaxed">
                 {point.description}
               </p>
             </div>

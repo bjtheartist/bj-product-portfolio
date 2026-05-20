@@ -201,12 +201,12 @@ const LinkItem: React.FC<LinkItemProps> = ({
       style={{ transitionDelay: `${delay}ms` }}
     >
       {/* Icon */}
-      <span className="w-6 h-6 text-[#FAF9F6]/60 group-hover:text-[#dc2626] transition-colors duration-300">
+      <span className="w-6 h-6 text-[#FFFFFF]/60 group-hover:text-[#dc2626] transition-colors duration-300">
         {icon}
       </span>
 
       {/* Label with underline reveal */}
-      <span className="relative text-lg md:text-xl text-[#FAF9F6] font-medium tracking-wide overflow-hidden">
+      <span className="relative text-lg md:text-xl text-[#FFFFFF] font-medium tracking-wide overflow-hidden">
         <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
           {label}
         </span>
@@ -216,7 +216,7 @@ const LinkItem: React.FC<LinkItemProps> = ({
       </span>
 
       {/* Arrow */}
-      <span className="ml-auto text-[#FAF9F6]/40 group-hover:text-[#dc2626] group-hover:translate-x-1 transition-all duration-300">
+      <span className="ml-auto text-[#FFFFFF]/40 group-hover:text-[#dc2626] group-hover:translate-x-1 transition-all duration-300">
         <svg
           className="w-5 h-5"
           viewBox="0 0 24 24"
@@ -266,8 +266,8 @@ const ContactSection: React.FC = () => {
   const floatingElements: FloatingElementProps[] = [
     { shape: 'circle', color: '#dc2626', size: 80, position: { top: '10%', left: '5%' }, delay: 0, duration: 7, opacity: 0.15 },
     { shape: 'diamond', color: '#dc2626', size: 40, position: { top: '70%', left: '90%' }, delay: 1.5, duration: 6, opacity: 0.2 },
-    { shape: 'ring', color: '#FAF9F6', size: 100, position: { top: '60%', left: '8%' }, delay: 0.5, duration: 8, opacity: 0.1 },
-    { shape: 'circle', color: '#FAF9F6', size: 30, position: { top: '20%', left: '85%' }, delay: 2, duration: 5, opacity: 0.15 },
+    { shape: 'ring', color: '#FFFFFF', size: 100, position: { top: '60%', left: '8%' }, delay: 0.5, duration: 8, opacity: 0.1 },
+    { shape: 'circle', color: '#FFFFFF', size: 30, position: { top: '20%', left: '85%' }, delay: 2, duration: 5, opacity: 0.15 },
     { shape: 'diamond', color: '#dc2626', size: 25, position: { top: '80%', left: '50%' }, delay: 1, duration: 6, opacity: 0.2 },
   ];
 
@@ -318,7 +318,7 @@ const ContactSection: React.FC = () => {
       <section
         ref={sectionRef}
         id="contact"
-        className="relative min-h-screen w-full bg-[#1A1A1A] overflow-hidden"
+        className="relative min-h-screen w-full bg-[#0A0A0A] overflow-hidden"
       >
         {/* Subtle grid pattern */}
         <div
@@ -349,7 +349,7 @@ const ContactSection: React.FC = () => {
               }`}
               style={{ transitionDelay: '100ms' }}
             >
-              <span className="inline-flex items-center gap-2 text-[10px] md:text-xs tracking-[0.25em] uppercase text-[#FAF9F6]/50">
+              <span className="inline-flex items-center gap-2 text-[10px] md:text-xs tracking-[0.25em] uppercase text-[#FFFFFF]/50">
                 <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
                 Currently available for projects
               </span>
@@ -357,7 +357,7 @@ const ContactSection: React.FC = () => {
 
             {/* Large Headline */}
             <h2
-              className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-[#FAF9F6] leading-[0.9] tracking-tight mb-12 md:mb-16 transition-all duration-700 ease-out ${
+              className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black text-[#FFFFFF] leading-[0.9] tracking-tight mb-12 md:mb-16 transition-all duration-700 ease-out ${
                 isVisible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-8'
@@ -374,7 +374,7 @@ const ContactSection: React.FC = () => {
 
             {/* Subtext */}
             <p
-              className={`text-base md:text-lg text-[#FAF9F6]/50 max-w-md mb-12 transition-all duration-700 ease-out ${
+              className={`text-base md:text-lg text-[#FFFFFF]/50 max-w-md mb-12 transition-all duration-700 ease-out ${
                 isVisible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-6'
@@ -386,7 +386,7 @@ const ContactSection: React.FC = () => {
 
             {/* Divider */}
             <div
-              className={`w-full h-[2px] bg-[#FAF9F6]/10 mb-8 transition-all duration-700 ease-out ${
+              className={`w-full h-[2px] bg-[#FFFFFF]/10 mb-8 transition-all duration-700 ease-out ${
                 isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
               }`}
               style={{
@@ -412,17 +412,17 @@ const ContactSection: React.FC = () => {
 
             {/* Bottom Section - Location */}
             <div
-              className={`mt-16 md:mt-24 pt-8 border-t border-[#FAF9F6]/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all duration-700 ease-out ${
+              className={`mt-16 md:mt-24 pt-8 border-t border-[#FFFFFF]/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all duration-700 ease-out ${
                 isVisible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-6'
               }`}
               style={{ transitionDelay: '900ms' }}
             >
-              <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#FAF9F6]/40">
+              <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#FFFFFF]/40">
                 Based in Chicago, Illinois
               </span>
-              <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#FAF9F6]/40">
+              <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#FFFFFF]/40">
                 Available Worldwide
               </span>
             </div>
@@ -430,8 +430,8 @@ const ContactSection: React.FC = () => {
         </div>
 
         {/* Decorative Corner Elements */}
-        <div className="absolute top-8 left-8 w-16 h-16 border-l-2 border-t-2 border-[#FAF9F6]/10" />
-        <div className="absolute bottom-8 right-8 w-16 h-16 border-r-2 border-b-2 border-[#FAF9F6]/10" />
+        <div className="absolute top-8 left-8 w-16 h-16 border-l-2 border-t-2 border-[#FFFFFF]/10" />
+        <div className="absolute bottom-8 right-8 w-16 h-16 border-r-2 border-b-2 border-[#FFFFFF]/10" />
       </section>
     </>
   );

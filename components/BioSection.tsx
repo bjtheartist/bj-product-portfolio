@@ -3,8 +3,8 @@
  *
  * Bio section with headshot and personal intro.
  * Design tokens inherited from Hero:
- * - Background: #FAF9F6 (cream)
- * - Text: #1A1A1A (charcoal)
+ * - Background: #FFFFFF (cream)
+ * - Text: #0A0A0A (charcoal)
  * - Accent: #dc2626 (red)
  * - Font: Bebas Neue for headlines
  * - Border: 2-3px charcoal for framing
@@ -41,15 +41,15 @@ const BioSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="bio"
-      className="relative w-full bg-[#FAF9F6] py-24 md:py-32 lg:py-40 overflow-hidden"
+      className="relative w-full bg-[#FFFFFF] py-24 md:py-32 lg:py-40 overflow-hidden"
     >
       {/* Subtle grid background */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage: `
-            linear-gradient(#1A1A1A 1px, transparent 1px),
-            linear-gradient(90deg, #1A1A1A 1px, transparent 1px)
+            linear-gradient(#0A0A0A 1px, transparent 1px),
+            linear-gradient(90deg, #0A0A0A 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -85,7 +85,7 @@ const BioSection: React.FC = () => {
               />
               {/* Main image container */}
               <div
-                className="relative w-full h-full bg-[#1A1A1A] border-2 border-[#1A1A1A] overflow-hidden"
+                className="relative w-full h-full bg-[#0A0A0A] border-2 border-[#0A0A0A] overflow-hidden"
               >
                 {/* Placeholder for headshot - replace src with actual image */}
                 <img
@@ -100,8 +100,8 @@ const BioSection: React.FC = () => {
                     const placeholder = document.createElement('div');
                     placeholder.className = 'text-center p-8';
                     placeholder.innerHTML = `
-                      <span class="text-[#FAF9F6]/30 text-6xl font-black" style="font-family: 'Bebas Neue', sans-serif">BN</span>
-                      <p class="text-[#FAF9F6]/40 text-xs mt-4 uppercase tracking-wider">Headshot Coming Soon</p>
+                      <span class="text-[#FFFFFF]/30 text-6xl font-black" style="font-family: 'Bebas Neue', sans-serif">BN</span>
+                      <p class="text-[#FFFFFF]/40 text-xs mt-4 uppercase tracking-wider">Headshot Coming Soon</p>
                     `;
                     target.parentElement!.appendChild(placeholder);
                   }}
@@ -119,7 +119,7 @@ const BioSection: React.FC = () => {
               }`}
             >
               <span className="text-[#dc2626]">◆</span>
-              <span className="text-xs uppercase tracking-[0.2em] text-[#1A1A1A]/60">
+              <span className="text-xs uppercase tracking-[0.2em] text-[#0A0A0A]/60">
                 Chicago, Illinois
               </span>
             </div>
@@ -138,12 +138,12 @@ const BioSection: React.FC = () => {
               <span className="text-[#dc2626] text-xs tracking-[0.3em] uppercase font-bold">
                 About
               </span>
-              <div className="flex-1 h-px bg-[#1A1A1A]/20" />
+              <div className="flex-1 h-px bg-[#0A0A0A]/20" />
             </div>
 
             {/* Statement headline */}
             <h2
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-black text-[#1A1A1A] leading-[0.95] tracking-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-black text-[#0A0A0A] leading-[0.95] tracking-tight"
               style={{ fontFamily: "'Bebas Neue', sans-serif" }}
             >
               I design products that{' '}
@@ -151,7 +151,7 @@ const BioSection: React.FC = () => {
             </h2>
 
             {/* Bio paragraphs */}
-            <div className="mt-8 space-y-4 text-[#1A1A1A]/70 text-base md:text-lg leading-relaxed">
+            <div className="mt-8 space-y-4 text-[#0A0A0A]/70 text-base md:text-lg leading-relaxed">
               <p>
                 I'm Billy—a product designer and builder based in Chicago. I'm a storyteller at heart.
                 I solve problems and I like to build things. How complicated could that be?
@@ -168,18 +168,18 @@ const BioSection: React.FC = () => {
             </div>
 
             {/* Quick stats/info */}
-            <div className="mt-10 pt-6 border-t border-[#1A1A1A]/10">
+            <div className="mt-10 pt-6 border-t border-[#0A0A0A]/10">
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-[#1A1A1A]/40 block mb-1">
+                  <span className="text-xs uppercase tracking-wider text-[#0A0A0A]/40 block mb-1">
                     Focus
                   </span>
-                  <span className="text-sm font-medium text-[#1A1A1A]">
+                  <span className="text-sm font-medium text-[#0A0A0A]">
                     Product Design
                   </span>
                 </div>
                 <div>
-                  <span className="text-xs uppercase tracking-wider text-[#1A1A1A]/40 block mb-1">
+                  <span className="text-xs uppercase tracking-wider text-[#0A0A0A]/40 block mb-1">
                     Available
                   </span>
                   <span className="text-sm font-medium text-[#dc2626]">

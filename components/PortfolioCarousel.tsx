@@ -1,13 +1,12 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { PROJECTS } from '../constants';
 import { Project } from '../types';
 
-/* ─── Project Modal ─── */
+/* ─── Project Modal — same minimal editorial sheet ─── */
 const ProjectModal: React.FC<{
   project: Project;
   onClose: () => void;
 }> = ({ project, onClose }) => {
-  // Close on Escape
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -25,161 +24,129 @@ const ProjectModal: React.FC<{
       className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-8"
       onClick={onClose}
     >
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
-
-      {/* Modal */}
+      <div className="absolute inset-0 bg-[#1c1a17]/75 backdrop-blur-sm" />
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto border-2 bg-[#FAF9F6]"
-        style={{
-          borderColor: '#1A1A1A',
-          boxShadow: '8px 8px 0 #dc2626',
-          animation: 'modalIn 0.25s ease-out',
-        }}
+        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#f5f2eb] border border-[#1c1a17]/15"
+        style={{ animation: 'modalIn 0.35s cubic-bezier(0.22, 1, 0.36, 1)' }}
         onClick={(e) => e.stopPropagation()}
       >
         <style>{`
           @keyframes modalIn {
-            from { opacity: 0; transform: translateY(1rem) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from { opacity: 0; transform: translateY(1rem); }
+            to { opacity: 1; transform: translateY(0); }
           }
         `}</style>
 
-        {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center border-2 bg-[#FAF9F6] hover:bg-[#1A1A1A] hover:text-[#FAF9F6] transition-colors"
-          style={{ borderColor: '#1A1A1A' }}
+          className="absolute top-5 right-5 z-10 w-9 h-9 flex items-center justify-center text-[#1c1a17]/60 hover:text-[#1c1a17] transition-colors duration-300"
           aria-label="Close"
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </button>
 
-        {/* Hero image */}
-        <div className="w-full h-56 md:h-72 overflow-hidden border-b-2" style={{ borderColor: '#1A1A1A' }}>
+        <div className="w-full h-56 md:h-80 overflow-hidden border-b border-[#1c1a17]/15">
           {project.imageUrl ? (
             <img
               src={project.imageUrl}
               alt={project.title}
-              className={`w-full h-full ${project.imageUrl.includes('makarios') ? 'object-contain bg-black' : 'object-cover'}`}
+              className={`w-full h-full ${project.imageUrl.includes('makarios') ? 'object-contain bg-[#1c1a17]' : 'object-cover'}`}
+              style={{ filter: 'sepia(15%) saturate(0.92) contrast(1.02) brightness(0.98)' }}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-[#dc2626]">
-              <span className="text-4xl text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+            <div className="w-full h-full flex items-center justify-center bg-[#1c1a17]">
+              <span
+                className="text-3xl text-[#f5f2eb]"
+                style={{ fontFamily: "'Playfair Display', serif" }}
+              >
                 {project.title}
               </span>
             </div>
           )}
         </div>
 
-        {/* Content */}
-        <div className="p-6 md:p-8">
-          {/* Header row */}
-          <div className="flex flex-wrap items-center gap-3 mb-4">
-            <span
-              className="px-3 py-1 text-xs font-bold tracking-wider uppercase border-2"
-              style={{ borderColor: '#1A1A1A', backgroundColor: '#dc2626', color: '#fff' }}
-            >
-              {project.category}
-            </span>
+        <div className="p-6 md:p-10">
+          <div className="flex flex-wrap items-center gap-4 mb-6 text-[10px] tracking-[0.32em] uppercase text-[#1c1a17]/55">
+            <span>{project.category}</span>
             {project.year && (
-              <span
-                className="px-2 py-1 text-xs font-mono"
-                style={{ backgroundColor: '#1A1A1A', color: '#FAF9F6' }}
-              >
-                {project.year}
-              </span>
+              <>
+                <span aria-hidden="true" className="text-[#1c1a17]/25">/</span>
+                <span>{project.year}</span>
+              </>
             )}
           </div>
 
           <h3
-            className="text-3xl md:text-4xl mb-3"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", color: '#1A1A1A' }}
+            className="leading-[1.05] mb-5 text-[#1c1a17]"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)',
+              fontWeight: 400,
+              letterSpacing: '-0.01em',
+            }}
           >
             {project.title}
           </h3>
 
-          <p className="text-base md:text-lg leading-relaxed mb-6" style={{ color: '#444' }}>
+          <p className="text-base leading-relaxed mb-8 text-[#1c1a17]/75 font-light max-w-2xl">
             {project.description}
           </p>
 
-          {/* Problem */}
           {project.problem && (
-            <div className="mb-6">
-              <h4
-                className="text-xl mb-2"
-                style={{ fontFamily: "'Bebas Neue', sans-serif", color: '#1A1A1A' }}
-              >
-                The Challenge
-              </h4>
-              <p className="text-sm leading-relaxed" style={{ color: '#555' }}>
+            <div className="mb-8">
+              <p className="text-[10px] tracking-[0.32em] uppercase text-[#1c1a17]/55 mb-3">
+                The challenge
+              </p>
+              <p className="text-sm leading-relaxed text-[#1c1a17]/75 font-light max-w-2xl">
                 {project.problem}
               </p>
             </div>
           )}
 
-          {/* Tech Stack */}
           {project.tools && project.tools.length > 0 && (
-            <div className="mb-6">
-              <h4
-                className="text-xl mb-3"
-                style={{ fontFamily: "'Bebas Neue', sans-serif", color: '#1A1A1A' }}
-              >
-                Tech Stack
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {project.tools.map((tool) => (
-                  <span
-                    key={tool.name}
-                    className="px-3 py-1.5 border-2 text-sm font-bold uppercase tracking-wide bg-[#FAF9F6] hover:bg-[#1A1A1A] hover:text-[#FAF9F6] transition-colors"
-                    style={{ borderColor: '#1A1A1A', color: '#1A1A1A' }}
-                  >
-                    {tool.name}
-                  </span>
+            <div className="mb-8">
+              <p className="text-[10px] tracking-[0.32em] uppercase text-[#1c1a17]/55 mb-3">
+                Tech stack
+              </p>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-[#1c1a17]/75 font-light">
+                {project.tools.map((tool, i, arr) => (
+                  <React.Fragment key={tool.name}>
+                    <span>{tool.name}</span>
+                    {i < arr.length - 1 ? (
+                      <span aria-hidden="true" className="text-[#1c1a17]/25">·</span>
+                    ) : null}
+                  </React.Fragment>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Tags */}
           {project.tags && project.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 pt-4 border-t-2" style={{ borderColor: '#1A1A1A' + '1a' }}>
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs px-2 py-1 border font-medium"
-                  style={{ borderColor: '#1A1A1A', color: '#1A1A1A', backgroundColor: '#FAF9F6' }}
-                >
-                  {tag}
-                </span>
+            <div className="flex flex-wrap gap-x-4 gap-y-1 pt-6 border-t border-[#1c1a17]/15 text-[10px] tracking-[0.28em] uppercase text-[#1c1a17]/55">
+              {project.tags.map((tag, i, arr) => (
+                <React.Fragment key={tag}>
+                  <span>{tag}</span>
+                  {i < arr.length - 1 ? (
+                    <span aria-hidden="true" className="text-[#1c1a17]/25">·</span>
+                  ) : null}
+                </React.Fragment>
               ))}
             </div>
           )}
 
-          {/* Visit link */}
           {(project.liveUrl || project.githubUrl) && (
-            <div className="mt-6">
+            <div className="mt-8">
               <a
                 href={project.liveUrl || project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-bold uppercase tracking-wider border-2 transition-all duration-150 hover:-translate-y-0.5"
-                style={{
-                  borderColor: '#1A1A1A',
-                  backgroundColor: '#dc2626',
-                  color: '#fff',
-                  boxShadow: '3px 3px 0 #1A1A1A',
-                }}
+                className="group inline-flex items-center gap-3 text-[11px] tracking-[0.28em] uppercase font-medium text-[#1c1a17]"
               >
-                Visit Site
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
+                <span className="border-b border-[#1c1a17] pb-1">Visit site</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </a>
             </div>
           )}
@@ -189,22 +156,158 @@ const ProjectModal: React.FC<{
   );
 };
 
-/* ─── Carousel ─── */
+/* ─── Single project card ─── */
+const ProjectCard: React.FC<{
+  project: Project;
+  index: number;
+  onOpen: (p: Project) => void;
+}> = ({ project, index, onOpen }) => {
+  const ref = useRef<HTMLButtonElement>(null);
+  const [visible, setVisible] = useState(false);
+  const isRightAligned = index % 2 === 1;
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <button
+      ref={ref}
+      onClick={() => onOpen(project)}
+      className={`group relative block w-full md:w-[86vw] max-w-[1380px] text-left bg-transparent ${
+        isRightAligned ? 'md:ml-auto' : 'md:mr-auto'
+      }`}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(1.5rem)',
+        transition: `opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) ${
+          (index % 2) * 0.12
+        }s, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) ${(index % 2) * 0.12}s`,
+      }}
+    >
+      <div className="relative w-full min-h-[520px] sm:min-h-[600px] md:min-h-0 md:aspect-[21/9] overflow-hidden border-y border-[#1c1a17]/18">
+        {project.imageUrl ? (
+          <img
+            src={project.imageUrl}
+            alt={project.title}
+            className={`absolute inset-0 w-full h-full transition-transform duration-[1400ms] ease-out group-hover:scale-[1.025] ${
+              project.imageUrl.includes('makarios')
+                ? 'object-contain bg-[#1c1a17]'
+                : 'object-cover'
+            }`}
+            style={{
+              filter:
+                'sepia(12%) saturate(0.9) contrast(1.04) brightness(0.78)',
+            }}
+            loading="lazy"
+            draggable={false}
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-[#1c1a17]">
+            <span
+              className="text-2xl text-[#f5f2eb]"
+              style={{ fontFamily: "'Playfair Display', serif" }}
+            >
+              {project.title}
+            </span>
+          </div>
+        )}
+
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              isRightAligned
+                ? 'linear-gradient(to left, rgba(28,26,23,0.88) 0%, rgba(28,26,23,0.66) 34%, rgba(28,26,23,0.28) 72%, rgba(28,26,23,0.1) 100%)'
+                : 'linear-gradient(to right, rgba(28,26,23,0.88) 0%, rgba(28,26,23,0.66) 34%, rgba(28,26,23,0.28) 72%, rgba(28,26,23,0.1) 100%)',
+          }}
+        />
+        <div
+          className={`absolute top-0 bottom-0 hidden md:block w-px bg-[#f5f2eb]/28 ${
+            isRightAligned ? 'right-[34%]' : 'left-[34%]'
+          }`}
+          aria-hidden="true"
+        />
+        <div className="absolute inset-x-0 top-0 h-px bg-[#f5f2eb]/35" aria-hidden="true" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-[#f5f2eb]/35" aria-hidden="true" />
+
+        <div
+          className={`absolute inset-0 flex items-end p-6 sm:p-10 md:p-14 lg:p-16 ${
+            isRightAligned ? 'md:justify-end' : 'md:justify-start'
+          }`}
+        >
+          <div
+            className={`max-w-xl text-[#f5f2eb] ${
+              isRightAligned ? 'md:text-right' : 'md:text-left'
+            }`}
+          >
+            <div
+              className={`flex items-center gap-4 mb-5 text-[10px] tracking-[0.32em] uppercase text-[#f5f2eb]/65 ${
+                isRightAligned ? 'md:justify-end' : ''
+              }`}
+            >
+              <span>{project.category}</span>
+              {project.year && (
+                <>
+                  <span aria-hidden="true" className="text-[#f5f2eb]/35">/</span>
+                  <span>{project.year}</span>
+                </>
+              )}
+            </div>
+
+            <h3
+              className="mb-5 leading-[1.02]"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(2rem, 5vw, 4.75rem)',
+                fontWeight: 400,
+                letterSpacing: '-0.01em',
+              }}
+            >
+              {project.title}
+            </h3>
+
+            <p className="text-sm sm:text-base leading-relaxed text-[#f5f2eb]/78 font-light">
+              {project.description.length > 190
+                ? project.description.slice(0, 190) + '...'
+                : project.description}
+            </p>
+
+            <div
+              className={`mt-7 inline-flex items-center gap-3 text-[10px] tracking-[0.28em] uppercase font-medium text-[#f5f2eb] ${
+                isRightAligned ? 'md:flex-row-reverse' : ''
+              }`}
+            >
+              <span className="border-b border-[#f5f2eb] pb-1">View project</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                {isRightAligned ? '←' : '→'}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+};
+
+/* ─── Offset Grid ─── */
 const PortfolioCarousel: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
 
-  // Drag state
-  const isDragging = useRef(false);
-  const hasDragged = useRef(false);
-  const startX = useRef(0);
-  const scrollStart = useRef(0);
-
-  // IntersectionObserver entrance animation
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -215,77 +318,11 @@ const PortfolioCarousel: React.FC = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 },
     );
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-
-  // Update arrow button state
-  const updateScrollButtons = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    setCanScrollLeft(track.scrollLeft > 10);
-    setCanScrollRight(track.scrollLeft < track.scrollWidth - track.clientWidth - 10);
-  }, []);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    track.addEventListener('scroll', updateScrollButtons, { passive: true });
-    updateScrollButtons();
-    return () => track.removeEventListener('scroll', updateScrollButtons);
-  }, [updateScrollButtons]);
-
-  // Scroll by one card width
-  const scroll = (direction: 'left' | 'right') => {
-    const track = trackRef.current;
-    if (!track) return;
-    const cardWidth = 350 + 24; // card width + gap
-    track.scrollBy({
-      left: direction === 'left' ? -cardWidth : cardWidth,
-      behavior: 'smooth',
-    });
-  };
-
-  // Drag/swipe handlers
-  const handlePointerDown = (e: React.PointerEvent) => {
-    // Don't start drag if clicking a button
-    if ((e.target as HTMLElement).closest('button')) return;
-    isDragging.current = true;
-    hasDragged.current = false;
-    startX.current = e.clientX;
-    scrollStart.current = trackRef.current?.scrollLeft ?? 0;
-    trackRef.current?.setPointerCapture(e.pointerId);
-    if (trackRef.current) trackRef.current.style.cursor = 'grabbing';
-  };
-
-  const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDragging.current || !trackRef.current) return;
-    const dx = e.clientX - startX.current;
-    if (Math.abs(dx) > 5) hasDragged.current = true;
-    trackRef.current.scrollLeft = scrollStart.current - dx;
-  };
-
-  const handlePointerUp = (e: React.PointerEvent) => {
-    isDragging.current = false;
-    trackRef.current?.releasePointerCapture(e.pointerId);
-    if (trackRef.current) trackRef.current.style.cursor = 'grab';
-  };
-
-  // Category tag color map
-  const categoryColor = (cat: string): string => {
-    switch (cat) {
-      case 'FULL-STACK':
-        return 'bg-[#dc2626] text-white';
-      case 'DATA VIZ':
-        return 'bg-[#1A1A1A] text-white';
-      case 'WEB DESIGN':
-        return 'bg-[#FAF9F6] text-[#1A1A1A] border border-[#1A1A1A]';
-      default:
-        return 'bg-[#dc2626] text-white';
-    }
-  };
 
   return (
     <>
@@ -293,265 +330,46 @@ const PortfolioCarousel: React.FC = () => {
         id="portfolio"
         ref={sectionRef}
         aria-label="Portfolio"
-        style={{ backgroundColor: '#FAF9F6' }}
-        className="py-20 md:py-28 overflow-hidden"
+        className="py-32 md:py-44 bg-[#f5f2eb] overflow-hidden"
       >
         <div
-          className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12"
+          className="relative"
           style={{
             opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateY(0)' : 'translateY(2rem)',
-            transition: 'opacity 0.7s ease-out, transform 0.7s ease-out',
+            transform: isVisible ? 'translateY(0)' : 'translateY(1.5rem)',
+            transition:
+              'opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1)',
           }}
         >
-          {/* Header */}
-          <div className="flex items-end justify-between mb-8 sm:mb-12">
-            <div>
-              <p
-                className="text-sm tracking-[0.2em] uppercase mb-2"
-                style={{ color: '#dc2626', fontWeight: 600 }}
-              >
-                Portfolio
-              </p>
-              <h2
-                className="text-3xl sm:text-4xl md:text-6xl leading-none"
-                style={{
-                  fontFamily: "'Bebas Neue', sans-serif",
-                  color: '#1A1A1A',
-                }}
-              >
-                REAL CLIENTS, REAL RESULTS
-              </h2>
-            </div>
-
-            {/* Navigation Arrows */}
-            <div className="hidden md:flex gap-3">
-              <button
-                onClick={() => scroll('left')}
-                disabled={!canScrollLeft}
-                aria-label="Scroll left"
-                className="w-12 h-12 flex items-center justify-center border-2 transition-all duration-150 select-none"
-                style={{
-                  borderColor: '#1A1A1A',
-                  backgroundColor: canScrollLeft ? '#1A1A1A' : '#FAF9F6',
-                  color: canScrollLeft ? '#FAF9F6' : '#1A1A1A',
-                  boxShadow: canScrollLeft ? '3px 3px 0 #dc2626' : 'none',
-                  opacity: canScrollLeft ? 1 : 0.4,
-                  cursor: canScrollLeft ? 'pointer' : 'default',
-                }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </button>
-              <button
-                onClick={() => scroll('right')}
-                disabled={!canScrollRight}
-                aria-label="Scroll right"
-                className="w-12 h-12 flex items-center justify-center border-2 transition-all duration-150 select-none"
-                style={{
-                  borderColor: '#1A1A1A',
-                  backgroundColor: canScrollRight ? '#1A1A1A' : '#FAF9F6',
-                  color: canScrollRight ? '#FAF9F6' : '#1A1A1A',
-                  boxShadow: canScrollRight ? '3px 3px 0 #dc2626' : 'none',
-                  opacity: canScrollRight ? 1 : 0.4,
-                  cursor: canScrollRight ? 'pointer' : 'default',
-                }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </button>
-            </div>
+          <div className="relative px-6 sm:px-10 md:px-16 lg:px-20 mb-20 md:mb-28 max-w-3xl">
+            <p className="text-[10px] sm:text-[11px] tracking-[0.32em] uppercase text-[#1c1a17]/55 mb-5">
+              Selected work
+            </p>
+            <h2
+              className="leading-[1.02] tracking-[-0.01em] text-[#1c1a17]"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(2rem, 4.5vw, 4rem)',
+                fontWeight: 400,
+              }}
+            >
+              Real clients, real results.
+            </h2>
           </div>
 
-          {/* Carousel Track */}
-          <div
-            ref={trackRef}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-            className="flex gap-6 overflow-x-auto pb-4"
-            style={{
-              cursor: 'grab',
-              scrollSnapType: 'x mandatory',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch',
-            }}
-          >
-            <style>{`
-              #portfolio .carousel-track::-webkit-scrollbar { display: none; }
-            `}</style>
-
+          <div className="relative flex flex-col gap-y-12 md:gap-y-20">
             {PROJECTS.map((project, i) => (
-              <div
+              <ProjectCard
                 key={project.id}
-                className="flex-shrink-0"
-                style={{
-                  width: 'min(350px, calc(100vw - 3rem))',
-                  scrollSnapAlign: 'start',
-                  opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'translateY(0)' : 'translateY(1.5rem)',
-                  transition: `opacity 0.5s ease-out ${i * 0.1}s, transform 0.5s ease-out ${i * 0.1}s`,
-                }}
-              >
-                <div
-                  className="h-full border-2 flex flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1"
-                  style={{
-                    borderColor: '#1A1A1A',
-                    backgroundColor: '#fff',
-                    boxShadow: '4px 4px 0 #dc2626',
-                  }}
-                >
-                  {/* Image */}
-                  <div className="relative w-full h-48 overflow-hidden border-b-2" style={{ borderColor: '#1A1A1A' }}>
-                    {project.imageUrl ? (
-                      <img
-                        src={project.imageUrl}
-                        alt={project.title}
-                        className={`w-full h-full ${project.imageUrl.includes('makarios') ? 'object-contain bg-black' : 'object-cover'}`}
-                        loading="lazy"
-                        draggable={false}
-                      />
-                    ) : (
-                      <div
-                        className="w-full h-full flex items-center justify-center"
-                        style={{ backgroundColor: '#dc2626' }}
-                      >
-                        <span
-                          className="text-3xl text-white"
-                          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                        >
-                          {project.title}
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Category badge */}
-                    <span
-                      className={`absolute top-3 left-3 px-3 py-1 text-xs font-bold tracking-wider uppercase ${categoryColor(project.category)}`}
-                    >
-                      {project.category}
-                    </span>
-
-                    {/* Year badge */}
-                    <span
-                      className="absolute top-3 right-3 px-2 py-1 text-xs font-mono"
-                      style={{
-                        backgroundColor: '#1A1A1A',
-                        color: '#FAF9F6',
-                      }}
-                    >
-                      {project.year}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex flex-col flex-1 p-5">
-                    <h3
-                      className="text-2xl mb-2"
-                      style={{
-                        fontFamily: "'Bebas Neue', sans-serif",
-                        color: '#1A1A1A',
-                      }}
-                    >
-                      {project.title}
-                    </h3>
-
-                    <p
-                      className="text-sm leading-relaxed mb-4 flex-1"
-                      style={{ color: '#444' }}
-                    >
-                      {project.description.length > 140
-                        ? project.description.slice(0, 140) + '...'
-                        : project.description}
-                    </p>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-5">
-                      {project.tags?.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-xs px-2 py-1 border font-medium"
-                          style={{
-                            borderColor: '#1A1A1A',
-                            color: '#1A1A1A',
-                            backgroundColor: '#FAF9F6',
-                          }}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* View Project button */}
-                    <div className="mt-auto">
-                      <button
-                        onClick={() => setActiveProject(project)}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider border-2 transition-all duration-150 hover:-translate-y-0.5 cursor-pointer"
-                        style={{
-                          borderColor: '#1A1A1A',
-                          backgroundColor: '#dc2626',
-                          color: '#fff',
-                          boxShadow: '2px 2px 0 #1A1A1A',
-                        }}
-                      >
-                        View Project
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                          <line x1="9" y1="3" x2="9" y2="21" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                project={project}
+                index={i}
+                onOpen={setActiveProject}
+              />
             ))}
-          </div>
-
-          {/* Mobile Navigation Arrows */}
-          <div className="flex md:hidden justify-center gap-4 mt-6">
-            <button
-              onClick={() => scroll('left')}
-              disabled={!canScrollLeft}
-              aria-label="Scroll left"
-              className="w-11 h-11 flex items-center justify-center border-2 transition-all duration-150"
-              style={{
-                borderColor: '#1A1A1A',
-                backgroundColor: canScrollLeft ? '#1A1A1A' : '#FAF9F6',
-                color: canScrollLeft ? '#FAF9F6' : '#1A1A1A',
-                boxShadow: canScrollLeft ? '3px 3px 0 #dc2626' : 'none',
-                opacity: canScrollLeft ? 1 : 0.4,
-              }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6" />
-              </svg>
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              disabled={!canScrollRight}
-              aria-label="Scroll right"
-              className="w-11 h-11 flex items-center justify-center border-2 transition-all duration-150"
-              style={{
-                borderColor: '#1A1A1A',
-                backgroundColor: canScrollRight ? '#1A1A1A' : '#FAF9F6',
-                color: canScrollRight ? '#FAF9F6' : '#1A1A1A',
-                boxShadow: canScrollRight ? '3px 3px 0 #dc2626' : 'none',
-                opacity: canScrollRight ? 1 : 0.4,
-              }}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
           </div>
         </div>
       </section>
 
-      {/* Project Modal */}
       {activeProject && (
         <ProjectModal
           project={activeProject}

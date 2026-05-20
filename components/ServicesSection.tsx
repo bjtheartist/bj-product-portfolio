@@ -3,11 +3,11 @@
  *
  * Service categories section — differentiates offerings by business type.
  * Design tokens:
- * - Background: #1A1A1A (charcoal, inverted section)
- * - Text: #FAF9F6 (cream)
- * - Accent: #dc2626 (red)
+ * - Background: #1c1a17 (charcoal, inverted section)
+ * - Text: #f5f2eb (cream)
+ * - Accent: #1c1a17 (red)
  * - Font: Bebas Neue for headlines
- * - Cards: border-2 with hover lift and red shadow
+ * - Cards: border with hover lift and red shadow
  */
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -82,14 +82,14 @@ const ServiceCard: React.FC<{
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={`relative border-2 p-6 sm:p-8 lg:p-10 h-full transition-all duration-300 ${
+        className={`relative border p-6 sm:p-8 lg:p-10 h-full transition-all duration-300 ${
           isHovered
-            ? 'border-[#dc2626] bg-[#dc2626]/5 -translate-y-1'
-            : 'border-[#FAF9F6]/20 bg-transparent'
+            ? 'border-[#1c1a17] bg-[#1c1a17]/5 -translate-y-1'
+            : 'border-[#f5f2eb]/20 bg-transparent'
         }`}
         style={{
           boxShadow: isHovered
-            ? '6px 6px 0 #dc2626'
+            ? '6px 6px 0 #1c1a17'
             : '4px 4px 0 rgba(250,249,246,0.1)',
         }}
       >
@@ -97,20 +97,20 @@ const ServiceCard: React.FC<{
         <div className="flex items-start gap-4 mb-6">
           <span
             className={`text-4xl md:text-5xl font-black leading-none transition-colors duration-300 ${
-              isHovered ? 'text-[#dc2626]' : 'text-[#FAF9F6]/15'
+              isHovered ? 'text-[#1c1a17]' : 'text-[#f5f2eb]/15'
             }`}
-            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+            style={{ fontFamily: "'Playfair Display', serif" }}
           >
             {service.number}
           </span>
           <div>
             <h3
-              className="text-2xl md:text-3xl lg:text-4xl font-black text-[#FAF9F6] tracking-tight leading-tight"
-              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              className="text-2xl md:text-3xl lg:text-4xl font-black text-[#f5f2eb] tracking-tight leading-tight"
+              style={{ fontFamily: "'Playfair Display', serif" }}
             >
               {service.title}
             </h3>
-            <span className="text-sm text-[#dc2626] tracking-wide uppercase font-medium">
+            <span className="text-sm text-[#1c1a17] tracking-wide uppercase font-medium">
               {service.subtitle}
             </span>
           </div>
@@ -119,18 +119,18 @@ const ServiceCard: React.FC<{
         {/* Separator */}
         <div
           className={`h-[2px] mb-6 transition-all duration-300 ${
-            isHovered ? 'w-16 bg-[#dc2626]' : 'w-10 bg-[#FAF9F6]/20'
+            isHovered ? 'w-16 bg-[#1c1a17]' : 'w-10 bg-[#f5f2eb]/20'
           }`}
         />
 
         {/* Description */}
-        <p className="text-base text-[#FAF9F6]/70 leading-relaxed mb-6">
+        <p className="text-base text-[#f5f2eb]/70 leading-relaxed mb-6">
           {service.description}
         </p>
 
         {/* Platforms */}
         <div className="mb-6">
-          <span className="text-xs tracking-[0.2em] uppercase text-[#FAF9F6]/30 block mb-3">
+          <span className="text-xs tracking-[0.2em] uppercase text-[#f5f2eb]/30 block mb-3">
             Tools & Platforms
           </span>
           <div className="flex flex-wrap gap-2">
@@ -139,8 +139,8 @@ const ServiceCard: React.FC<{
                 key={platform}
                 className={`text-xs px-3 py-1.5 border transition-colors duration-200 ${
                   isHovered
-                    ? 'border-[#dc2626]/40 text-[#FAF9F6]/80'
-                    : 'border-[#FAF9F6]/10 text-[#FAF9F6]/50'
+                    ? 'border-[#1c1a17]/40 text-[#f5f2eb]/80'
+                    : 'border-[#f5f2eb]/10 text-[#f5f2eb]/50'
                 }`}
               >
                 {platform}
@@ -150,15 +150,15 @@ const ServiceCard: React.FC<{
         </div>
 
         {/* Ideal For — chips */}
-        <div className="pt-4 border-t border-[#FAF9F6]/10">
-          <span className="text-xs tracking-[0.2em] uppercase text-[#FAF9F6]/30 block mb-3">
+        <div className="pt-4 border-t border-[#f5f2eb]/10">
+          <span className="text-xs tracking-[0.2em] uppercase text-[#f5f2eb]/30 block mb-3">
             Ideal for
           </span>
           <div className="flex flex-wrap gap-2">
             {service.idealFor.map((tag) => (
               <span
                 key={tag}
-                className="text-xs px-3 py-1 bg-[#FAF9F6]/[0.06] text-[#FAF9F6]/60 font-medium tracking-wide"
+                className="text-xs px-3 py-1 bg-[#f5f2eb]/[0.06] text-[#f5f2eb]/60 font-medium tracking-wide"
               >
                 {tag}
               </span>
@@ -199,15 +199,15 @@ const ServicesSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="services"
-      className="relative w-full bg-[#1A1A1A] py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden"
+      className="relative w-full bg-[#1c1a17] py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden"
     >
       {/* Grid background */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
           backgroundImage: `
-            linear-gradient(#FAF9F6 1px, transparent 1px),
-            linear-gradient(90deg, #FAF9F6 1px, transparent 1px)
+            linear-gradient(#f5f2eb 1px, transparent 1px),
+            linear-gradient(90deg, #f5f2eb 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -215,13 +215,13 @@ const ServicesSection: React.FC = () => {
 
       {/* Decorative corner element */}
       <div
-        className="absolute -top-16 -right-16 w-64 h-64 border-2 border-[#dc2626] opacity-[0.06] pointer-events-none"
+        className="absolute -top-16 -right-16 w-64 h-64 border border-[#1c1a17] opacity-[0.06] pointer-events-none"
         style={{ transform: 'rotate(45deg)' }}
       />
 
       {/* Red accent line - top */}
       <div
-        className={`absolute top-0 left-1/2 -translate-x-1/2 h-16 w-[2px] bg-[#dc2626] transition-all duration-1000 ease-out ${
+        className={`absolute top-0 left-1/2 -translate-x-1/2 h-16 w-[2px] bg-[#1c1a17] transition-all duration-1000 ease-out ${
           isVisible ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
         }`}
         style={{ transformOrigin: 'top' }}
@@ -234,26 +234,26 @@ const ServicesSection: React.FC = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <span className="text-[#dc2626] text-xs tracking-[0.3em] uppercase font-bold">
+          <span className="text-[#1c1a17] text-xs tracking-[0.3em] uppercase font-bold">
             Our Services
           </span>
-          <div className="flex-1 h-px bg-[#FAF9F6]/20" />
+          <div className="flex-1 h-px bg-[#f5f2eb]/20" />
         </div>
 
         {/* Headline */}
         <h2
-          className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#FAF9F6] leading-[0.95] tracking-tight mb-6 transition-all duration-700 delay-100 ease-out ${
+          className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#f5f2eb] leading-[0.95] tracking-tight mb-6 transition-all duration-700 delay-100 ease-out ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          style={{ fontFamily: "'Playfair Display', serif" }}
         >
           ONE STUDIO.{' '}
-          <span className="text-[#dc2626]">EVERY DIGITAL NEED.</span>
+          <span className="text-[#1c1a17]">EVERY DIGITAL NEED.</span>
         </h2>
 
         {/* Subhead */}
         <p
-          className={`max-w-2xl text-base md:text-lg text-[#FAF9F6]/50 leading-relaxed mb-12 sm:mb-16 transition-all duration-700 delay-200 ease-out ${
+          className={`max-w-2xl text-base md:text-lg text-[#f5f2eb]/50 leading-relaxed mb-12 sm:mb-16 transition-all duration-700 delay-200 ease-out ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
@@ -276,7 +276,7 @@ const ServicesSection: React.FC = () => {
 
       {/* Red accent line - bottom */}
       <div
-        className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-16 w-[2px] bg-[#dc2626] transition-all duration-1000 ease-out delay-500 ${
+        className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-16 w-[2px] bg-[#1c1a17] transition-all duration-1000 ease-out delay-500 ${
           isVisible ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
         }`}
         style={{ transformOrigin: 'bottom' }}

@@ -4,22 +4,48 @@ import NavbarNeobrutalist from './components/NavbarNeobrutalist';
 import HeroNeobrutalist from './components/HeroNeobrutalist';
 
 // Lazy load below-the-fold components
-const WhatWeBuild = lazy(() => import('./components/WhatWeBuild'));
-const ServicesSection = lazy(() => import('./components/ServicesSection'));
-const WhoWeWorkWith = lazy(() => import('./components/WhoWeWorkWith'));
-const ProcessSection = lazy(() => import('./components/ProcessSection'));
-const ResultsStrip = lazy(() => import('./components/ResultsStrip'));
 const PortfolioCarousel = lazy(() => import('./components/PortfolioCarousel'));
-const AboutSection = lazy(() => import('./components/AboutSection'));
-const DiagnosticSection = lazy(() => import('./components/DiagnosticSection'));
 const GetStartedSection = lazy(() => import('./components/GetStartedSection'));
 const Footer = lazy(() => import('./components/Footer'));
 
 const SectionLoader: React.FC = () => {
   return (
-    <div className="py-32 flex items-center justify-center bg-[#FAF9F6]">
-      <div className="w-8 h-8 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin" />
+    <div className="py-32 flex items-center justify-center bg-[#f5f2eb]">
+      <div className="w-6 h-6 border border-[#1c1a17]/40 border-t-transparent rounded-full animate-spin" />
     </div>
+  );
+};
+
+// Minimal "About" prose block — replaces ~6 prior sections
+const AboutProse: React.FC = () => {
+  return (
+    <section
+      id="about"
+      className="bg-[#f5f2eb] py-32 md:py-44 px-6 sm:px-10 md:px-16 lg:px-20 xl:px-28"
+    >
+      <div className="max-w-3xl">
+        <p className="text-[10px] sm:text-[11px] tracking-[0.32em] uppercase text-[#1c1a17]/55 mb-8">
+          A note from the studio
+        </p>
+        <p
+          className="text-[#1c1a17] leading-[1.35] tracking-[-0.01em] mb-10"
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: 'clamp(1.5rem, 2.6vw, 2.25rem)',
+            fontWeight: 400,
+          }}
+        >
+          Kivara is a studio for owner-operated businesses — websites,
+          brand systems, and content strategies that earn the attention
+          they're shown and turn it into something that lasts.
+        </p>
+        <p className="text-base sm:text-lg text-[#1c1a17]/70 leading-relaxed font-light max-w-xl">
+          We work in small numbers, one project at a time. No templates,
+          no bloat. Just clean, handcrafted work for people who'd rather
+          be remembered than ranked.
+        </p>
+      </div>
+    </section>
   );
 };
 
@@ -46,43 +72,37 @@ const AppNeobrutalist: React.FC = () => {
       <style>{`
         html {
           scroll-behavior: smooth;
-          cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23dc2626' stroke='%23FFFFFF' stroke-width='1.5' d='M1 1l12 28 4-12 12-4z'/%3E%3C/svg%3E") 0 0, auto;
         }
 
         body {
-          background-color: #FAF9F6;
-          cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23dc2626' stroke='%23FFFFFF' stroke-width='1.5' d='M1 1l12 28 4-12 12-4z'/%3E%3C/svg%3E") 0 0, auto;
-        }
-
-        a, button, [role="button"] {
-          cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23dc2626' stroke='%23FFFFFF' stroke-width='1.5' d='M1 1l12 28 4-12 12-4z'/%3E%3C/svg%3E") 0 0, pointer;
+          background-color: #f5f2eb;
         }
 
         ::selection {
-          background: #3b82f6;
-          color: #FAF9F6;
+          background: #1c1a17;
+          color: #f5f2eb;
         }
 
         ::-webkit-scrollbar {
-          width: 8px;
+          width: 6px;
         }
 
         ::-webkit-scrollbar-track {
-          background: #FAF9F6;
+          background: transparent;
         }
 
         ::-webkit-scrollbar-thumb {
-          background: #1A1A1A;
+          background: #d6cfc1;
           border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-          background: #3b82f6;
+          background: #1c1a17;
         }
       `}</style>
 
       <main
-        className={`relative min-h-screen overflow-x-hidden bg-[#FAF9F6] text-[#1A1A1A] transition-opacity duration-500 ${
+        className={`relative min-h-screen overflow-x-hidden bg-[#f5f2eb] text-[#1c1a17] transition-opacity duration-500 ${
           showContent ? 'opacity-100' : 'opacity-0'
         }`}
       >
@@ -91,36 +111,10 @@ const AppNeobrutalist: React.FC = () => {
         <div className="relative z-10">
           <HeroNeobrutalist />
 
-          <Suspense fallback={<SectionLoader />}>
-            <WhatWeBuild />
-          </Suspense>
-
-          <Suspense fallback={<SectionLoader />}>
-            <ServicesSection />
-          </Suspense>
-
-          <Suspense fallback={<SectionLoader />}>
-            <WhoWeWorkWith />
-          </Suspense>
-
-          <Suspense fallback={<SectionLoader />}>
-            <ProcessSection />
-          </Suspense>
-
-          <Suspense fallback={<SectionLoader />}>
-            <ResultsStrip />
-          </Suspense>
+          <AboutProse />
 
           <Suspense fallback={<SectionLoader />}>
             <PortfolioCarousel />
-          </Suspense>
-
-          <Suspense fallback={<SectionLoader />}>
-            <AboutSection />
-          </Suspense>
-
-          <Suspense fallback={<SectionLoader />}>
-            <DiagnosticSection />
           </Suspense>
 
           <Suspense fallback={<SectionLoader />}>

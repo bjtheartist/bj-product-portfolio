@@ -1,10 +1,10 @@
 {
-  "name": "temsvision-website",
+  "name": "bj-product-portfolio",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "TemsVision Photography Portfolio - Professional photography by Temilade Amire Quadri",
-  "author": "TemsVision",
+  "description": "Kivara Studios portfolio and project inquiry site for Billy Ndizeye.",
+  "author": "Billy Ndizeye",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

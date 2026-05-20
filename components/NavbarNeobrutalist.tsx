@@ -27,9 +27,9 @@ const SITE_CONFIG = {
 };
 
 const SOCIAL_LINKS = {
-  linkedin: 'https://linkedin.com/in/bjtheartist',
+  linkedin: 'https://www.linkedin.com/in/billy-ndizeye/',
   github: 'https://github.com/bjtheartist',
-  instagram: 'https://instagram.com/bjtheartist',
+  instagram: 'https://www.instagram.com/kivarastudios/',
 };
 
 // ============================================
@@ -78,10 +78,8 @@ const NavbarNeobrutalist: React.FC = () => {
 
   // Menu items configuration
   const menuItems = [
-    { label: 'What We Build', id: 'what-we-build' },
-    { label: 'Process', id: 'process' },
-    { label: 'Portfolio', id: 'portfolio' },
     { label: 'About', id: 'about' },
+    { label: 'Portfolio', id: 'portfolio' },
     { label: 'Get Started', id: 'get-started' },
   ];
 
@@ -95,19 +93,21 @@ const NavbarNeobrutalist: React.FC = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled && !isMenuOpen
-            ? 'bg-[#FAF9F6]/90 backdrop-blur-md'
+            ? 'bg-[#f5f2eb]/90 backdrop-blur-md border-b border-[#1c1a17]/15'
             : 'bg-transparent'
         }`}
       >
-        <div className="px-4 sm:px-6 md:px-12 lg:px-24">
-          <div className="flex items-center justify-between h-16 sm:h-20 md:h-24">
-            {/* LEFT: Menu Button */}
+        <div className="px-6 sm:px-10 md:px-16 lg:px-24">
+          <div className="flex items-center justify-between h-16 sm:h-20">
+            {/* LEFT: Menu Button — quiet text trigger */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`relative z-[60] text-sm font-medium tracking-[0.15em] uppercase transition-colors duration-200 px-4 py-2 border-2 ${
+              className={`relative z-[60] text-[11px] tracking-[0.28em] uppercase font-medium transition-colors duration-300 ${
                 isMenuOpen
-                  ? 'text-[#FAF9F6] border-[#FAF9F6]'
-                  : 'text-[#1A1A1A] border-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-[#FAF9F6]'
+                  ? 'text-[#f5f2eb]/90 hover:text-[#f5f2eb]'
+                  : isScrolled
+                  ? 'text-[#1c1a17] hover:text-[#1c1a17]/60'
+                  : 'text-[#f5f2eb]/90 hover:text-[#f5f2eb]'
               }`}
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMenuOpen}
@@ -115,34 +115,48 @@ const NavbarNeobrutalist: React.FC = () => {
               {isMenuOpen ? 'Close' : 'Menu'}
             </button>
 
-            {/* CENTER: Logo/Name (visible when scrolled) */}
-            <div
-              className={`absolute left-1/2 -translate-x-1/2 transition-opacity duration-300 ${
-                isScrolled && !isMenuOpen ? 'opacity-100' : 'opacity-0'
+            {/* CENTER: Wordmark — always visible, set in small caps */}
+            <a
+              href="#top"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className={`absolute left-1/2 -translate-x-1/2 z-[60] flex items-center gap-2 transition-opacity duration-300 ${
+                isMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
               }`}
+              aria-label="Kivara Studios — home"
             >
               <span
-                className="text-xl font-black text-[#1A1A1A]"
-                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                className={`text-[11px] sm:text-xs tracking-[0.32em] uppercase font-medium transition-colors duration-300 ${
+                  isMenuOpen
+                    ? 'text-[#f5f2eb]'
+                    : isScrolled
+                    ? 'text-[#1c1a17]'
+                    : 'text-[#f5f2eb]'
+                }`}
               >
-                KIVARA<span className="text-[#dc2626]">◆</span>STUDIOS
+                Kivara Studios
               </span>
-            </div>
+            </a>
 
-            {/* RIGHT: Get Started Button */}
+            {/* RIGHT: Get Started link */}
             <a
               href="#get-started"
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection('get-started');
               }}
-              className={`relative z-[60] text-sm font-medium tracking-[0.15em] uppercase transition-colors duration-200 px-4 py-2 ${
+              className={`group relative z-[60] inline-flex items-center gap-2 text-[11px] tracking-[0.28em] uppercase font-medium transition-colors duration-300 ${
                 isMenuOpen
-                  ? 'text-[#FAF9F6] hover:text-[#3b82f6]'
-                  : 'text-[#1A1A1A] hover:text-[#3b82f6]'
+                  ? 'text-[#f5f2eb]/90 hover:text-[#f5f2eb]'
+                  : isScrolled
+                  ? 'text-[#1c1a17] hover:text-[#1c1a17]/60'
+                  : 'text-[#f5f2eb]/90 hover:text-[#f5f2eb]'
               }`}
             >
-              Get Started
+              Start a project
+              <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
             </a>
           </div>
         </div>
@@ -160,20 +174,9 @@ const NavbarNeobrutalist: React.FC = () => {
             : 'opacity-0 pointer-events-none'
         }`}
         style={{
-          backgroundColor: '#1A1A1A',
+          backgroundColor: '#1c1a17',
         }}
       >
-        {/* Decorative elements in menu */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div
-            className="absolute w-64 h-64 rounded-full bg-[#3b82f6] opacity-10"
-            style={{ top: '10%', right: '10%' }}
-          />
-          <div
-            className="absolute w-32 h-32 bg-[#22d3ee] opacity-10"
-            style={{ bottom: '20%', left: '5%', transform: 'rotate(45deg)' }}
-          />
-        </div>
 
         {/* Menu Content */}
         <div className="relative z-10 h-full flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-24 pt-16 sm:pt-20">
@@ -195,21 +198,21 @@ const NavbarNeobrutalist: React.FC = () => {
                   className="group flex items-center gap-4 py-3 md:py-4"
                 >
                   {/* Number indicator */}
-                  <span className="text-[#FAF9F6]/30 text-sm font-mono">
+                  <span className="text-[#f5f2eb]/40 text-[10px] font-mono tracking-[0.2em]">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  
-                  {/* Menu item text */}
+
+                  {/* Menu item text — serif, magazine TOC feel */}
                   <span
-                    className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-[#FAF9F6] hover:text-[#3b82f6] transition-colors duration-200"
-                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                    className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-[#f5f2eb] hover:text-[#f5f2eb]/60 transition-colors duration-300 tracking-[-0.01em] italic"
+                    style={{ fontFamily: "'Playfair Display', serif", fontWeight: 400 }}
                   >
                     {item.label}
                   </span>
-                  
+
                   {/* Arrow that appears on hover */}
                   <svg
-                    className="w-8 h-8 md:w-12 md:h-12 text-[#3b82f6] opacity-0 group-hover:opacity-100 transition-opacity duration-200 -translate-x-4 group-hover:translate-x-0"
+                    className="w-7 h-7 md:w-10 md:h-10 text-[#f5f2eb]/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -translate-x-3 group-hover:translate-x-0"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -242,7 +245,7 @@ const NavbarNeobrutalist: React.FC = () => {
                   href={SOCIAL_LINKS.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs tracking-[0.15em] uppercase text-[#FAF9F6]/60 hover:text-[#3b82f6] transition-colors duration-200"
+                  className="text-xs tracking-[0.28em] uppercase text-[#f5f2eb]/60 hover:text-[#f5f2eb] transition-colors duration-200"
                 >
                   LinkedIn
                 </a>
@@ -252,7 +255,7 @@ const NavbarNeobrutalist: React.FC = () => {
                   href={SOCIAL_LINKS.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs tracking-[0.15em] uppercase text-[#FAF9F6]/60 hover:text-[#3b82f6] transition-colors duration-200"
+                  className="text-xs tracking-[0.28em] uppercase text-[#f5f2eb]/60 hover:text-[#f5f2eb] transition-colors duration-200"
                 >
                   GitHub
                 </a>
@@ -262,7 +265,7 @@ const NavbarNeobrutalist: React.FC = () => {
                   href={SOCIAL_LINKS.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs tracking-[0.15em] uppercase text-[#FAF9F6]/60 hover:text-[#3b82f6] transition-colors duration-200"
+                  className="text-xs tracking-[0.28em] uppercase text-[#f5f2eb]/60 hover:text-[#f5f2eb] transition-colors duration-200"
                 >
                   Instagram
                 </a>
@@ -271,7 +274,7 @@ const NavbarNeobrutalist: React.FC = () => {
 
             {/* Location */}
             <div>
-              <span className="text-xs tracking-[0.15em] uppercase text-[#FAF9F6]/40">
+              <span className="text-xs tracking-[0.28em] uppercase text-[#f5f2eb]/40">
                 {SITE_CONFIG.location}
               </span>
             </div>

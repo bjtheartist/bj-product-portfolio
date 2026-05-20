@@ -100,7 +100,7 @@ export const PROJECTS: Project[] = [
     id: '4',
     title: 'Funke Roberts',
     category: 'WEB DESIGN',
-    imageUrl: '/projects/funke-roberts.jpg',
+    imageUrl: '/projects/funke-roberts.png',
     description: 'Image consulting brand with a digital storefront. WordPress site featuring personal branding services, client stories, and an integrated e-commerce shop for skincare products.',
     tags: ['WordPress', 'WooCommerce', 'Brand Design', 'E-Commerce'],
     liveUrl: 'https://funkeroberts.com',
@@ -143,6 +143,29 @@ export const PROJECTS: Project[] = [
   },
   {
     id: '6',
+    title: 'RecipeVault',
+    category: 'FULL-STACK',
+    imageUrl: '/projects/recipevault.png',
+    description: 'A practical recipe journal for everyday meals: find recipes, plan the week, and turn dinner into a grocery list without fuss.',
+    tags: ['Full-Stack', 'React', 'Vite', 'Food Tech'],
+    liveUrl: 'https://recipevault-pearl.vercel.app',
+    githubUrl: 'https://github.com/bjtheartist/recipevault',
+    year: '2026',
+    problem: 'Home cooks needed a calmer way to save recipes, plan meals, and connect those plans to groceries. The goal was to make everyday meal planning feel useful without turning it into another chore.',
+    tools: [
+      { name: 'React', reason: 'Built the interactive recipe, meal-planning, and collection views as reusable UI flows.' },
+      { name: 'Vite', reason: 'Kept the app fast to develop and quick to load.' },
+      { name: 'TypeScript', reason: 'Added structure around recipes, plans, grocery items, and user interactions.' },
+      { name: 'Vercel', reason: 'Provided quick deployment and a reliable public preview for iteration.' }
+    ],
+    effectiveness: {
+      status: 'in-progress',
+      description: 'RecipeVault has a polished core experience for browsing, planning, and turning meals into grocery actions. The product direction is focused on practical everyday use rather than generic recipe browsing.',
+      metrics: ['Recipe browse flow live', 'Meal planning surface built', 'Grocery workflow prototyped', 'Mobile-friendly layout']
+    }
+  },
+  {
+    id: '7',
     title: 'Sahara Tax Pro',
     category: 'FULL-STACK',
     imageUrl: '/projects/sahara-tax-pro.png',
@@ -164,30 +187,50 @@ export const PROJECTS: Project[] = [
     }
   },
   {
-    id: '7',
-    title: 'Everett Home Agency',
+    id: '9',
+    title: 'Perfect Perfections',
     category: 'WEB DESIGN',
-    imageUrl: '/projects/everett-home.png',
-    description: 'Premium senior care agency website with elegant design, service listings, careers page, and consultation booking for the Greater Lansing area.',
-    tags: ['Web Design', 'React', 'Vite', 'Radix UI'],
-    liveUrl: 'https://everetthomestaffing.com',
-    githubUrl: 'https://github.com/bjtheartist/https-github.com-base44dev-everretthomestaffing',
+    imageUrl: '/projects/perfect-perfections.png',
+    description: 'Soul food catering brand based in Chicago. Warm, appetite-forward storefront with online inquiries, menu showcase, and a brand voice that feels like the food.',
+    tags: ['Web Design', 'Brand', 'Hospitality', 'React'],
+    liveUrl: 'https://perfect-perfections.vercel.app',
     year: '2026',
-    problem: 'A senior home care agency in Greater Lansing needed a professional online presence that conveyed trust, warmth, and premium quality. They needed potential clients and families to feel confident in their caregivers before even picking up the phone.',
+    problem: 'A growing soul food catering business needed an online home that felt as warm and personal as the food itself — distinct from generic restaurant templates, and built to turn visitors into bookings.',
     tools: [
-      { name: 'React', reason: 'Enabled a smooth, modern single-page experience that feels premium and trustworthy to families researching care options.' },
-      { name: 'Vite', reason: 'Fast build tooling for rapid development and optimized production bundles.' },
-      { name: 'Radix UI', reason: 'Accessible component library ensuring the site works for all users, including seniors and those with accessibility needs.' },
-      { name: 'Tailwind CSS', reason: 'Allowed rapid development of the warm, elegant design with navy and gold brand colors that convey professionalism.' }
+      { name: 'React', reason: 'Smooth, modern single-page experience that loads fast and feels editorial — appropriate for a food-led brand.' },
+      { name: 'Tailwind CSS', reason: 'Rapid design iteration on the warm, appetite-led visual identity.' },
+      { name: 'Vite', reason: 'Fast build tooling for a marketing-grade site.' },
+    ],
+    effectiveness: {
+      status: 'in-progress',
+      description: 'Mockup live — establishes the visual direction and inquiry flow.',
+      metrics: ['Live mockup deployed', 'Menu showcase ready', 'Inquiry flow in place'],
+    },
+  },
+  {
+    id: '10',
+    title: 'Chicago Incentive Explorer',
+    category: 'FULL-STACK',
+    imageUrl: '/projects/seccc.png',
+    description: 'An interactive incentive map for the Southeast Chicago Chamber of Commerce. Pre-qualification survey, zone eligibility checker, and program discovery across 12 city, state, and federal programs.',
+    tags: ['Full-Stack', 'Civic Tech', 'Next.js', 'Maps'],
+    liveUrl: 'https://seccc-incentive-explorer.vercel.app',
+    year: '2026',
+    problem: 'Small business owners in southeast Chicago were leaving money on the table — the city offers a dozen overlapping incentive programs across multiple agencies, but no single tool surfaced what they qualified for. The Chamber needed a public-facing map and survey that would route people to the right programs in minutes.',
+    tools: [
+      { name: 'Next.js', reason: 'App Router for fast page loads and SEO on a public civic tool, plus API routes for the eligibility engine.' },
+      { name: 'Mapbox', reason: 'Interactive map of incentive zones with neighborhood-level lookup.' },
+      { name: 'Tailwind CSS', reason: 'Built the survey, results, and program detail views quickly while keeping the interface restrained.' },
+      { name: 'Vercel', reason: 'Reliable hosting for a tool the Chamber sends prospective business owners to.' },
     ],
     effectiveness: {
       status: 'effective',
-      description: 'Everett Home Agency\'s site successfully positions them as a premium care provider. The warm, professional design builds immediate trust with families seeking care for loved ones.',
-      metrics: ['Live and serving clients', 'Consultation booking integrated', 'Careers page for recruitment', 'Mobile-responsive for families on the go']
-    }
+      description: 'Live and in active use by the Chamber. Surfaces 12 programs through a single survey + map flow that previously required visiting 4+ agency websites.',
+      metrics: ['12 incentive programs surfaced', 'Pre-qualification survey live', 'Zone eligibility map deployed', 'Reduces program-discovery time from hours to minutes'],
+    },
   },
   {
-    id: '8',
+    id: '11',
     title: 'Just AFC',
     category: 'WEB DESIGN',
     imageUrl: '/projects/justafc.png',

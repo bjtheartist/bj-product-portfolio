@@ -154,7 +154,7 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
 
       {/* Full screen overlay */}
       <div
-        className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#1A1A1A] ${
+        className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0A0A0A] ${
           phase === 'reveal' ? 'reveal-animation' : ''
         }`}
       >

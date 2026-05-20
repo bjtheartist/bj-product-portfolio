@@ -11,7 +11,7 @@
  *
  * Colors:
  * - red: Primary red palette (#dc2626, #ef4444, #fecaca)
- * - charcoal: Dark palette (#1A1A1A with opacity variations)
+ * - charcoal: Dark palette (#0A0A0A with opacity variations)
  * - mixed: Combination of red and charcoal
  *
  * Parallax: If enabled, shapes move at different speeds on scroll (requires GSAP)
@@ -28,7 +28,7 @@ const COLORS = {
   darkRed: '#b91c1c',
   pink: '#fecaca',
   coral: '#f87171',
-  charcoal: '#1A1A1A',
+  charcoal: '#0A0A0A',
 } as const;
 
 // ============================================

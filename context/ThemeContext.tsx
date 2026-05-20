@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 
 type Theme = 'dark' | 'light' | 'color';
+const THEME_STORAGE_KEY = 'kivara-theme';
+const LEGACY_THEME_STORAGE_KEY = 'temsvision-theme';
 
 interface ThemeContextType {
   theme: Theme;
@@ -16,7 +18,8 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [theme, setTheme] = useState<Theme>(() => {
     // Initialize from localStorage or system preference (SSR safe)
     if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('temsvision-theme') as Theme;
+      const savedTheme = (localStorage.getItem(THEME_STORAGE_KEY) ||
+        localStorage.getItem(LEGACY_THEME_STORAGE_KEY)) as Theme;
       if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light' || savedTheme === 'color')) {
         return savedTheme;
       }
@@ -45,14 +48,15 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       metaThemeColor.setAttribute('content', themeColors[theme]);
     }
 
-    localStorage.setItem('temsvision-theme', theme);
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+    localStorage.removeItem(LEGACY_THEME_STORAGE_KEY);
   }, [theme]);
 
   // Listen for system theme changes
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
-      const savedTheme = localStorage.getItem('temsvision-theme');
+      const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
       // Only auto-switch if user hasn't manually set a preference
       if (!savedTheme) {
         setTheme(e.matches ? 'dark' : 'light');

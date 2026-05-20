@@ -3,8 +3,8 @@
  *
  * Skills display with layered depth - expandable categories
  * Design tokens from HeroNeobrutalist:
- * - Background: #FFF8E7 (warm cream)
- * - Text: #1A1A1A (charcoal)
+ * - Background: #FAFAFA (warm cream)
+ * - Text: #0A0A0A (charcoal)
  * - Accent: #dc2626 (red)
  * - Font: Bebas Neue for category headers
  * - Border: 2-3px charcoal for visual structure
@@ -103,14 +103,14 @@ const SkillItem: React.FC<SkillItemProps> = ({ skill, index, isVisible }) => {
       }}
     >
       {/* Indicator dot */}
-      <span className="mt-2 w-2 h-2 bg-[#1A1A1A] group-hover:bg-[#dc2626] transition-colors duration-200 flex-shrink-0" />
+      <span className="mt-2 w-2 h-2 bg-[#0A0A0A] group-hover:bg-[#dc2626] transition-colors duration-200 flex-shrink-0" />
 
       <div className="flex-1">
-        <span className="text-lg md:text-xl font-medium text-[#1A1A1A] group-hover:text-[#dc2626] transition-colors duration-200">
+        <span className="text-lg md:text-xl font-medium text-[#0A0A0A] group-hover:text-[#dc2626] transition-colors duration-200">
           {skill.name}
         </span>
         {skill.description && (
-          <span className="block text-sm text-[#1A1A1A]/50 mt-0.5">
+          <span className="block text-sm text-[#0A0A0A]/50 mt-0.5">
             {skill.description}
           </span>
         )}
@@ -140,8 +140,8 @@ const Category: React.FC<CategoryProps> = ({ category, isExpanded, onToggle }) =
 
   return (
     <div
-      className={`border-b-2 border-[#1A1A1A] transition-colors duration-300 ${
-        isExpanded ? 'bg-[#1A1A1A]/[0.02]' : 'bg-transparent'
+      className={`border-b-2 border-[#0A0A0A] transition-colors duration-300 ${
+        isExpanded ? 'bg-[#0A0A0A]/[0.02]' : 'bg-transparent'
       }`}
     >
       {/* Category Header - Clickable */}
@@ -155,7 +155,7 @@ const Category: React.FC<CategoryProps> = ({ category, isExpanded, onToggle }) =
           {/* Number */}
           <span
             className={`text-2xl md:text-4xl font-black transition-colors duration-300 ${
-              isExpanded ? 'text-[#dc2626]' : 'text-[#1A1A1A]/30 group-hover:text-[#dc2626]'
+              isExpanded ? 'text-[#dc2626]' : 'text-[#0A0A0A]/30 group-hover:text-[#dc2626]'
             }`}
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
@@ -165,7 +165,7 @@ const Category: React.FC<CategoryProps> = ({ category, isExpanded, onToggle }) =
           {/* Title */}
           <h3
             className={`text-4xl md:text-6xl lg:text-7xl font-black tracking-tight transition-colors duration-300 ${
-              isExpanded ? 'text-[#1A1A1A]' : 'text-[#1A1A1A] group-hover:text-[#dc2626]'
+              isExpanded ? 'text-[#0A0A0A]' : 'text-[#0A0A0A] group-hover:text-[#dc2626]'
             }`}
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
@@ -175,7 +175,7 @@ const Category: React.FC<CategoryProps> = ({ category, isExpanded, onToggle }) =
 
         {/* Expand/Collapse Indicator */}
         <div
-          className={`w-10 h-10 md:w-12 md:h-12 border-2 border-[#1A1A1A] flex items-center justify-center transition-all duration-300 ${
+          className={`w-10 h-10 md:w-12 md:h-12 border-2 border-[#0A0A0A] flex items-center justify-center transition-all duration-300 ${
             isExpanded
               ? 'bg-[#dc2626] border-[#dc2626] rotate-45'
               : 'bg-transparent group-hover:border-[#dc2626]'
@@ -183,7 +183,7 @@ const Category: React.FC<CategoryProps> = ({ category, isExpanded, onToggle }) =
         >
           <svg
             className={`w-5 h-5 md:w-6 md:h-6 transition-colors duration-300 ${
-              isExpanded ? 'text-white' : 'text-[#1A1A1A] group-hover:text-[#dc2626]'
+              isExpanded ? 'text-white' : 'text-[#0A0A0A] group-hover:text-[#dc2626]'
             }`}
             fill="none"
             stroke="currentColor"
@@ -261,7 +261,7 @@ const SkillsSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="skills"
-      className="relative w-full bg-[#FFF8E7] overflow-hidden"
+      className="relative w-full bg-[#FAFAFA] overflow-hidden"
     >
       {/* Grid Background */}
       <div
@@ -274,7 +274,7 @@ const SkillsSection: React.FC = () => {
       />
 
       {/* Section Header */}
-      <div className="relative z-10 border-b-2 border-[#1A1A1A] px-6 md:px-12 py-12 md:py-16">
+      <div className="relative z-10 border-b-2 border-[#0A0A0A] px-6 md:px-12 py-12 md:py-16">
         <div
           className={`flex items-end gap-4 transition-all duration-700 ${
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -282,18 +282,18 @@ const SkillsSection: React.FC = () => {
         >
           {/* Section number */}
           <span
-            className="text-6xl md:text-8xl font-black text-[#1A1A1A]/10 leading-none"
+            className="text-6xl md:text-8xl font-black text-[#0A0A0A]/10 leading-none"
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             02
           </span>
 
           <div>
-            <span className="text-xs md:text-sm tracking-[0.2em] uppercase text-[#1A1A1A]/50 block mb-2">
+            <span className="text-xs md:text-sm tracking-[0.2em] uppercase text-[#0A0A0A]/50 block mb-2">
               Tech Stack
             </span>
             <h2
-              className="text-5xl md:text-7xl lg:text-8xl font-black text-[#1A1A1A] tracking-tight"
+              className="text-5xl md:text-7xl lg:text-8xl font-black text-[#0A0A0A] tracking-tight"
               style={{ fontFamily: "'Bebas Neue', sans-serif" }}
             >
               SKILLS
@@ -303,7 +303,7 @@ const SkillsSection: React.FC = () => {
 
         {/* Subtitle */}
         <p
-          className={`max-w-xl mt-6 text-base md:text-lg text-[#1A1A1A]/60 transition-all duration-700 delay-200 ${
+          className={`max-w-xl mt-6 text-base md:text-lg text-[#0A0A0A]/60 transition-all duration-700 delay-200 ${
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
@@ -312,7 +312,7 @@ const SkillsSection: React.FC = () => {
       </div>
 
       {/* Categories */}
-      <div className="relative z-10 border-t-2 border-[#1A1A1A]">
+      <div className="relative z-10 border-t-2 border-[#0A0A0A]">
         {SKILL_CATEGORIES.map((category, index) => (
           <div
             key={category.id}
@@ -333,15 +333,15 @@ const SkillsSection: React.FC = () => {
       </div>
 
       {/* Bottom decorative element */}
-      <div className="relative z-10 px-6 md:px-12 py-8 md:py-12 border-t-2 border-[#1A1A1A]">
+      <div className="relative z-10 px-6 md:px-12 py-8 md:py-12 border-t-2 border-[#0A0A0A]">
         <div className="flex items-center justify-between">
-          <span className="text-xs tracking-[0.2em] uppercase text-[#1A1A1A]/30">
+          <span className="text-xs tracking-[0.2em] uppercase text-[#0A0A0A]/30">
             Frontend + Backend + Product
           </span>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 bg-[#dc2626]" />
-            <span className="w-2 h-2 bg-[#1A1A1A]" />
-            <span className="w-2 h-2 bg-[#1A1A1A]/30" />
+            <span className="w-2 h-2 bg-[#0A0A0A]" />
+            <span className="w-2 h-2 bg-[#0A0A0A]/30" />
           </div>
         </div>
       </div>

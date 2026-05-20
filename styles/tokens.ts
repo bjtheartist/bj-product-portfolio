@@ -10,26 +10,26 @@
 
 export const colors = {
   background: {
-    cream: '#FAF9F6',
-    warmCream: '#FFF8E7',
-    lightGray: '#F5F5F0',
-    charcoal: '#1A1A1A',
+    cream: '#FFFFFF',
+    warmCream: '#FAFAFA',
+    lightGray: '#F4F4F4',
+    charcoal: '#0A0A0A',
   },
   text: {
-    primary: '#1A1A1A',
-    secondary: '#6B7280',
-    muted: '#9CA3AF',
-    onDark: '#FAF9F6',
+    primary: '#0A0A0A',
+    secondary: '#525252',
+    muted: '#A3A3A3',
+    onDark: '#FFFFFF',
   },
   accent: {
     red: '#dc2626',
     redLight: '#ef4444',
     redDark: '#b91c1c',
     pink: '#fecaca',
-    blue: '#3b82f6', // cursor/selection
+    blue: '#dc2626',
   },
   border: {
-    dark: '#1A1A1A',
+    dark: '#0A0A0A',
     light: '#E5E5E5',
     subtle: '#F0F0F0',
   },

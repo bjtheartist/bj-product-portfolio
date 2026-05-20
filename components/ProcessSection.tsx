@@ -3,11 +3,11 @@
  *
  * Three-step process section - light background variant.
  * Design tokens:
- * - Background: #FAF9F6 (cream)
- * - Text: #1A1A1A (charcoal)
- * - Accent: #dc2626 (red)
+ * - Background: #f5f2eb (cream)
+ * - Text: #1c1a17 (charcoal)
+ * - Accent: #1c1a17 (red)
  * - Font: Bebas Neue for headlines
- * - Cards: border-2 border-[#1A1A1A] with 4px 4px 0 #dc2626 shadow
+ * - Cards: border border-[#1c1a17] with 4px 4px 0 #1c1a17 shadow
  */
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -68,15 +68,15 @@ const ProcessSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="process"
-      className="relative w-full bg-[#FAF9F6] py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden"
+      className="relative w-full bg-[#f5f2eb] py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden"
     >
       {/* Subtle grid background */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage: `
-            linear-gradient(#1A1A1A 1px, transparent 1px),
-            linear-gradient(90deg, #1A1A1A 1px, transparent 1px)
+            linear-gradient(#1c1a17 1px, transparent 1px),
+            linear-gradient(90deg, #1c1a17 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -89,18 +89,18 @@ const ProcessSection: React.FC = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <span className="text-[#dc2626] text-xs tracking-[0.3em] uppercase font-bold">
+          <span className="text-[#1c1a17] text-xs tracking-[0.3em] uppercase font-bold">
             Our Process
           </span>
-          <div className="flex-1 h-px bg-[#1A1A1A]/20" />
+          <div className="flex-1 h-px bg-[#1c1a17]/20" />
         </div>
 
         {/* Headline */}
         <h2
-          className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#1A1A1A] leading-[0.95] tracking-tight mb-10 sm:mb-16 transition-all duration-700 delay-150 ease-out ${
+          className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#1c1a17] leading-[0.95] tracking-tight mb-10 sm:mb-16 transition-all duration-700 delay-150 ease-out ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          style={{ fontFamily: "'Playfair Display', serif" }}
         >
           THREE STEPS. ZERO HEADACHES.
         </h2>
@@ -120,7 +120,7 @@ const ProcessSection: React.FC = () => {
           >
             <div className="w-full flex items-center">
               <div
-                className="flex-1 border-t-2 border-dashed border-[#dc2626]"
+                className="flex-1 border-t-2 border-dashed border-[#1c1a17]"
               />
               {/* Arrow tip */}
               <div
@@ -128,7 +128,7 @@ const ProcessSection: React.FC = () => {
                 style={{
                   borderTop: '6px solid transparent',
                   borderBottom: '6px solid transparent',
-                  borderLeft: '8px solid #dc2626',
+                  borderLeft: '8px solid #1c1a17',
                 }}
               />
             </div>
@@ -145,7 +145,7 @@ const ProcessSection: React.FC = () => {
           >
             <div className="w-full flex items-center">
               <div
-                className="flex-1 border-t-2 border-dashed border-[#dc2626]"
+                className="flex-1 border-t-2 border-dashed border-[#1c1a17]"
               />
               {/* Arrow tip */}
               <div
@@ -153,7 +153,7 @@ const ProcessSection: React.FC = () => {
                 style={{
                   borderTop: '6px solid transparent',
                   borderBottom: '6px solid transparent',
-                  borderLeft: '8px solid #dc2626',
+                  borderLeft: '8px solid #1c1a17',
                 }}
               />
             </div>
@@ -174,14 +174,14 @@ const ProcessSection: React.FC = () => {
             >
               <div className="h-full flex flex-col items-center">
                 <div
-                  className="flex-1 border-l-2 border-dashed border-[#dc2626]"
+                  className="flex-1 border-l-2 border-dashed border-[#1c1a17]"
                 />
                 <div
                   className="mt-[-1px]"
                   style={{
                     borderLeft: '6px solid transparent',
                     borderRight: '6px solid transparent',
-                    borderTop: '8px solid #dc2626',
+                    borderTop: '8px solid #1c1a17',
                   }}
                 />
               </div>
@@ -191,34 +191,34 @@ const ProcessSection: React.FC = () => {
           {STEPS.map((step, index) => (
             <div
               key={step.number}
-              className={`relative border-2 border-[#1A1A1A] bg-[#FAF9F6] p-6 md:p-8 transition-all duration-700 ease-out ${
+              className={`relative border border-[#1c1a17] bg-[#f5f2eb] p-6 md:p-8 transition-all duration-700 ease-out ${
                 isVisible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-8'
               }`}
               style={{
                 transitionDelay: `${300 + index * 100}ms`,
-                boxShadow: '4px 4px 0 #dc2626',
+                boxShadow: '4px 4px 0 #1c1a17',
               }}
             >
               {/* Step Number */}
               <span
-                className="text-5xl md:text-6xl font-black text-[#1A1A1A]/10 leading-none block mb-4"
-                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                className="text-5xl md:text-6xl font-black text-[#1c1a17]/10 leading-none block mb-4"
+                style={{ fontFamily: "'Playfair Display', serif" }}
               >
                 {step.number}
               </span>
 
               {/* Step Title */}
               <h3
-                className="text-xl md:text-2xl font-black text-[#1A1A1A] mb-3"
-                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                className="text-xl md:text-2xl font-black text-[#1c1a17] mb-3"
+                style={{ fontFamily: "'Playfair Display', serif" }}
               >
                 {step.title}
               </h3>
 
               {/* Step Description */}
-              <p className="text-sm md:text-base text-[#1A1A1A]/70 leading-relaxed">
+              <p className="text-sm md:text-base text-[#1c1a17]/70 leading-relaxed">
                 {step.description}
               </p>
             </div>

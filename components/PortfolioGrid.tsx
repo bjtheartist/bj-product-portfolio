@@ -177,7 +177,7 @@ const PROJECTS: Project[] = [
 // SKILL TAG COMPONENT
 // ============================================
 const SkillTag: React.FC<{ skill: string }> = memo(({ skill }) => (
-  <span className="inline-block px-2 py-1 text-[10px] sm:text-xs uppercase tracking-wider bg-[#FAF9F6] text-[#1A1A1A] border border-[#1A1A1A] font-medium">
+  <span className="inline-block px-2 py-1 text-[10px] sm:text-xs uppercase tracking-wider bg-[#FFFFFF] text-[#0A0A0A] border border-[#0A0A0A] font-medium">
     {skill}
   </span>
 ));
@@ -292,11 +292,11 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
       onClick={onClose}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-[#1A1A1A]/90 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-[#0A0A0A]/90 backdrop-blur-sm" />
       
       {/* Modal Container */}
       <div 
-        className="relative w-full max-w-4xl max-h-[90vh] bg-[#FAF9F6] border-3 border-[#1A1A1A] overflow-hidden"
+        className="relative w-full max-w-4xl max-h-[90vh] bg-[#FFFFFF] border-3 border-[#0A0A0A] overflow-hidden"
         style={{ boxShadow: '8px 8px 0 #dc2626' }}
         onClick={e => e.stopPropagation()}
         onTouchStart={handleTouchStart}
@@ -304,26 +304,26 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
         onTouchEnd={handleTouchEnd}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 sm:p-6 border-b-2 border-[#1A1A1A] bg-[#1A1A1A]">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b-2 border-[#0A0A0A] bg-[#0A0A0A]">
           <div>
             <h2 
-              className="text-2xl sm:text-3xl md:text-4xl font-black text-[#FAF9F6]"
+              className="text-2xl sm:text-3xl md:text-4xl font-black text-[#FFFFFF]"
               style={{ fontFamily: "'Bebas Neue', sans-serif" }}
             >
               {project.title}
             </h2>
-            <p className="text-[#FAF9F6]/60 text-sm mt-1">{project.description}</p>
+            <p className="text-[#FFFFFF]/60 text-sm mt-1">{project.description}</p>
           </div>
           <button 
             onClick={onClose}
-            className="w-10 h-10 flex items-center justify-center bg-[#FAF9F6] text-[#1A1A1A] hover:bg-[#dc2626] hover:text-white transition-colors font-bold text-xl"
+            className="w-10 h-10 flex items-center justify-center bg-[#FFFFFF] text-[#0A0A0A] hover:bg-[#dc2626] hover:text-white transition-colors font-bold text-xl"
           >
             ×
           </button>
         </div>
 
         {/* Screen Navigation Tabs */}
-        <div className="flex border-b-2 border-[#1A1A1A]">
+        <div className="flex border-b-2 border-[#0A0A0A]">
           {screens.map((screen, index) => (
             <button
               key={screen}
@@ -331,7 +331,7 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
               className={`flex-1 py-3 px-4 text-xs sm:text-sm uppercase tracking-wider font-bold transition-all ${
                 currentScreen === index
                   ? 'bg-[#dc2626] text-white'
-                  : 'bg-[#FAF9F6] text-[#1A1A1A] hover:bg-[#1A1A1A]/10'
+                  : 'bg-[#FFFFFF] text-[#0A0A0A] hover:bg-[#0A0A0A]/10'
               }`}
             >
               <span className="mr-2">{index + 1}.</span>
@@ -352,11 +352,11 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
                 <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center">
                   <span className="text-[#dc2626] text-2xl">!</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-[#1A1A1A]" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                <h3 className="text-xl sm:text-2xl font-black text-[#0A0A0A]" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                   The Problem
                 </h3>
               </div>
-              <p className="text-[#1A1A1A]/80 text-base sm:text-lg leading-relaxed">
+              <p className="text-[#0A0A0A]/80 text-base sm:text-lg leading-relaxed">
                 {project.problem}
               </p>
               <div className="mt-8 flex flex-wrap gap-2">
@@ -370,9 +370,9 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
             <div className="w-full flex-shrink-0 p-6 sm:p-8 md:p-10 min-h-[400px]">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center">
-                  <span className="text-[#3b82f6] text-2xl">⚙</span>
+                  <span className="text-[#dc2626] text-2xl">⚙</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-[#1A1A1A]" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                <h3 className="text-xl sm:text-2xl font-black text-[#0A0A0A]" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                   Tools & Why I Used Them
                 </h3>
               </div>
@@ -380,13 +380,13 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
                 {project.tools.map((tool, i) => (
                   <div 
                     key={i} 
-                    className="p-4 bg-[#1A1A1A] border-2 border-[#1A1A1A]"
-                    style={{ boxShadow: '4px 4px 0 #3b82f6' }}
+                    className="p-4 bg-[#0A0A0A] border-2 border-[#0A0A0A]"
+                    style={{ boxShadow: '4px 4px 0 #dc2626' }}
                   >
-                    <h4 className="text-[#FAF9F6] font-bold text-sm uppercase tracking-wider mb-2">
+                    <h4 className="text-[#FFFFFF] font-bold text-sm uppercase tracking-wider mb-2">
                       {tool.name}
                     </h4>
-                    <p className="text-[#FAF9F6]/70 text-sm leading-relaxed">
+                    <p className="text-[#FFFFFF]/70 text-sm leading-relaxed">
                       {tool.reason}
                     </p>
                   </div>
@@ -398,11 +398,11 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
             <div className="w-full flex-shrink-0 p-6 sm:p-8 md:p-10 min-h-[400px]">
               <div className="flex items-center gap-3 mb-6">
                 <StatusBadge status={project.effectiveness.status} />
-                <h3 className="text-xl sm:text-2xl font-black text-[#1A1A1A]" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                <h3 className="text-xl sm:text-2xl font-black text-[#0A0A0A]" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                   Results & Impact
                 </h3>
               </div>
-              <p className="text-[#1A1A1A]/80 text-base sm:text-lg leading-relaxed mb-6">
+              <p className="text-[#0A0A0A]/80 text-base sm:text-lg leading-relaxed mb-6">
                 {project.effectiveness.description}
               </p>
               
@@ -412,10 +412,10 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
                   {project.effectiveness.metrics.map((metric, i) => (
                     <div 
                       key={i} 
-                      className="p-4 bg-[#1A1A1A] text-center"
+                      className="p-4 bg-[#0A0A0A] text-center"
                       style={{ boxShadow: '4px 4px 0 #22c55e' }}
                     >
-                      <span className="text-[#FAF9F6] font-bold text-sm">{metric}</span>
+                      <span className="text-[#FFFFFF] font-bold text-sm">{metric}</span>
                     </div>
                   ))}
                 </div>
@@ -428,7 +428,7 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#dc2626] text-white font-bold uppercase tracking-wider hover:bg-[#1A1A1A] transition-colors"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-[#dc2626] text-white font-bold uppercase tracking-wider hover:bg-[#0A0A0A] transition-colors"
                   >
                     View Live Site
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -441,7 +441,7 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 border-2 border-[#1A1A1A] text-[#1A1A1A] font-bold uppercase tracking-wider hover:bg-[#1A1A1A] hover:text-white transition-colors"
+                    className="inline-flex items-center gap-2 px-6 py-3 border-2 border-[#0A0A0A] text-[#0A0A0A] font-bold uppercase tracking-wider hover:bg-[#0A0A0A] hover:text-white transition-colors"
                   >
                     View Code
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -455,17 +455,17 @@ const ProjectModal: React.FC<ProjectModalProps> = memo(({ project, isOpen, onClo
         </div>
 
         {/* Navigation Dots & Swipe Hint */}
-        <div className="flex items-center justify-center gap-2 py-4 border-t-2 border-[#1A1A1A] bg-[#FAF9F6]">
+        <div className="flex items-center justify-center gap-2 py-4 border-t-2 border-[#0A0A0A] bg-[#FFFFFF]">
           {screens.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentScreen(index)}
               className={`w-3 h-3 rounded-full transition-all ${
-                currentScreen === index ? 'bg-[#dc2626] scale-125' : 'bg-[#1A1A1A]/30'
+                currentScreen === index ? 'bg-[#dc2626] scale-125' : 'bg-[#0A0A0A]/30'
               }`}
             />
           ))}
-          <span className="ml-4 text-[#1A1A1A]/40 text-xs">Swipe or use arrow keys</span>
+          <span className="ml-4 text-[#0A0A0A]/40 text-xs">Swipe or use arrow keys</span>
         </div>
       </div>
     </div>
@@ -506,9 +506,9 @@ const ProjectCard: React.FC<ProjectCardProps> = memo(({ project, index, isInView
     >
       {/* Card */}
       <div 
-        className="relative bg-[#FAF9F6] border-2 border-[#1A1A1A] overflow-hidden transition-all duration-300 group-hover:translate-x-[-4px] group-hover:translate-y-[-4px]"
+        className="relative bg-[#FFFFFF] border-2 border-[#0A0A0A] overflow-hidden transition-all duration-300 group-hover:translate-x-[-4px] group-hover:translate-y-[-4px]"
         style={{ 
-          boxShadow: '4px 4px 0 #1A1A1A',
+          boxShadow: '4px 4px 0 #0A0A0A',
           aspectRatio: '4/3'
         }}
       >
@@ -523,7 +523,7 @@ const ProjectCard: React.FC<ProjectCardProps> = memo(({ project, index, isInView
         />
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/95 via-[#1A1A1A]/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/95 via-[#0A0A0A]/50 to-transparent" />
 
         {/* Sector Badge */}
         <div className="absolute top-3 right-3">
@@ -542,7 +542,7 @@ const ProjectCard: React.FC<ProjectCardProps> = memo(({ project, index, isInView
 
           {/* Title */}
           <h3
-            className="text-xl sm:text-2xl md:text-3xl font-black text-[#FAF9F6] mt-1 mb-2 transition-transform duration-300 group-hover:translate-x-1"
+            className="text-xl sm:text-2xl md:text-3xl font-black text-[#FFFFFF] mt-1 mb-2 transition-transform duration-300 group-hover:translate-x-1"
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             {project.title}
@@ -557,7 +557,7 @@ const ProjectCard: React.FC<ProjectCardProps> = memo(({ project, index, isInView
 
           {/* View Case Study Hint */}
           <div className="mt-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <span className="text-[#FAF9F6] text-xs uppercase tracking-wider">
+            <span className="text-[#FFFFFF] text-xs uppercase tracking-wider">
               View Case Study
             </span>
             <svg
@@ -610,13 +610,13 @@ const SectionHeader: React.FC = memo(() => {
       </div>
 
       <h2
-        className="text-4xl sm:text-5xl md:text-6xl font-black text-[#1A1A1A] leading-none mb-3"
+        className="text-4xl sm:text-5xl md:text-6xl font-black text-[#0A0A0A] leading-none mb-3"
         style={{ fontFamily: "'Bebas Neue', sans-serif" }}
       >
         Real Results, Real Clients
       </h2>
 
-      <p className="text-[#1A1A1A]/60 text-base sm:text-lg max-w-2xl">
+      <p className="text-[#0A0A0A]/60 text-base sm:text-lg max-w-2xl">
         Click any project to explore the full case study—the problem, tools, and results.
       </p>
 
@@ -624,7 +624,7 @@ const SectionHeader: React.FC = memo(() => {
         <span className="text-[#dc2626] text-2xl font-black" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
           {PROJECTS.length}
         </span>
-        <span className="text-[#1A1A1A]/40 text-xs uppercase tracking-wider">Projects</span>
+        <span className="text-[#0A0A0A]/40 text-xs uppercase tracking-wider">Projects</span>
       </div>
     </div>
   );
@@ -664,13 +664,13 @@ const PortfolioGrid: React.FC = () => {
   return (
     <section
       id="portfolio"
-      className="relative py-20 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8 lg:px-12 bg-[#FAF9F6]"
+      className="relative py-20 sm:py-24 md:py-32 px-4 sm:px-6 md:px-8 lg:px-12 bg-[#FFFFFF]"
     >
       {/* Background Pattern */}
       <div
         className="absolute inset-0 opacity-[0.02]"
         style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, #1A1A1A 1px, transparent 0)',
+          backgroundImage: 'radial-gradient(circle at 1px 1px, #0A0A0A 1px, transparent 0)',
           backgroundSize: '24px 24px',
         }}
       />

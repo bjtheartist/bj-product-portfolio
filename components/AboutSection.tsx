@@ -28,15 +28,15 @@ const AboutSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="relative w-full bg-[#FFF8E7] py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden"
+      className="relative w-full bg-[#FAFAFA] py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden"
     >
       {/* Subtle grid background */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage: `
-            linear-gradient(#1A1A1A 1px, transparent 1px),
-            linear-gradient(90deg, #1A1A1A 1px, transparent 1px)
+            linear-gradient(#1c1a17 1px, transparent 1px),
+            linear-gradient(90deg, #1c1a17 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -46,14 +46,14 @@ const AboutSection: React.FC = () => {
       <div
         className="absolute -top-32 -right-32 w-64 h-64 rounded-full pointer-events-none"
         style={{
-          border: '3px solid #dc2626',
+          border: '3px solid #1c1a17',
           opacity: 0.06,
         }}
       />
       <div
         className="absolute -top-20 -right-20 w-40 h-40 rounded-full pointer-events-none"
         style={{
-          border: '2px solid #dc2626',
+          border: '2px solid #1c1a17',
           opacity: 0.04,
         }}
       />
@@ -61,7 +61,7 @@ const AboutSection: React.FC = () => {
       <div
         className="absolute -top-10 -right-10 w-20 h-20 rounded-full pointer-events-none"
         style={{
-          border: '1.5px solid #1A1A1A',
+          border: '1.5px solid #1c1a17',
           opacity: 0.04,
         }}
       />
@@ -73,21 +73,21 @@ const AboutSection: React.FC = () => {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <span className="text-[#dc2626] text-xs tracking-[0.3em] uppercase font-bold">
+          <span className="text-[#1c1a17] text-xs tracking-[0.3em] uppercase font-bold">
             About Us
           </span>
-          <div className="flex-1 h-px bg-[#1A1A1A]/20" />
+          <div className="flex-1 h-px bg-[#1c1a17]/20" />
         </div>
 
         {/* Headline */}
         <h2
-          className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#1A1A1A] leading-[0.95] tracking-tight mb-8 sm:mb-12 transition-all duration-700 delay-100 ease-out ${
+          className={`text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-[#1c1a17] leading-[0.95] tracking-tight mb-8 sm:mb-12 transition-all duration-700 delay-100 ease-out ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+          style={{ fontFamily: "'Playfair Display', serif" }}
         >
           DIRECT ACCESS.{' '}
-          <span className="text-[#dc2626]">NO MIDDLEMEN.</span>
+          <span className="text-[#1c1a17]">NO MIDDLEMEN.</span>
         </h2>
 
         {/* Two-column layout */}
@@ -98,16 +98,16 @@ const AboutSection: React.FC = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <p className="text-base md:text-lg text-[#1A1A1A]/70 leading-relaxed mb-6">
+            <p className="text-base md:text-lg text-[#1c1a17]/70 leading-relaxed mb-6">
               You don't get an account manager. You get the strategist and the developer in one room. When you call
               Kivara, you're talking to the person writing the code — not someone relaying messages through a chain
               of people who've never seen your brand.
             </p>
-            <p className="text-base md:text-lg text-[#1A1A1A]/70 leading-relaxed mb-6">
+            <p className="text-base md:text-lg text-[#1c1a17]/70 leading-relaxed mb-6">
               We're small by design, and that's the point. No layers. No bloated team. Just focused, high-output work
               from someone who treats your project like their own — because your growth is our reputation.
             </p>
-            <p className="text-base md:text-lg text-[#1A1A1A]/70 leading-relaxed">
+            <p className="text-base md:text-lg text-[#1c1a17]/70 leading-relaxed">
               This isn't just about websites. It's about building a digital presence that commands authority — from
               SEO and content strategy to brand identity and lead generation. Everything we build is engineered
               to perform, not just exist.
@@ -143,12 +143,12 @@ const AboutSection: React.FC = () => {
                 style={{ transitionDelay: `${400 + index * 100}ms` }}
               >
                 <h3
-                  className="text-xl md:text-2xl font-black text-[#1A1A1A] tracking-tight mb-2"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                  className="text-xl md:text-2xl font-black text-[#1c1a17] tracking-tight mb-2"
+                  style={{ fontFamily: "'Playfair Display', serif" }}
                 >
                   {value.title}
                 </h3>
-                <p className="text-sm md:text-base text-[#1A1A1A]/60 leading-relaxed">
+                <p className="text-sm md:text-base text-[#1c1a17]/60 leading-relaxed">
                   {value.description}
                 </p>
               </div>
@@ -158,25 +158,25 @@ const AboutSection: React.FC = () => {
 
         {/* Tech Stack */}
         <div
-          className={`pt-8 border-t-2 border-[#1A1A1A]/10 transition-all duration-700 delay-500 ease-out ${
+          className={`pt-8 border-t-2 border-[#1c1a17]/10 transition-all duration-700 delay-500 ease-out ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <span
-            className="text-sm tracking-[0.15em] uppercase font-bold text-[#1A1A1A]/40 block mb-4"
+            className="text-sm tracking-[0.15em] uppercase font-bold text-[#1c1a17]/40 block mb-4"
           >
             The Stack That Makes You Faster
           </span>
           <div className="space-y-4">
             {TECH_STACK.map((group) => (
               <div key={group.category} className="flex flex-wrap items-center gap-2 sm:gap-3">
-                <span className="text-xs font-bold text-[#dc2626] tracking-[0.15em] uppercase w-full sm:w-20 sm:shrink-0">
+                <span className="text-xs font-bold text-[#1c1a17] tracking-[0.15em] uppercase w-full sm:w-20 sm:shrink-0">
                   {group.category}
                 </span>
                 {group.tools.map((tech) => (
                   <span
                     key={tech}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 border-2 border-[#1A1A1A] text-xs sm:text-sm font-bold text-[#1A1A1A] tracking-wide uppercase bg-[#FFF8E7] hover:bg-[#1A1A1A] hover:text-[#FAF9F6] transition-colors duration-200"
+                    className="px-3 sm:px-4 py-1.5 sm:py-2 border border-[#1c1a17] text-xs sm:text-sm font-bold text-[#1c1a17] tracking-wide uppercase bg-[#FAFAFA] hover:bg-[#1c1a17] hover:text-[#f5f2eb] transition-colors duration-200"
                   >
                     {tech}
                   </span>

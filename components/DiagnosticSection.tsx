@@ -3,9 +3,9 @@
  *
  * Free site diagnostic / health check form section.
  * Design tokens:
- * - Background: #1A1A1A (dark charcoal)
- * - Text: #FAF9F6 (cream)
- * - Accent: #dc2626 (red)
+ * - Background: #1c1a17 (dark charcoal)
+ * - Text: #f5f2eb (cream)
+ * - Accent: #1c1a17 (red)
  * - Font: Bebas Neue for headlines
  * - Border: 2px with red offset shadow on form container
  */
@@ -77,7 +77,7 @@ const DiagnosticSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="diagnostic"
-      className="relative w-full bg-[#1A1A1A] py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden"
+      className="relative w-full bg-[#1c1a17] py-16 sm:py-24 md:py-32 lg:py-40 overflow-hidden"
     >
       {/* Subtle grid background */}
       <div
@@ -100,27 +100,27 @@ const DiagnosticSection: React.FC = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <span className="text-[#dc2626] text-xs tracking-[0.3em] uppercase font-bold">
+            <span className="text-[#1c1a17] text-xs tracking-[0.3em] uppercase font-bold">
               Free Diagnostic
             </span>
-            <div className="flex-1 h-px bg-[#FAF9F6]/20" />
+            <div className="flex-1 h-px bg-[#f5f2eb]/20" />
           </div>
 
           {/* Headline */}
           <h2
-            className={`text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-[#FAF9F6] tracking-tight leading-[0.95] transition-all duration-700 delay-100 ease-out ${
+            className={`text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-[#f5f2eb] tracking-tight leading-[0.95] transition-all duration-700 delay-100 ease-out ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
-            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+            style={{ fontFamily: "'Playfair Display', serif" }}
           >
             GET A FREE SITE
             <br />
-            <span className="text-[#dc2626]">HEALTH CHECK</span>
+            <span className="text-[#1c1a17]">HEALTH CHECK</span>
           </h2>
 
           {/* Subtext */}
           <p
-            className={`mt-6 text-base md:text-lg text-[#FAF9F6]/50 max-w-xl leading-relaxed transition-all duration-700 delay-200 ease-out ${
+            className={`mt-6 text-base md:text-lg text-[#f5f2eb]/50 max-w-xl leading-relaxed transition-all duration-700 delay-200 ease-out ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
@@ -138,10 +138,10 @@ const DiagnosticSection: React.FC = () => {
           {/* Success State */}
           {formStatus === 'success' && (
             <div
-              className="bg-[#FAF9F6]/5 border-2 border-[#22c55e] p-8 md:p-12 text-center"
-              style={{ boxShadow: '4px 4px 0 #dc2626' }}
+              className="bg-[#f5f2eb]/5 border border-[#22c55e] p-8 md:p-12 text-center"
+              style={{ boxShadow: '4px 4px 0 #1c1a17' }}
             >
-              <div className="w-12 h-12 mx-auto mb-4 border-2 border-[#22c55e] flex items-center justify-center">
+              <div className="w-12 h-12 mx-auto mb-4 border border-[#22c55e] flex items-center justify-center">
                 <svg
                   className="w-6 h-6 text-[#22c55e]"
                   viewBox="0 0 24 24"
@@ -155,12 +155,12 @@ const DiagnosticSection: React.FC = () => {
                 </svg>
               </div>
               <h3
-                className="text-3xl md:text-4xl font-black text-[#FAF9F6] mb-2"
-                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                className="text-3xl md:text-4xl font-black text-[#f5f2eb] mb-2"
+                style={{ fontFamily: "'Playfair Display', serif" }}
               >
                 WE'RE ON IT
               </h3>
-              <p className="text-[#FAF9F6]/50 text-sm md:text-base">
+              <p className="text-[#f5f2eb]/50 text-sm md:text-base">
                 Your diagnostic report will hit your inbox within 24 hours.
               </p>
             </div>
@@ -169,21 +169,21 @@ const DiagnosticSection: React.FC = () => {
           {/* Error State */}
           {formStatus === 'error' && (
             <div
-              className="bg-[#FAF9F6]/5 border-2 border-[#dc2626] p-8 md:p-12 text-center"
-              style={{ boxShadow: '4px 4px 0 #dc2626' }}
+              className="bg-[#f5f2eb]/5 border border-[#1c1a17] p-8 md:p-12 text-center"
+              style={{ boxShadow: '4px 4px 0 #1c1a17' }}
             >
               <h3
-                className="text-3xl md:text-4xl font-black text-[#FAF9F6] mb-2"
-                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                className="text-3xl md:text-4xl font-black text-[#f5f2eb] mb-2"
+                style={{ fontFamily: "'Playfair Display', serif" }}
               >
                 SOMETHING WENT WRONG
               </h3>
-              <p className="text-[#FAF9F6]/50 text-sm md:text-base mb-6">
+              <p className="text-[#f5f2eb]/50 text-sm md:text-base mb-6">
                 Please try again or email us directly at hello@kivarastudios.dev
               </p>
               <button
                 onClick={() => setFormStatus('idle')}
-                className="px-6 py-3 bg-[#dc2626] text-[#FAF9F6] text-sm font-bold tracking-[0.1em] uppercase hover:bg-[#b91c1c] transition-colors duration-300"
+                className="px-6 py-3 bg-[#1c1a17] text-[#f5f2eb] text-sm font-bold tracking-[0.1em] uppercase hover:bg-[#1c1a17] transition-colors duration-300"
               >
                 Try Again
               </button>
@@ -194,15 +194,15 @@ const DiagnosticSection: React.FC = () => {
           {(formStatus === 'idle' || formStatus === 'submitting') && (
             <form
               onSubmit={handleSubmit}
-              className="bg-[#FAF9F6]/5 border-2 border-[#FAF9F6]/10 p-5 sm:p-8 md:p-12"
-              style={{ boxShadow: '4px 4px 0 #dc2626' }}
+              className="bg-[#f5f2eb]/5 border border-[#f5f2eb]/10 p-5 sm:p-8 md:p-12"
+              style={{ boxShadow: '4px 4px 0 #1c1a17' }}
             >
               <div className="space-y-6">
                 {/* Email Field */}
                 <div>
                   <label
                     htmlFor="diagnostic-email"
-                    className="block text-xs tracking-[0.2em] uppercase text-[#FAF9F6]/40 mb-2"
+                    className="block text-xs tracking-[0.2em] uppercase text-[#f5f2eb]/40 mb-2"
                   >
                     Email
                   </label>
@@ -214,7 +214,7 @@ const DiagnosticSection: React.FC = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@company.com"
                     disabled={formStatus === 'submitting'}
-                    className="w-full bg-transparent border-2 border-[#FAF9F6]/30 text-[#FAF9F6] px-4 py-3 text-base placeholder:text-[#FAF9F6]/40 focus:border-[#dc2626] focus:outline-none transition-colors duration-300 disabled:opacity-50"
+                    className="w-full bg-transparent border border-[#f5f2eb]/30 text-[#f5f2eb] px-4 py-3 text-base placeholder:text-[#f5f2eb]/40 focus:border-[#1c1a17] focus:outline-none transition-colors duration-300 disabled:opacity-50"
                   />
                 </div>
 
@@ -222,7 +222,7 @@ const DiagnosticSection: React.FC = () => {
                 <div>
                   <label
                     htmlFor="diagnostic-url"
-                    className="block text-xs tracking-[0.2em] uppercase text-[#FAF9F6]/40 mb-2"
+                    className="block text-xs tracking-[0.2em] uppercase text-[#f5f2eb]/40 mb-2"
                   >
                     Website URL
                   </label>
@@ -234,7 +234,7 @@ const DiagnosticSection: React.FC = () => {
                     onChange={(e) => setUrl(e.target.value)}
                     placeholder="https://yourwebsite.com"
                     disabled={formStatus === 'submitting'}
-                    className="w-full bg-transparent border-2 border-[#FAF9F6]/30 text-[#FAF9F6] px-4 py-3 text-base placeholder:text-[#FAF9F6]/40 focus:border-[#dc2626] focus:outline-none transition-colors duration-300 disabled:opacity-50"
+                    className="w-full bg-transparent border border-[#f5f2eb]/30 text-[#f5f2eb] px-4 py-3 text-base placeholder:text-[#f5f2eb]/40 focus:border-[#1c1a17] focus:outline-none transition-colors duration-300 disabled:opacity-50"
                   />
                 </div>
               </div>
@@ -243,12 +243,12 @@ const DiagnosticSection: React.FC = () => {
               <button
                 type="submit"
                 disabled={formStatus === 'submitting'}
-                className="mt-8 w-full py-4 bg-[#dc2626] text-[#FAF9F6] text-sm font-bold tracking-[0.1em] uppercase hover:bg-[#b91c1c] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                className="mt-8 w-full py-4 bg-[#1c1a17] text-[#f5f2eb] text-sm font-bold tracking-[0.1em] uppercase hover:bg-[#1c1a17] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3"
               >
                 {formStatus === 'submitting' ? (
                   <>
                     <span
-                      className="w-4 h-4 border-2 border-[#FAF9F6]/30 border-t-[#FAF9F6] rounded-full animate-spin"
+                      className="w-4 h-4 border border-[#f5f2eb]/30 border-t-[#f5f2eb] rounded-full animate-spin"
                     />
                     Running Diagnostic...
                   </>
@@ -262,8 +262,8 @@ const DiagnosticSection: React.FC = () => {
       </div>
 
       {/* Decorative Corner Elements */}
-      <div className="absolute top-8 left-8 w-12 h-12 border-l-2 border-t-2 border-[#FAF9F6]/10" />
-      <div className="absolute bottom-8 right-8 w-12 h-12 border-r-2 border-b-2 border-[#FAF9F6]/10" />
+      <div className="absolute top-8 left-8 w-12 h-12 border-l-2 border-t-2 border-[#f5f2eb]/10" />
+      <div className="absolute bottom-8 right-8 w-12 h-12 border-r-2 border-b-2 border-[#f5f2eb]/10" />
     </section>
   );
 };
