@@ -197,7 +197,7 @@ const ProjectCard: React.FC<{
         }s, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) ${(index % 2) * 0.12}s`,
       }}
     >
-      <div className="relative w-full min-h-[520px] sm:min-h-[600px] md:min-h-0 md:aspect-[21/9] overflow-hidden border-y border-[#1c1a17]/18">
+      <div className="relative w-full min-h-[640px] sm:min-h-[720px] md:min-h-0 md:aspect-[16/9] overflow-hidden border-y border-[#1c1a17]/18">
         {project.imageUrl ? (
           <img
             src={project.imageUrl}
