@@ -97,8 +97,8 @@ const NavbarNeobrutalist: React.FC = () => {
             : 'bg-transparent'
         }`}
       >
-        <div className="px-6 sm:px-10 md:px-16 lg:px-24">
-          <div className="flex items-center justify-between h-16 sm:h-20">
+        <div className="px-5 sm:px-10 md:px-16 lg:px-24">
+          <div className="flex items-center justify-between h-14 sm:h-20">
             {/* LEFT: Menu Button — quiet text trigger */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -128,7 +128,7 @@ const NavbarNeobrutalist: React.FC = () => {
               aria-label="Kivara Studios — home"
             >
               <span
-                className={`text-[11px] sm:text-xs tracking-[0.32em] uppercase font-medium transition-colors duration-300 ${
+                className={`text-[10px] sm:text-xs tracking-[0.26em] sm:tracking-[0.32em] uppercase font-medium transition-colors duration-300 ${
                   isMenuOpen
                     ? 'text-[#f5f2eb]'
                     : isScrolled
@@ -136,7 +136,8 @@ const NavbarNeobrutalist: React.FC = () => {
                     : 'text-[#f5f2eb]'
                 }`}
               >
-                Kivara Studios
+                <span className="sm:hidden">Kivara</span>
+                <span className="hidden sm:inline">Kivara Studios</span>
               </span>
             </a>
 
@@ -147,7 +148,7 @@ const NavbarNeobrutalist: React.FC = () => {
                 e.preventDefault();
                 scrollToSection('get-started');
               }}
-              className={`group relative z-[60] inline-flex items-center gap-2 text-[11px] tracking-[0.28em] uppercase font-medium transition-colors duration-300 ${
+              className={`group relative z-[60] hidden sm:inline-flex items-center gap-2 text-[11px] tracking-[0.28em] uppercase font-medium transition-colors duration-300 ${
                 isMenuOpen
                   ? 'text-[#f5f2eb]/90 hover:text-[#f5f2eb]'
                   : isScrolled

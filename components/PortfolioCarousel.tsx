@@ -197,7 +197,7 @@ const ProjectCard: React.FC<{
         }s, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) ${(index % 2) * 0.12}s`,
       }}
     >
-      <div className="relative w-full min-h-[640px] sm:min-h-[720px] md:min-h-0 md:aspect-[16/9] overflow-hidden border-y border-[#1c1a17]/18">
+      <div className="relative w-full h-[78svh] min-h-[560px] max-h-[720px] sm:min-h-[680px] md:h-auto md:min-h-0 md:max-h-none md:aspect-[16/9] overflow-hidden border-y border-[#1c1a17]/18">
         {project.imageUrl ? (
           <img
             src={project.imageUrl}
@@ -210,6 +210,7 @@ const ProjectCard: React.FC<{
             style={{
               filter:
                 'sepia(12%) saturate(0.9) contrast(1.04) brightness(0.78)',
+              objectPosition: 'center top',
             }}
             loading="lazy"
             draggable={false}
@@ -244,17 +245,17 @@ const ProjectCard: React.FC<{
         <div className="absolute inset-x-0 bottom-0 h-px bg-[#f5f2eb]/35" aria-hidden="true" />
 
         <div
-          className={`absolute inset-0 flex items-end p-6 sm:p-10 md:p-14 lg:p-16 ${
+          className={`absolute inset-0 flex items-end p-5 pb-8 sm:p-10 md:p-14 lg:p-16 ${
             isRightAligned ? 'md:justify-end' : 'md:justify-start'
           }`}
         >
           <div
-            className={`max-w-xl text-[#f5f2eb] ${
+            className={`w-full max-w-xl text-[#f5f2eb] ${
               isRightAligned ? 'md:text-right' : 'md:text-left'
             }`}
           >
             <div
-              className={`flex items-center gap-4 mb-5 text-[10px] tracking-[0.32em] uppercase text-[#f5f2eb]/65 ${
+              className={`flex items-center gap-3 sm:gap-4 mb-4 sm:mb-5 text-[9px] sm:text-[10px] tracking-[0.28em] sm:tracking-[0.32em] uppercase text-[#f5f2eb]/65 ${
                 isRightAligned ? 'md:justify-end' : ''
               }`}
             >
@@ -279,9 +280,9 @@ const ProjectCard: React.FC<{
               {project.title}
             </h3>
 
-            <p className="text-sm sm:text-base leading-relaxed text-[#f5f2eb]/78 font-light">
-              {project.description.length > 190
-                ? project.description.slice(0, 190) + '...'
+            <p className="text-[13px] sm:text-base leading-relaxed text-[#f5f2eb]/78 font-light max-w-[31rem]">
+              {project.description.length > 150
+                ? project.description.slice(0, 150) + '...'
                 : project.description}
             </p>
 
