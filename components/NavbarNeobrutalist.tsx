@@ -78,9 +78,9 @@ const NavbarNeobrutalist: React.FC = () => {
 
   // Menu items configuration
   const menuItems = [
+    { label: 'Selected Work', id: 'portfolio' },
     { label: 'About', id: 'about' },
-    { label: 'Portfolio', id: 'portfolio' },
-    { label: 'Get Started', id: 'get-started' },
+    { label: "Let's Talk", id: 'get-started' },
   ];
 
   return (
@@ -157,7 +157,7 @@ const NavbarNeobrutalist: React.FC = () => {
               }`}
             >
               Start a project
-              <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+              <span className="hidden sm:inline-block transition-transform duration-300 group-hover:translate-x-0.5">→</span>
             </a>
           </div>
         </div>
@@ -178,6 +178,30 @@ const NavbarNeobrutalist: React.FC = () => {
           backgroundColor: '#1c1a17',
         }}
       >
+        {/* Close (X) button — top-right of the menu overlay */}
+        <button
+          onClick={() => setIsMenuOpen(false)}
+          aria-label="Close menu"
+          className={`absolute top-5 right-5 sm:top-7 sm:right-7 md:top-10 md:right-10 z-[70] w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center text-[#f5f2eb]/70 hover:text-[#f5f2eb] hover:rotate-90 transition-all duration-500 ease-out ${
+            isMenuOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'
+          }`}
+          style={{ transitionDelay: isMenuOpen ? '250ms' : '0ms' }}
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
 
         {/* Menu Content */}
         <div className="relative z-10 h-full flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-24 pt-16 sm:pt-20">

@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
           <div className="flex flex-col md:items-end gap-4">
             <a
               href="mailto:hello@kivarastudios.dev"
-              className="text-base text-[#1c1a17] font-light hover:text-[#1c1a17]/60 transition-colors duration-300 border-b border-[#1c1a17]/25 hover:border-[#1c1a17] pb-1 self-start md:self-auto"
+              className="text-lg md:text-base text-[#1c1a17] font-light hover:text-[#1c1a17]/60 transition-colors duration-300 border-b border-[#1c1a17]/25 hover:border-[#1c1a17] py-2 self-start md:self-auto"
             >
               hello@kivarastudios.dev
             </a>
@@ -59,7 +59,10 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-[#1c1a17]/10">
+        <div className="mt-12 pt-6 border-t border-[#1c1a17]/10 flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-6">
+          <p className="text-[10px] tracking-[0.28em] uppercase text-[#1c1a17]/40">
+            Set in Playfair Display &amp; Inter. Hosted on Vercel.
+          </p>
           <p className="text-[10px] tracking-[0.28em] uppercase text-[#1c1a17]/40">
             © {currentYear} Kivara Studios
           </p>

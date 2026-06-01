@@ -75,25 +75,47 @@ export const PROJECTS: Project[] = [
     }
   },
   {
+    id: '12',
+    title: 'Southeast Chicago Chamber of Commerce',
+    category: 'WEB DESIGN',
+    imageUrl: '/projects/southeast-chamber.png',
+    description: 'A civic business website for the Southeast Chicago Chamber of Commerce and SSA #50, built around neighborhood pride, local commerce, membership, events, and community resources.',
+    tags: ['Web Design', 'Civic', 'Membership', 'Community'],
+    liveUrl: 'https://southeastchgochamber.org/',
+    year: '2026',
+    problem: 'The Chamber needed a public-facing site that could represent both local business advocacy and the cultural identity of Chicago’s Southeast Side. The experience had to make membership, events, SSA #50 information, and community engagement easy to find without flattening the neighborhood’s personality.',
+    tools: [
+      { name: 'WordPress', reason: 'Gives the Chamber a familiar content management system for events, pages, membership information, and ongoing community updates.' },
+      { name: 'Brand System', reason: 'Used to keep the Chamber mark, neighborhood imagery, and civic messaging consistent across key public pages.' },
+      { name: 'Responsive Design', reason: 'Ensures business owners, residents, and partners can access Chamber information cleanly from mobile and desktop.' },
+      { name: 'Information Architecture', reason: 'Organized navigation around the Chamber’s core jobs: explore, learn about SSA #50, get involved, attend events, and become a member.' }
+    ],
+    effectiveness: {
+      status: 'effective',
+      description: 'The site gives the Chamber a clearer civic front door, pairing a strong neighborhood identity with practical pathways for membership, events, and local business engagement.',
+      metrics: ['Membership CTA prominent', 'SSA #50 information surfaced', 'Events and meetings navigation clear', 'Neighborhood identity leads the experience']
+    }
+  },
+  {
     id: '3',
     title: 'Makarios',
-    category: 'WEB DESIGN',
+    category: 'MOBILE APP',
     imageUrl: '/projects/makarios.png',
-    description: 'A faith-based community platform designed to help make disciples of all nations. Clean, purposeful design focused on connection and spiritual growth.',
-    tags: ['Web Design', 'Firebase', 'Sanity CMS', 'React'],
+    description: 'A faith-based mobile application designed to help make disciples of all nations. Clean, purposeful product design focused on connection and spiritual growth.',
+    tags: ['Mobile App', 'Firebase', 'Sanity CMS', 'React'],
     githubUrl: 'https://github.com/bjtheartist/Makarios',
     year: '2026',
-    problem: 'Faith communities needed a digital space that felt warm and inviting rather than corporate. Existing church websites often felt outdated or overly complex, creating barriers to connection for newcomers seeking spiritual community.',
+    problem: 'Faith communities needed a mobile-first digital space that felt warm and inviting rather than corporate. Existing church tools often felt outdated or overly complex, creating barriers to connection for people seeking spiritual community.',
     tools: [
       { name: 'Firebase', reason: 'Chosen for its real-time database capabilities, authentication, and hosting—perfect for community features like event RSVPs and member directories.' },
       { name: 'Sanity CMS', reason: 'Headless CMS enabling non-technical ministry staff to update sermons, events, and content without developer involvement.' },
-      { name: 'React', reason: 'Enabled a smooth, app-like experience that feels modern and welcoming to younger demographics.' },
+      { name: 'React', reason: 'Enabled a smooth mobile application experience that feels modern and welcoming to younger demographics.' },
       { name: 'Tailwind CSS', reason: 'Allowed rapid iteration on visual design to achieve the warm, purposeful aesthetic the community needed.' }
     ],
     effectiveness: {
       status: 'in-progress',
-      description: 'Makarios is currently in beta (pre-launch). The clean design removes barriers to entry while maintaining the warmth essential to ministry. Final testing and community onboarding are underway.',
-      metrics: ['Clean, accessible design', 'Mobile-first approach', 'Content managed by staff', 'Beta testing in progress']
+      description: 'Makarios is currently in beta (pre-launch). The mobile app experience removes barriers to entry while maintaining the warmth essential to ministry. Final testing and community onboarding are underway.',
+      metrics: ['Mobile application in beta', 'Clean, accessible design', 'Content managed by staff', 'Community onboarding in progress']
     }
   },
   {

@@ -69,27 +69,27 @@ const GetStartedSection: React.FC = () => {
   };
 
   const inputClasses =
-    'w-full bg-transparent border-b border-[#1c1a17]/25 text-[#1c1a17] placeholder-[#1c1a17]/35 focus:border-[#1c1a17] focus:outline-none transition-colors duration-300 text-base py-3 font-light';
+    'w-full bg-transparent border-b border-[#f5f2eb]/30 text-[#f5f2eb] placeholder-[#f5f2eb]/35 focus:border-[#f5f2eb] focus:outline-none transition-colors duration-300 text-base py-3 font-light';
   const labelClasses =
-    'block text-[10px] uppercase tracking-[0.28em] font-medium text-[#1c1a17]/55 mb-2';
+    'block text-[10px] uppercase tracking-[0.28em] font-medium text-[#f5f2eb]/55 mb-2';
 
   return (
     <section
       ref={sectionRef}
       id="get-started"
-      className="relative py-32 md:py-44 px-6 sm:px-10 md:px-16 lg:px-20 xl:px-28 bg-[#f5f2eb]"
+      className="relative py-20 md:py-32 px-6 sm:px-10 md:px-16 lg:px-20 xl:px-28 bg-[#1c1a17] text-[#f5f2eb]"
     >
       <div
-        className={`max-w-3xl transition-opacity duration-1000 ${
-          isVisible ? 'opacity-100' : 'opacity-0'
-        }`}
+        className="max-w-3xl transition-opacity duration-1000"
+        style={{ opacity: isVisible ? 1 : 1 }}
       >
-        <p className="text-[10px] sm:text-[11px] tracking-[0.32em] uppercase text-[#1c1a17]/55 mb-8">
-          Start a project
+        <p className="flex items-baseline gap-5 sm:gap-6 text-[10px] sm:text-[11px] tracking-[0.32em] uppercase text-[#f5f2eb]/55 mb-8">
+          <span>IV.</span>
+          <span>Start a project</span>
         </p>
 
         <h2
-          className="text-[#1c1a17] leading-[1.05] tracking-[-0.01em] mb-10"
+          className="text-[#f5f2eb] leading-[1.05] tracking-[-0.01em] mb-10"
           style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: 'clamp(2rem, 4.5vw, 3.75rem)',
@@ -99,7 +99,7 @@ const GetStartedSection: React.FC = () => {
           Let's talk.
         </h2>
 
-        <p className="text-base text-[#1c1a17]/70 max-w-lg mb-14 font-light leading-relaxed">
+        <p className="text-base text-[#f5f2eb]/68 max-w-lg mb-10 md:mb-14 font-light leading-relaxed">
           Tell us a little about your business and what you need. We reply
           within a working day — no sales pitch, just an honest read on
           whether we're the right fit.
@@ -108,7 +108,7 @@ const GetStartedSection: React.FC = () => {
         {formStatus === 'success' ? (
           <div className="py-12">
             <p
-              className="text-[#1c1a17] mb-3"
+              className="text-[#f5f2eb] mb-3"
               style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: 'clamp(1.25rem, 2.4vw, 1.75rem)',
@@ -117,7 +117,7 @@ const GetStartedSection: React.FC = () => {
             >
               Thank you — we've got your note.
             </p>
-            <p className="text-sm text-[#1c1a17]/60 font-light">
+            <p className="text-sm text-[#f5f2eb]/60 font-light">
               We'll be in touch within a working day.
             </p>
           </div>
@@ -184,7 +184,7 @@ const GetStartedSection: React.FC = () => {
             </div>
 
             {formStatus === 'error' && (
-              <p className="text-sm text-[#1c1a17]/70 font-light">
+              <p className="text-sm text-[#f5f2eb]/70 font-light">
                 Something went wrong. Try again, or write us at
                 hello@kivarastudios.dev.
               </p>
@@ -194,9 +194,9 @@ const GetStartedSection: React.FC = () => {
               <button
                 type="submit"
                 disabled={formStatus === 'submitting'}
-                className="group inline-flex items-center gap-3 text-[11px] tracking-[0.28em] uppercase font-medium text-[#1c1a17] disabled:opacity-50"
+                className="group inline-flex items-center gap-3 text-[11px] tracking-[0.28em] uppercase font-medium text-[#f5f2eb] disabled:opacity-50"
               >
-                <span className="border-b border-[#1c1a17] pb-1">
+                <span className="border-b border-[#f5f2eb] pb-1">
                   {formStatus === 'submitting' ? 'Sending' : 'Send'}
                 </span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">
