@@ -4,21 +4,29 @@ Portfolio and project inquiry site for **Kivara Studios**, the digital strategy 
 
 ## Status
 
-The current active experience is the editorial/neobrutalist Kivara site:
+The current active experience is the dark cinematic studio site (2026 redesign):
 
-- Full-bleed Chicago hero
-- Kivara positioning and studio note
-- Selected project portfolio with case-study modals
-- Project inquiry form with Vercel/Resend support and local mail fallback
+- Preloader with counter and curtain reveal
+- Three.js "ember silk" WebGL shader hero with mouse parallax
+- Lenis smooth scroll driven by the GSAP ticker
+- Scroll-scrubbed manifesto word reveal
+- Selected-work index with cursor-following image previews
+- Capabilities, inquiry form (Vercel/Resend with mail fallback), and oversized footer wordmark
+- Fullscreen GSAP menu overlay on mobile
 - Kivara SEO, social, robots, sitemap, and web app metadata
+
+Active components live in `components/studio/` with styles in `styles/studio.css`.
+Older neobrutalist/editorial components remain in `components/` but are unused.
 
 ## Tech Stack
 
 - React 19
 - TypeScript
 - Vite 6
-- Tailwind CSS via CDN
-- GSAP
+- Three.js (WebGL hero shader)
+- GSAP + ScrollTrigger
+- Lenis smooth scroll
+- Clash Display / Satoshi (Fontshare), Fraunces, JetBrains Mono
 - Vercel
 - Resend for production inquiry emails
 

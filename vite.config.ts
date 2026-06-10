@@ -24,6 +24,8 @@ export default defineConfig({
         // Code splitting for better caching
         manualChunks: {
           vendor: ['react', 'react-dom'],
+          three: ['three'],
+          motion: ['gsap', 'lenis'],
         },
       },
     },
