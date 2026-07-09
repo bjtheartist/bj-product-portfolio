@@ -25,3 +25,13 @@ dist-ssr
 .env
 .vercel
 .env*.local
+
+# Confidential GTM data — this repo is PUBLIC on GitHub. These files contain
+# prospect names, client notes, and pricing strategy; do not track them here.
+# Remove these lines only after making the repo private or moving marketing/
+# state to a private repo. (business-card.html stays tracked — it's public by nature.)
+marketing/GTM-PLAYBOOK.md
+marketing/pipeline.md
+marketing/weekly/
+marketing/diagnostics/
+marketing/case-studies/
