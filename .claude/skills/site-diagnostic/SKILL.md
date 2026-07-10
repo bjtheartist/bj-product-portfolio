@@ -28,4 +28,4 @@ Follows Billy's outreach voice: plain sentences, no em dashes, no hype adjective
 
 ## Output
 
-Save to `marketing/diagnostics/<domain>-diagnostic-<YYYY-MM-DD>.md`. Create the folder if missing. Report the path and a 3-line summary Billy can paste into an email.
+Save to `marketing/diagnostics/<domain>-diagnostic-<YYYY-MM-DD>.md`. Create the folder if missing. Report the path and a 3-line summary Billy can paste into an email. `marketing/` is a standalone private repo (bjtheartist/kivara-gtm) — commit and push it after saving the diagnostic.

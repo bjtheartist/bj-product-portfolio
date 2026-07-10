@@ -26,12 +26,8 @@ dist-ssr
 .vercel
 .env*.local
 
-# Confidential GTM data — this repo is PUBLIC on GitHub. These files contain
-# prospect names, client notes, and pricing strategy; do not track them here.
-# Remove these lines only after making the repo private or moving marketing/
-# state to a private repo. (business-card.html stays tracked — it's public by nature.)
-marketing/GTM-PLAYBOOK.md
-marketing/pipeline.md
-marketing/weekly/
-marketing/diagnostics/
-marketing/case-studies/
+# marketing/ is a standalone PRIVATE nested repo (bjtheartist/kivara-gtm) —
+# confidential GTM state (prospects, client notes, pricing) that must never be
+# tracked in this PUBLIC repo. The deployed business card is public/card.html;
+# marketing/business-card.html is the private source copy.
+marketing/

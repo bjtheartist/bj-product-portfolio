@@ -26,4 +26,4 @@ Editorial and concrete. No "delighted to share." No "seamless/robust/cutting-edg
 
 ## Output
 
-Save long-form to `marketing/case-studies/<slug>.md` and the LinkedIn cut to `marketing/case-studies/<slug>-linkedin.md`. Create folders if missing. Never publish anywhere — drafts only, Billy reviews.
+Save long-form to `marketing/case-studies/<slug>.md` and the LinkedIn cut to `marketing/case-studies/<slug>-linkedin.md`. Create folders if missing. Never publish anywhere — drafts only, Billy reviews. `marketing/` is a standalone private repo (bjtheartist/kivara-gtm) — commit and push it after saving drafts.

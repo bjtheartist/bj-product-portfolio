@@ -20,6 +20,8 @@ Implements the weekly cadence from `marketing/GTM-PLAYBOOK.md` §8: pipeline rev
 
 Write the brief to `marketing/weekly/<YYYY-MM-DD>-gtm-brief.md` (create folder if missing) with sections: Pipeline / This week's 5 touches / Content draft / Asks / Playbook status. Keep the whole brief under 600 words — it's a Monday checklist, not a report. End with the single most important action of the week, named plainly.
 
+`marketing/` is a standalone PRIVATE repo (bjtheartist/kivara-gtm) nested in this working tree and ignored by the public portfolio repo. After writing the brief and any pipeline.md updates, commit and push it so state never lives only on this disk: `git -C marketing add -A && git -C marketing commit -m "gtm-weekly <date>" && git -C marketing push`.
+
 ## Boundaries
 
 Draft only — never send emails, post content, or contact anyone. Billy reviews and sends everything himself.
