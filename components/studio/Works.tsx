@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PROJECTS } from '../../constants';
+import { Project } from '../../types';
+import CaseStudy from './CaseStudy';
 
 gsap.registerPlugin(ScrollTrigger);
 
 // curated order for the index
-const FEATURED_IDS = ['1', '10', '12', '4', '5', '3', '9', '6'];
+const FEATURED_IDS = ['1', '13', '10', '12', '4', '5', '3', '14', '9', '6'];
 
 const works = FEATURED_IDS
   .map((id) => PROJECTS.find((p) => p.id === id))
@@ -16,6 +18,7 @@ const Works: React.FC = () => {
   const rootRef = useRef<HTMLElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<number | null>(null);
+  const [openProject, setOpenProject] = useState<{ project: Project; index: number } | null>(null);
 
   // rows fade-slide in on scroll
   useEffect(() => {
@@ -74,12 +77,11 @@ const Works: React.FC = () => {
 
       <div className="works__list">
         {works.map((p, i) => (
-          <a
+          <button
             key={p.id}
+            type="button"
             className="work-row"
-            href={p.liveUrl || p.githubUrl || '#contact'}
-            target={p.liveUrl || p.githubUrl ? '_blank' : undefined}
-            rel="noreferrer"
+            onClick={() => setOpenProject({ project: p, index: i })}
             onMouseEnter={() => setActive(i)}
             onMouseLeave={() => setActive(null)}
           >
@@ -93,7 +95,7 @@ const Works: React.FC = () => {
             <span className="work-row__title">{p.title}</span>
             <span className="work-row__cat">{p.category}</span>
             <span className="work-row__year">{p.year}</span>
-          </a>
+          </button>
         ))}
       </div>
 
@@ -108,6 +110,14 @@ const Works: React.FC = () => {
           />
         ))}
       </div>
+
+      {openProject && (
+        <CaseStudy
+          project={openProject.project}
+          index={openProject.index}
+          onClose={() => setOpenProject(null)}
+        />
+      )}
     </section>
   );
 };

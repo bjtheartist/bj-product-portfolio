@@ -166,24 +166,24 @@ export const PROJECTS: Project[] = [
   {
     id: '6',
     title: 'RecipeVault',
-    category: 'FULL-STACK',
-    imageUrl: '/projects/recipevault.png',
-    description: 'A practical recipe journal for everyday meals: find recipes, plan the week, and turn dinner into a grocery list without fuss.',
-    tags: ['Full-Stack', 'React', 'Vite', 'Food Tech'],
-    liveUrl: 'https://recipevault-pearl.vercel.app',
+    category: 'iOS APP',
+    imageUrl: '/projects/recipevault-app.jpg',
+    description: 'An end-to-end meal-prep-to-cooking platform for iOS with 1,000+ recipes and a bold neobrutalist identity. Plan the week, cook from today\'s menu, and turn meals into a grocery list — save recipes from anywhere on your phone.',
+    tags: ['iOS', 'React Native', 'Product Design', 'Food'],
+    liveUrl: 'https://apps.apple.com/us/app/id6774791172',
     githubUrl: 'https://github.com/bjtheartist/recipevault',
     year: '2026',
-    problem: 'Home cooks needed a calmer way to save recipes, plan meals, and connect those plans to groceries. The goal was to make everyday meal planning feel useful without turning it into another chore.',
+    problem: 'Home cooks needed a calmer way to save recipes, plan meals, and connect those plans to groceries. Recipe apps either drown you in browsing or turn dinner into a chore — RecipeVault covers the full loop from meal prep to cooking, with the day\'s menu as the interface.',
     tools: [
-      { name: 'React', reason: 'Built the interactive recipe, meal-planning, and collection views as reusable UI flows.' },
-      { name: 'Vite', reason: 'Kept the app fast to develop and quick to load.' },
-      { name: 'TypeScript', reason: 'Added structure around recipes, plans, grocery items, and user interactions.' },
-      { name: 'Vercel', reason: 'Provided quick deployment and a reliable public preview for iteration.' }
+      { name: 'React Native', reason: 'Native iOS experience with the meal-first "Today" flow, recipe capture, and grocery workflows.' },
+      { name: 'Expo', reason: 'Fast iteration and clean App Store build pipeline.' },
+      { name: 'Neobrutalist Design', reason: 'Black-and-white identity with hard offset shadows — a recipe app that looks like nothing else in the category.' },
+      { name: 'Neon Postgres', reason: 'Account sync and recipe storage behind a serverless API.' }
     ],
     effectiveness: {
-      status: 'in-progress',
-      description: 'RecipeVault has a polished core experience for browsing, planning, and turning meals into grocery actions. The product direction is focused on practical everyday use rather than generic recipe browsing.',
-      metrics: ['Recipe browse flow live', 'Meal planning surface built', 'Grocery workflow prototyped', 'Mobile-friendly layout']
+      status: 'effective',
+      description: 'Live in the App Store — 1,000+ recipes, two-week meal planning, recipe capture from any app, and smart grocery lists behind a distinctive neobrutalist identity.',
+      metrics: ['Live in the App Store', '1,000+ recipes', 'Meal prep to cooking, end to end', 'Smart grocery lists']
     }
   },
   {
@@ -212,21 +212,22 @@ export const PROJECTS: Project[] = [
     id: '9',
     title: 'Perfect Perfections',
     category: 'WEB DESIGN',
-    imageUrl: '/projects/perfect-perfections.png',
-    description: 'Soul food catering brand based in Chicago. Warm, appetite-forward storefront with online inquiries, menu showcase, and a brand voice that feels like the food.',
-    tags: ['Web Design', 'Brand', 'Hospitality', 'React'],
-    liveUrl: 'https://perfect-perfections.vercel.app',
+    imageUrl: '/projects/perfect-perfections.jpg',
+    description: 'Soul food catering brand based in Chicago. Warm, appetite-forward storefront with menu showcase, online ordering, and a brand voice that feels like the food.',
+    tags: ['Web Design', 'Brand', 'Hospitality', 'Square'],
+    liveUrl: 'https://www.perfectperfectionscatering.com',
     year: '2026',
-    problem: 'A growing soul food catering business needed an online home that felt as warm and personal as the food itself — distinct from generic restaurant templates, and built to turn visitors into bookings.',
+    problem: 'A growing soul food catering business needed an online home that felt as warm and personal as the food itself — distinct from generic restaurant templates, and built to turn visitors into orders and event bookings.',
     tools: [
       { name: 'React', reason: 'Smooth, modern single-page experience that loads fast and feels editorial — appropriate for a food-led brand.' },
+      { name: 'Square', reason: 'Ordering and payments run through Square, so catering requests turn into real transactions without a separate POS workflow.' },
       { name: 'Tailwind CSS', reason: 'Rapid design iteration on the warm, appetite-led visual identity.' },
       { name: 'Vite', reason: 'Fast build tooling for a marketing-grade site.' },
     ],
     effectiveness: {
-      status: 'in-progress',
-      description: 'Mockup live — establishes the visual direction and inquiry flow.',
-      metrics: ['Live mockup deployed', 'Menu showcase ready', 'Inquiry flow in place'],
+      status: 'effective',
+      description: 'Live at perfectperfectionscatering.com on its own domain, taking real catering inquiries with Square handling ordering and payments.',
+      metrics: ['Live on the business domain', 'Square ordering & payments integrated', 'Menu showcase live', 'Catering inquiry flow in place'],
     },
   },
   {
@@ -271,6 +272,48 @@ export const PROJECTS: Project[] = [
       description: 'Just AFC\'s site positions them as a premier care provider in Lansing. The professional design with patient referral workflow and tour scheduling converts visitors into facility tours.',
       metrics: ['Live and serving clients', 'Patient referral system', 'Tour scheduling integrated', 'Services clearly presented']
     }
+  },
+  {
+    id: '13',
+    title: 'Watson & Watson Dental',
+    category: 'WEB DESIGN',
+    imageUrl: '/projects/watson-dental.jpeg',
+    description: 'Full rebuild for a South Side Chicago family dental practice serving patients since 1962. A calm, trust-first design with appointment requests, reviews, and a patient-centered care philosophy front and center.',
+    tags: ['Web Design', 'WordPress', 'Healthcare', 'Brand Refresh'],
+    liveUrl: 'https://www.watsonandwatsondental.com',
+    year: '2026',
+    problem: 'A family dental practice with sixty years of history and a 4.9 public rating had a website that undersold both. Patients researching the practice found a dated site that didn\'t reflect the calm, personal care the office is known for — and gave them no easy path to book.',
+    tools: [
+      { name: 'WordPress', reason: 'Gives the practice full content ownership — staff can update hours, services, and announcements without a developer.' },
+      { name: 'Custom Theme', reason: 'Hand-built multipage theme (home, services, care, doctor, reviews, visit) instead of a template — designed around how patients actually choose a dentist.' },
+      { name: 'Brand Refresh', reason: 'Calm blue identity with editorial serif headlines that convey six decades of steady, family-run care.' },
+    ],
+    effectiveness: {
+      status: 'effective',
+      description: 'Live at watsonandwatsondental.com. The rebuild turns a dated brochure site into a booking-first patient experience — call and appointment paths above the fold, six decades of trust signals surfaced site-wide.',
+      metrics: ['Live on the practice domain', 'Booking-first patient flow', '4.9 rating surfaced site-wide', 'Multipage: services, care, doctor, reviews, visit'],
+    },
+  },
+  {
+    id: '14',
+    title: 'The Strong Beginner',
+    category: 'iOS APP',
+    imageUrl: '/projects/strong-beginner-app.jpg',
+    description: 'An end-to-end workout and training platform for iOS, built by a NASM-certified trainer. 20+ training plans, hundreds of exercises, a "Build your plan" onboarding, daily sessions, and streaks — paired with an interactive 16-chapter guide on the web.',
+    tags: ['iOS', 'React Native', 'Fitness', 'Product Design'],
+    liveUrl: 'https://apps.apple.com/us/app/id6775282180',
+    year: '2026',
+    problem: 'Beginner lifters drown in contradictory fitness content and intimidating tracker apps built for advanced athletes. The Strong Beginner packages a certified trainer\'s actual client methodology into a calm daily practice: today\'s session, three moves, begin.',
+    tools: [
+      { name: 'React Native', reason: 'Native iOS platform with plan builder onboarding, session flow, streaks, a 20+ plan program library, and hundreds of exercises.' },
+      { name: 'RevenueCat', reason: 'Subscription and lifetime purchase handling for the App Store build.' },
+      { name: 'Editorial Design', reason: 'The companion web guide reads like a magazine, not a PDF — 16 chapters, exercise library, interactive tools.' },
+    ],
+    effectiveness: {
+      status: 'effective',
+      description: 'Live in the App Store with the interactive web guide as a companion. Methodology used daily with real personal-training clients.',
+      metrics: ['Live in the App Store', '20+ training plans', 'Hundreds of exercises', 'Used in live client training'],
+    },
   }
 ];
 
