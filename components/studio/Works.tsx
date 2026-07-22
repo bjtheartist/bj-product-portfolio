@@ -8,7 +8,7 @@ import CaseStudy from './CaseStudy';
 gsap.registerPlugin(ScrollTrigger);
 
 // curated order for the index
-const FEATURED_IDS = ['1', '13', '10', '12', '4', '5', '3', '14', '9', '6', '15', '16', '17', '2', '7', '11', '18'];
+const FEATURED_IDS = ['1', '13', '10', '12', '4', '5', '3', '14', '9', '6', '15', '16', '17', '2', '7', '11', '18', '19'];
 
 const works = FEATURED_IDS
   .map((id) => PROJECTS.find((p) => p.id === id))

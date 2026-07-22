@@ -400,6 +400,27 @@ export const PROJECTS: Project[] = [
       description: 'In active development. The core concept of unifying design and development workflows addresses a real pain point.',
       metrics: ['Workflow engine built', 'Project tracking live', 'Client portal integrated'],
     },
+  },
+  {
+    id: '19',
+    title: 'PT CRM',
+    category: 'FULL-STACK',
+    imageUrl: '/projects/pt-crm.png',
+    description: 'A single-tenant CRM built for one personal-training business and dogfooded daily. Floor mode, client lifecycle, every rep logged — clients, packages, sessions, assessments, workouts, and reminders in one fast PWA.',
+    tags: ['Full-Stack', 'Next.js', 'Product Design', 'Fitness'],
+    year: '2026',
+    problem: 'Off-the-shelf CRMs are built for sales teams, not a trainer on a gym floor between sessions. Logging a workout had to be as fast as coaching one, and the product had to prove — with data — that it was actually helping the business, not just storing records.',
+    tools: [
+      { name: 'Next.js 16 + React 19', reason: 'App Router with Turbopack for a fast, installable PWA the trainer lives in all day — floor mode is designed for one-thumb use between sets.' },
+      { name: 'Drizzle + Neon Postgres', reason: 'Typed schema over serverless Postgres for the whole client lifecycle: packages, sessions, assessments, workouts, reminders.' },
+      { name: 'Voice dictation + AI cleanup', reason: 'Workouts are dictated out loud and cleaned into structured sets invisibly, with a local parser fallback so logging never depends on an API being up.' },
+      { name: 'R&D data room', reason: 'A built-in measurement layer — hypotheses, metrics dictionary, weekly reports on a six-week dogfooding cycle — so the product answers for what it does for the business.' },
+    ],
+    effectiveness: {
+      status: 'effective',
+      description: 'In daily production use running a real personal-training practice: session recaps go out automatically, new clients get a first-session resource handoff, and the data room tracks whether the product is earning its keep.',
+      metrics: ['Dogfooded daily in a live training business', 'Voice-dictated workout logging', 'Automated session recaps + first-session handoff', 'Six-week measurement cycles built into the product'],
+    },
   }
 ];
 
