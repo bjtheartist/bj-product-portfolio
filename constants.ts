@@ -104,6 +104,7 @@ export const PROJECTS: Project[] = [
     description: 'A faith-based mobile application designed to help make disciples of all nations. Clean, purposeful product design focused on connection and spiritual growth.',
     tags: ['Mobile App', 'Firebase', 'Sanity CMS', 'React'],
     githubUrl: 'https://github.com/bjtheartist/Makarios',
+    liveUrl: 'https://apps.apple.com/us/app/makarios-bible-app/id6758817857',
     year: '2026',
     problem: 'Faith communities needed a mobile-first digital space that felt warm and inviting rather than corporate. Existing church tools often felt outdated or overly complex, creating barriers to connection for people seeking spiritual community.',
     tools: [
@@ -113,9 +114,9 @@ export const PROJECTS: Project[] = [
       { name: 'Tailwind CSS', reason: 'Allowed rapid iteration on visual design to achieve the warm, purposeful aesthetic the community needed.' }
     ],
     effectiveness: {
-      status: 'in-progress',
-      description: 'Makarios is currently in beta (pre-launch). The mobile app experience removes barriers to entry while maintaining the warmth essential to ministry. Final testing and community onboarding are underway.',
-      metrics: ['Mobile application in beta', 'Clean, accessible design', 'Content managed by staff', 'Community onboarding in progress']
+      status: 'effective',
+      description: 'Live in the App Store as Makarios Bible App. The mobile experience removes barriers to entry while maintaining the warmth essential to ministry, with content managed by non-technical staff.',
+      metrics: ['Live in the App Store', 'Clean, accessible design', 'Content managed by staff', 'v3 roadmap in development']
     }
   },
   {
