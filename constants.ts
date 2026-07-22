@@ -378,6 +378,28 @@ export const PROJECTS: Project[] = [
       description: 'The full five-page rendering is live as the centerpiece of the owner\'s decision between a quick reskin and the hybrid rebuild — showing, not describing, what the shop\'s next site can be.',
       metrics: ['5-page hybrid front door', 'Keeps the existing ordering system intact', '6 visual directions explored, CMYK New Wave chosen', 'Real shop details throughout — no placeholder content'],
     },
+  },
+  {
+    id: '18',
+    title: 'Kivara Flow',
+    category: 'PRODUCT DESIGN',
+    imageUrl: '/projects/kivara-flow.png',
+    description: 'One workspace from concept to code — a project-management tool for creative teams that unifies design, tracking, and development workflows.',
+    tags: ['Product Design', 'Convex', 'React', 'TypeScript'],
+    githubUrl: 'https://github.com/bjtheartist/kivara-flow',
+    year: '2025',
+    problem: 'Creative teams waste significant time context-switching between design tools, project management apps, and development environments. The lack of a unified workflow creates friction that slows down the concept-to-code pipeline.',
+    tools: [
+      { name: 'Convex', reason: 'Real-time backend database for reactive data sync—essential for collaborative workflows.' },
+      { name: 'React', reason: 'Flexibility for complex, interactive interface with multiple panels and real-time updates.' },
+      { name: 'TypeScript', reason: 'Essential for building a reliable tool developers will trust. Type safety prevents bugs.' },
+      { name: 'Tailwind CSS', reason: 'Rapid UI development with consistent styling across the multi-panel interface.' },
+    ],
+    effectiveness: {
+      status: 'in-progress',
+      description: 'In active development. The core concept of unifying design and development workflows addresses a real pain point.',
+      metrics: ['Workflow engine built', 'Project tracking live', 'Client portal integrated'],
+    },
   }
 ];
 
