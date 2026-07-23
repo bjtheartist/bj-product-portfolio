@@ -121,24 +121,24 @@ export const PROJECTS: Project[] = [
   },
   {
     id: '4',
-    title: 'Funke Roberts',
+    title: 'Funke Roberts — The Image Fixer',
     category: 'WEB DESIGN',
     imageUrl: '/projects/funke-roberts.png',
-    description: 'Image consulting brand with a digital storefront. WordPress site featuring personal branding services, client stories, and an integrated e-commerce shop for skincare products.',
-    tags: ['WordPress', 'WooCommerce', 'Brand Design', 'E-Commerce'],
+    description: 'Editorial redesign and relaunch for a New York image consultant and certified color analyst. A hand-built WordPress theme with couture-magazine typography, a guided client entry flow written with the client, and automated lead follow-up.',
+    tags: ['WordPress', 'Brand System', 'Email Automation', 'Web Design'],
     liveUrl: 'https://funkeroberts.com',
     year: '2026',
-    problem: 'An image consultant with a powerful personal brand needed a digital presence that matched her authority. Her message—"Stop Being Invisible... Make Your Image Speak"—needed a site that felt premium, conveyed trust, and seamlessly integrated service bookings with product sales.',
+    problem: 'Her message — "Stop Being Invisible... Make Your Image Speak" — deserved more than a template. The first site put her online, but a year in her flagship color analysis was buried three clicks deep, leads went quiet after downloading her free guide, and nothing guided a visitor to the right next step. The redesign rebuilt every page around booking sessions and put follow-up on autopilot.',
     tools: [
-      { name: 'WordPress', reason: 'Chosen for its flexibility in combining content marketing, service pages, and e-commerce under one roof—giving the client full content ownership.' },
-      { name: 'WooCommerce', reason: 'Integrated digital store for skincare products, enabling direct-to-consumer sales alongside consulting services.' },
-      { name: 'Elementor', reason: 'Visual page builder that empowers the client to update content, testimonials, and product listings without developer involvement.' },
-      { name: 'Custom Branding', reason: 'Designed warm, authoritative visual identity with earthy tones that reflect the client\'s personal brand and target audience.' }
+      { name: 'Custom WP Theme', reason: '"Funke Atelier," designed and hand-coded from scratch: Fraunces and Lora editorial typography, hairline-framed photography plates, and magazine pacing — her exact copy and her real client photography, elevated.' },
+      { name: 'Guided Entry Flow', reason: 'A five-option "tell me which sounds most like you" chooser co-written with the client routes every visitor to the right offer, from a $37 workbook to one-to-one sessions.' },
+      { name: 'Email Automation', reason: 'Custom bridge plugin: form submissions deliver her guide instantly and schedule a warm day-7 follow-up recommending a session — no lead goes quiet again.' },
+      { name: 'SureCart', reason: 'Her existing checkout, products, and order history were preserved through a zero-downtime theme cutover — sessions and skincare stayed sellable to the minute.' }
     ],
     effectiveness: {
       status: 'effective',
-      description: 'Funke Roberts\' site successfully positions her as a premium image consultant. The integrated shop creates an additional revenue stream beyond 1-on-1 consulting, and the brand design conveys the authority her clients expect.',
-      metrics: ['Live and serving clients', 'Integrated e-commerce shop', 'Client stories showcase', 'WhatsApp booking integration']
+      description: 'Relaunched July 2026 on the custom editorial theme. The redesign turns a brochure site into a guided path toward her services, with instant guide delivery verified in production and automated follow-up replacing a silent inbox.',
+      metrics: ['Redesigned + relaunched 2026', 'Guided 5-option client entry flow', 'Automated day-7 lead follow-up', 'Zero-downtime cutover, checkout preserved']
     }
   },
   {
@@ -508,4 +508,5 @@ export const SOCIAL_LINKS = {
   github: 'https://github.com/bjtheartist',
   instagram: 'https://www.instagram.com/kivarastudios/',
   twitter: 'https://twitter.com/kivarastudios',
+  facebook: '', // add page URL to show the Facebook link in the navbar
 };
